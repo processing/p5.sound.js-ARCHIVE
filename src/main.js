@@ -1,7 +1,7 @@
 class Main {
-    constructor() {
+  constructor() {
 
-    }
+  }
 }
 
 const p5sound = new Main();

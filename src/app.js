@@ -20,8 +20,6 @@ import './core/structure';
 import './core/transform';
 import './core/shape/2d_primitives';
 import './core/shape/attributes';
-import './core/shape/curves';
-import './core/shape/vertex';
 
 // color
 import './color/color_conversion';

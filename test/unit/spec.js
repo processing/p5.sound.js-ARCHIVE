@@ -3,7 +3,6 @@ var spec = {
   core: [
     '2d_primitives',
     'attributes',
-    'curves',
     'environment',
     'error_helpers',
     'main',
@@ -13,8 +12,7 @@ var spec = {
     'rendering',
     'structure',
     'transform',
-    'version',
-    'vertex'
+    'version'
   ],
   image: ['p5.Image', 'loading', 'pixels', 'filters', 'downloading'],
   math: ['calculation', 'noise', 'p5.Vector', 'random', 'trigonometry'],

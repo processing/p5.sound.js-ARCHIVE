@@ -1,0 +1,11 @@
+{
+  "name": "p5.sound",
+  "version": "0.0.1",
+  "description": "work in progress during p5.js sound fellowship",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

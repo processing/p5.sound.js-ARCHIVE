@@ -70,11 +70,6 @@ import './math/p5.Vector';
 import './math/random';
 import './math/trigonometry';
 
-// typography
-import './typography/attributes';
-import './typography/loading_displaying';
-import './typography/p5.Font';
-
 // utilities
 import './utilities/array_functions';
 import './utilities/conversion';

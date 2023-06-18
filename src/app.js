@@ -29,10 +29,6 @@ import './color/creating_reading';
 import './color/p5.Color';
 import './color/setting';
 
-// data
-import './data/p5.TypedDict';
-import './data/local_storage.js';
-
 // image
 import './image/filters';
 import './image/image';

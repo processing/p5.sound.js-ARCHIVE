@@ -56,14 +56,6 @@ import './image/loading_displaying';
 import './image/p5.Image';
 import './image/pixels';
 
-// math
-import './math/calculation';
-import './math/math';
-import './math/noise';
-import './math/p5.Vector';
-import './math/random';
-import './math/trigonometry';
-
 // utilities
 import './utilities/array_functions';
 import './utilities/conversion';

@@ -40,7 +40,6 @@ import './image/pixels';
 import './utilities/array_functions';
 import './utilities/conversion';
 import './utilities/string_functions';
-import './utilities/time_date';
 
 // webgl
 import './webgl/3d_primitives';

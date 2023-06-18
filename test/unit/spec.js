@@ -28,8 +28,7 @@ var spec = {
     'p5.Geometry',
     'p5.RendererGL',
     'p5.Shader',
-    'p5.Texture',
-    'light'
+    'p5.Texture'
   ]
 };
 Object.keys(spec).map(function(folder) {

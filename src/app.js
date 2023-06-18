@@ -45,7 +45,6 @@ import './utilities/time_date';
 // webgl
 import './webgl/3d_primitives';
 import './webgl/interaction';
-import './webgl/light';
 import './webgl/loading';
 import './webgl/material';
 import './webgl/p5.Camera';

@@ -56,12 +56,6 @@ import './image/loading_displaying';
 import './image/p5.Image';
 import './image/pixels';
 
-// io
-import './io/files';
-import './io/p5.Table';
-import './io/p5.TableRow';
-import './io/p5.XML';
-
 // math
 import './math/calculation';
 import './math/math';

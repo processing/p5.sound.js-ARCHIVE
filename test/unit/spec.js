@@ -18,7 +18,7 @@ var spec = {
   ],
   image: ['p5.Image', 'loading', 'pixels', 'filters', 'downloading'],
   math: ['calculation', 'noise', 'p5.Vector', 'random', 'trigonometry'],
-  utilities: ['array_functions', 'conversion', 'string_functions'],
+  utilities: ['array_functions', 'conversion'],
   webgl: [
     '3d_primitives',
     'interaction',

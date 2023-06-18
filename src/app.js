@@ -39,7 +39,6 @@ import './image/pixels';
 // utilities
 import './utilities/array_functions';
 import './utilities/conversion';
-import './utilities/string_functions';
 
 // webgl
 import './webgl/3d_primitives';

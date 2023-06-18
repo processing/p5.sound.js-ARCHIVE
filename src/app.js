@@ -33,9 +33,6 @@ import './color/setting';
 import './data/p5.TypedDict';
 import './data/local_storage.js';
 
-// DOM
-import './dom/dom';
-
 // image
 import './image/filters';
 import './image/image';

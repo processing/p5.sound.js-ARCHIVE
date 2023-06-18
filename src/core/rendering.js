@@ -179,10 +179,6 @@ p5.prototype.resizeCanvas = function(w, h, noRedraw) {
       this.redraw();
     }
   }
-  //accessible Outputs
-  if (this._addAccsOutput()) {
-    this._updateAccsOutput();
-  }
 };
 
 /**

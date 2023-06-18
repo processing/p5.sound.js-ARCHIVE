@@ -4,7 +4,9 @@
   "description": "work in progress during p5.js sound fellowship",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "grunt build",
+    "test": "grunt",
+    "lint": "grunt lint"
   },
   "author": "",
   "license": "ISC",

@@ -66,7 +66,7 @@ Node.js를 위한 설정은 `test/mocha.opts`에서 모두 수행됩니다.
 
 ### 지속적인 통합 테스팅
 
-p5.js 레파지토리에서 풀리퀘스트를 오픈하면, 자동으로 [테스트가 실행](ttps://github.com/processing/p5.js/actions) 됩니다. 이를 통해 개별 기여자의 추가적인 작업 없이 각 풀 리퀘스트 대해 테스트를 통과했는지 재확인할 수 있습니다. 또한 [Codecov](https://codecov.io/github/processing/p5.js)에 커버리지 리포트가 자동으로 업로드 됩니다.
+p5.js 레파지토리에서 풀리퀘스트를 오픈하면, 자동으로 [테스트가 실행](ttps://github.com/processing/p5.js/actions) 됩니다. 이를 통해 개별 기여자의 추가적인 작업 없이 각 풀 리퀘스트 대해 테스트를 통과했는지 재확인할 수 있습니다. 또한 
 
 ## 단위 테스팅 추가
 

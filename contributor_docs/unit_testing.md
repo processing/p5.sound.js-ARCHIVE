@@ -66,7 +66,7 @@ The setup for Node.js tests is all done in `test/mocha.opts`
 
 ### Continuous Integration Testing
 
-When you open a pull request in the p5.js repo, it will automatically [run the tests](https://github.com/processing/p5.js/actions). This helps us double check that the tests pass for each pull request, with no extra work from individual contributors. It also automatically uploads the coverage reports to [Codecov](https://codecov.io/github/processing/p5.js).
+When you open a pull request in the p5.js repo, it will automatically [run the tests](https://github.com/processing/p5.js/actions). This helps us double check that the tests pass for each pull request, with no extra work from individual contributors. 
 
 ## Adding Unit Tests
 

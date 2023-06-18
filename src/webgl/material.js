@@ -929,7 +929,6 @@ p5.prototype.emissiveMaterial = function(v1, v2, v3, a) {
  * function setup() {
  *   createCanvas(100, 100, WEBGL);
  *   noStroke();
- *   describe('torus with specular material');
  * }
  *
  * function draw() {
@@ -944,12 +943,10 @@ p5.prototype.emissiveMaterial = function(v1, v2, v3, a) {
  *
  *   specularMaterial(250);
  *   shininess(50);
- *   torus(30, 10, 64, 64);
  * }
  * </code>
  * </div>
  * @alt
- * torus with specular material
  */
 
 /**

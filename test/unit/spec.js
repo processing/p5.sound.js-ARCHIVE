@@ -10,7 +10,6 @@ var spec = {
     'preload',
     'rendering',
     'structure',
-    'transform',
     'version'
   ],
   math: ['calculation', 'noise', 'p5.Vector', 'random', 'trigonometry'],

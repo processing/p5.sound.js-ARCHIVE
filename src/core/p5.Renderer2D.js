@@ -43,7 +43,6 @@ p5.Renderer2D.prototype.resize = function (w, h) {
 
 p5.Renderer2D.prototype.background = function (...args) {
   this.drawingContext.save();
-  this.resetMatrix();
 
   const curFill = this._getFill();
   // create background rect
@@ -70,7 +69,7 @@ p5.Renderer2D.prototype.background = function (...args) {
 
 p5.Renderer2D.prototype.clear = function () {
   this.drawingContext.save();
-  this.resetMatrix();
+
   this.drawingContext.clearRect(0, 0, this.width, this.height);
   this.drawingContext.restore();
 };
@@ -1083,42 +1082,6 @@ p5.Renderer2D.prototype._doFillStrokeClose = function (closeShape) {
   if (this._doStroke) {
     this.drawingContext.stroke();
   }
-};
-
-//////////////////////////////////////////////
-// TRANSFORM
-//////////////////////////////////////////////
-
-p5.Renderer2D.prototype.applyMatrix = function (a, b, c, d, e, f) {
-  this.drawingContext.transform(a, b, c, d, e, f);
-};
-
-p5.Renderer2D.prototype.resetMatrix = function () {
-  this.drawingContext.setTransform(1, 0, 0, 1, 0, 0);
-  this.drawingContext.scale(
-    this._pInst._pixelDensity,
-    this._pInst._pixelDensity
-  );
-  return this;
-};
-
-p5.Renderer2D.prototype.rotate = function (rad) {
-  this.drawingContext.rotate(rad);
-};
-
-p5.Renderer2D.prototype.scale = function (x, y) {
-  this.drawingContext.scale(x, y);
-  return this;
-};
-
-p5.Renderer2D.prototype.translate = function (x, y) {
-  // support passing a vector as the 1st parameter
-  if (x instanceof p5.Vector) {
-    y = x.y;
-    x = x.x;
-  }
-  this.drawingContext.translate(x, y);
-  return this;
 };
 
 //////////////////////////////////////////////

@@ -45,36 +45,26 @@ p5.Renderer2D.prototype.background = function (...args) {
   this.drawingContext.save();
   this.resetMatrix();
 
-  if (args[0] instanceof p5.Image) {
-    if (args[1] >= 0) {
-      // set transparency of background
-      const img = args[0];
-      this.drawingContext.globalAlpha = args[1] / 255;
-      this._pInst.image(img, 0, 0, this.width, this.height);
-    } else {
-      this._pInst.image(args[0], 0, 0, this.width, this.height);
-    }
-  } else {
-    const curFill = this._getFill();
-    // create background rect
-    const color = this._pInst.color(...args);
+  const curFill = this._getFill();
+  // create background rect
+  const color = this._pInst.color(...args);
 
 
-    const newFill = color.toString();
-    this._setFill(newFill);
+  const newFill = color.toString();
+  this._setFill(newFill);
 
-    if (this._isErasing) {
-      this.blendMode(this._cachedBlendMode);
-    }
-
-    this.drawingContext.fillRect(0, 0, this.width, this.height);
-    // reset fill
-    this._setFill(curFill);
-
-    if (this._isErasing) {
-      this._pInst.erase();
-    }
+  if (this._isErasing) {
+    this.blendMode(this._cachedBlendMode);
   }
+
+  this.drawingContext.fillRect(0, 0, this.width, this.height);
+  // reset fill
+  this._setFill(curFill);
+
+  if (this._isErasing) {
+    this._pInst.erase();
+  }
+
   this.drawingContext.restore();
 };
 
@@ -331,73 +321,61 @@ p5.Renderer2D.prototype.set = function (x, y, imgOrCol) {
   x = Math.floor(x);
   y = Math.floor(y);
   const pixelsState = this._pixelsState;
-  if (imgOrCol instanceof p5.Image) {
-    this.drawingContext.save();
-    this.drawingContext.setTransform(1, 0, 0, 1, 0, 0);
-    this.drawingContext.scale(
-      pixelsState._pixelDensity,
-      pixelsState._pixelDensity
-    );
-    this.drawingContext.clearRect(x, y, imgOrCol.width, imgOrCol.height);
-    this.drawingContext.drawImage(imgOrCol.canvas, x, y);
-    this.drawingContext.restore();
-  } else {
-    let r = 0,
-      g = 0,
-      b = 0,
-      a = 0;
-    let idx =
-      4 *
-      (y *
-        pixelsState._pixelDensity *
-        (this.width * pixelsState._pixelDensity) +
-        x * pixelsState._pixelDensity);
-    if (!pixelsState.imageData) {
-      pixelsState.loadPixels.call(pixelsState);
+  let r = 0,
+    g = 0,
+    b = 0,
+    a = 0;
+  let idx =
+    4 *
+    (y *
+      pixelsState._pixelDensity *
+      (this.width * pixelsState._pixelDensity) +
+      x * pixelsState._pixelDensity);
+  if (!pixelsState.imageData) {
+    pixelsState.loadPixels.call(pixelsState);
+  }
+  if (typeof imgOrCol === 'number') {
+    if (idx < pixelsState.pixels.length) {
+      r = imgOrCol;
+      g = imgOrCol;
+      b = imgOrCol;
+      a = 255;
+      //this.updatePixels.call(this);
     }
-    if (typeof imgOrCol === 'number') {
-      if (idx < pixelsState.pixels.length) {
-        r = imgOrCol;
-        g = imgOrCol;
-        b = imgOrCol;
-        a = 255;
-        //this.updatePixels.call(this);
-      }
-    } else if (imgOrCol instanceof Array) {
-      if (imgOrCol.length < 4) {
-        throw new Error('pixel array must be of the form [R, G, B, A]');
-      }
-      if (idx < pixelsState.pixels.length) {
-        r = imgOrCol[0];
-        g = imgOrCol[1];
-        b = imgOrCol[2];
-        a = imgOrCol[3];
-        //this.updatePixels.call(this);
-      }
-    } else if (imgOrCol instanceof p5.Color) {
-      if (idx < pixelsState.pixels.length) {
-        r = imgOrCol.levels[0];
-        g = imgOrCol.levels[1];
-        b = imgOrCol.levels[2];
-        a = imgOrCol.levels[3];
-        //this.updatePixels.call(this);
-      }
+  } else if (imgOrCol instanceof Array) {
+    if (imgOrCol.length < 4) {
+      throw new Error('pixel array must be of the form [R, G, B, A]');
     }
-    // loop over pixelDensity * pixelDensity
-    for (let i = 0; i < pixelsState._pixelDensity; i++) {
-      for (let j = 0; j < pixelsState._pixelDensity; j++) {
-        // loop over
-        idx =
-          4 *
-          ((y * pixelsState._pixelDensity + j) *
-            this.width *
-            pixelsState._pixelDensity +
-            (x * pixelsState._pixelDensity + i));
-        pixelsState.pixels[idx] = r;
-        pixelsState.pixels[idx + 1] = g;
-        pixelsState.pixels[idx + 2] = b;
-        pixelsState.pixels[idx + 3] = a;
-      }
+    if (idx < pixelsState.pixels.length) {
+      r = imgOrCol[0];
+      g = imgOrCol[1];
+      b = imgOrCol[2];
+      a = imgOrCol[3];
+      //this.updatePixels.call(this);
+    }
+  } else if (imgOrCol instanceof p5.Color) {
+    if (idx < pixelsState.pixels.length) {
+      r = imgOrCol.levels[0];
+      g = imgOrCol.levels[1];
+      b = imgOrCol.levels[2];
+      a = imgOrCol.levels[3];
+      //this.updatePixels.call(this);
+    }
+  }
+  // loop over pixelDensity * pixelDensity
+  for (let i = 0; i < pixelsState._pixelDensity; i++) {
+    for (let j = 0; j < pixelsState._pixelDensity; j++) {
+      // loop over
+      idx =
+        4 *
+        ((y * pixelsState._pixelDensity + j) *
+          this.width *
+          pixelsState._pixelDensity +
+          (x * pixelsState._pixelDensity + i));
+      pixelsState.pixels[idx] = r;
+      pixelsState.pixels[idx + 1] = g;
+      pixelsState.pixels[idx + 2] = b;
+      pixelsState.pixels[idx + 3] = a;
     }
   }
 };

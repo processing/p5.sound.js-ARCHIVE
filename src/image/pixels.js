@@ -6,7 +6,6 @@
  */
 
 import p5 from '../core/main';
-import Filters from './filters';
 import '../color/p5.Color';
 
 /**
@@ -178,7 +177,7 @@ p5.prototype.blend = function(...args) {
  * target region.
  *
  * @method copy
- * @param  {p5.Image|p5.Element} srcImage source image
+ * @param  {p5.Element} srcImage source image
  * @param  {Integer} sx X coordinate of the source's upper left corner
  * @param  {Integer} sy Y coordinate of the source's upper left corner
  * @param  {Integer} sw source image width
@@ -281,179 +280,6 @@ p5.prototype._copyHelper = (
     dh
   );
 
-};
-
-/**
- * Applies a filter to the canvas. The presets options are:
- *
- * THRESHOLD
- * Converts the image to black and white pixels depending if they are above or
- * below the threshold defined by the level parameter. The parameter must be
- * between 0.0 (black) and 1.0 (white). If no level is specified, 0.5 is used.
- *
- * GRAY
- * Converts any colors in the image to grayscale equivalents. No parameter
- * is used.
- *
- * OPAQUE
- * Sets the alpha channel to entirely opaque. No parameter is used.
- *
- * INVERT
- * Sets each pixel to its inverse value. No parameter is used.
- *
- * POSTERIZE
- * Limits each channel of the image to the number of colors specified as the
- * parameter. The parameter can be set to values between 2 and 255, but
- * results are most noticeable in the lower ranges.
- *
- * BLUR
- * Executes a Gaussian blur with the level parameter specifying the extent
- * of the blurring. If no parameter is used, the blur is equivalent to
- * Gaussian blur of radius 1. Larger values increase the blur.
- *
- * ERODE
- * Reduces the light areas. No parameter is used.
- *
- * DILATE
- * Increases the light areas. No parameter is used.
- *
- * filter() does not work in WEBGL mode.
- * A similar effect can be achieved in WEBGL mode using custom
- * shaders. Adam Ferriss has written
- * a <a href="https://github.com/aferriss/p5jsShaderExamples"
- * target='_blank'>selection of shader examples</a> that contains many
- * of the effects present in the filter examples.
- *
- * @method filter
- * @param  {Constant} filterType  either THRESHOLD, GRAY, OPAQUE, INVERT,
- *                                POSTERIZE, BLUR, ERODE, DILATE or BLUR.
- *                                See Filters.js for docs on
- *                                each available filter
- * @param  {Number} [filterParam] an optional parameter unique
- *                                to each filter, see above
- *
- * @example
- * <div>
- * <code>
- * let img;
- * function preload() {
- *   img = loadImage('assets/bricks.jpg');
- * }
- * function setup() {
- *   image(img, 0, 0);
- *   filter(THRESHOLD);
- * }
- * </code>
- * </div>
- *
- * <div>
- * <code>
- * let img;
- * function preload() {
- *   img = loadImage('assets/bricks.jpg');
- * }
- * function setup() {
- *   image(img, 0, 0);
- *   filter(GRAY);
- * }
- * </code>
- * </div>
- *
- * <div>
- * <code>
- * let img;
- * function preload() {
- *   img = loadImage('assets/bricks.jpg');
- * }
- * function setup() {
- *   image(img, 0, 0);
- *   filter(OPAQUE);
- * }
- * </code>
- * </div>
- *
- * <div>
- * <code>
- * let img;
- * function preload() {
- *   img = loadImage('assets/bricks.jpg');
- * }
- * function setup() {
- *   image(img, 0, 0);
- *   filter(INVERT);
- * }
- * </code>
- * </div>
- *
- * <div>
- * <code>
- * let img;
- * function preload() {
- *   img = loadImage('assets/bricks.jpg');
- * }
- * function setup() {
- *   image(img, 0, 0);
- *   filter(POSTERIZE, 3);
- * }
- * </code>
- * </div>
- *
- * <div>
- * <code>
- * let img;
- * function preload() {
- *   img = loadImage('assets/bricks.jpg');
- * }
- * function setup() {
- *   image(img, 0, 0);
- *   filter(DILATE);
- * }
- * </code>
- * </div>
- *
- * <div>
- * <code>
- * let img;
- * function preload() {
- *   img = loadImage('assets/bricks.jpg');
- * }
- * function setup() {
- *   image(img, 0, 0);
- *   filter(BLUR, 3);
- * }
- * </code>
- * </div>
- *
- * <div>
- * <code>
- * let img;
- * function preload() {
- *   img = loadImage('assets/bricks.jpg');
- * }
- * function setup() {
- *   image(img, 0, 0);
- *   filter(ERODE);
- * }
- * </code>
- * </div>
- *
- * @alt
- * black and white image of a brick wall.
- * greyscale image of a brickwall
- * image of a brickwall
- * jade colored image of a brickwall
- * red and pink image of a brickwall
- * image of a brickwall
- * blurry image of a brickwall
- * image of a brickwall
- * image of a brickwall with less detail
- */
-p5.prototype.filter = function(operation, value) {
-  if (this.canvas !== undefined) {
-    Filters.apply(this.canvas, Filters[operation], value);
-  } else {
-    Filters.apply(this.elt, Filters[operation], value);
-  }
 };
 
 /**
@@ -598,7 +424,7 @@ p5.prototype.loadPixels = function(...args) {
  * @param {Number}              x x-coordinate of the pixel
  * @param {Number}              y y-coordinate of the pixel
  * @param {Number|Number[]|Object} c insert a grayscale value | a pixel array |
- *                                a <a href="#/p5.Color">p5.Color</a> object | a <a href="#/p5.Image">p5.Image</a> to copy
+ *                                a <a href="#/p5.Color">p5.Color</a> object
  * @example
  * <div>
  * <code>

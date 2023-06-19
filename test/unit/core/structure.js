@@ -141,13 +141,6 @@ suite('Structure', function() {
       });
     });
 
-    test('leak no state after imageMode()', function() {
-      myp5.imageMode(myp5.CORNER);
-      assertCanPreserveRenderState(function() {
-        myp5.imageMode(myp5.CENTER);
-      });
-    });
-
     test('leak no state after rectMode()', function() {
       myp5.rectMode(myp5.CORNER);
       assertCanPreserveRenderState(function() {

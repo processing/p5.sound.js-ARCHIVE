@@ -21,10 +21,8 @@ import './color/p5.Color';
 import './color/setting';
 
 // image
-import './image/filters';
 import './image/image';
 import './image/loading_displaying';
-import './image/p5.Image';
 import './image/pixels';
 
 // utilities

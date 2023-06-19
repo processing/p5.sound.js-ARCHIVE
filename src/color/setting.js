@@ -29,7 +29,6 @@ import './p5.Color';
  *
  * A <a href="#/p5.Color">p5.Color</a> object can also be provided to set the background color.
  *
- * A <a href="#/p5.Image">p5.Image</a> can also be provided to set the background image.
  *
  * @method background
  * @param {p5.Color} color  any value created by the <a href="#/p5/color">color()</a> function
@@ -165,9 +164,6 @@ import './p5.Color';
 
 /**
  * @method background
- * @param {p5.Image} image     image created with <a href="#/p5/loadImage">loadImage()</a> or <a href="#/p5/createImage">createImage()</a>,
- *                             to set as background
- *                             (must be same size as the sketch window)
  * @param  {Number}  [a]
  * @chainable
  */
@@ -717,7 +713,7 @@ p5.prototype.stroke = function(...args) {
  * the canvas. Erased areas will reveal the web page underneath the canvas. Erasing
  * can be canceled with <a href="#/p5/noErase">noErase()</a>.
  *
- * Drawing done with <a href="#/p5/image">image()</a> and <a href="#/p5/background">
+ * Drawing done with and <a href="#/p5/background">
  * background()</a> in between <a href="#/p5/erase">erase()</a> and
  * <a href="#/p5/noErase">noErase()</a> will not erase the canvas but works as usual.
  *

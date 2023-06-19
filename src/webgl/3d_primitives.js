@@ -10,90 +10,6 @@ import p5 from '../core/main';
 import './p5.Geometry';
 import * as constants from '../core/constants';
 
-/**
- * Draw a plane with given a width and height
- * @method plane
- * @param  {Number} [width]    width of the plane
- * @param  {Number} [height]   height of the plane
- * @param  {Integer} [detailX]  Optional number of triangle
- *                             subdivisions in x-dimension
- * @param {Integer} [detailY]   Optional number of triangle
- *                             subdivisions in y-dimension
- * @chainable
- * @example
- * <div>
- * <code>
- * // draw a plane
- * // with width 50 and height 50
- * function setup() {
- *   createCanvas(100, 100, WEBGL);
- *   describe('a white plane with black wireframe lines');
- * }
- *
- * function draw() {
- *   background(200);
- *   plane(50, 50);
- * }
- * </code>
- * </div>
- *
- * @alt
- * Nothing displayed on canvas
- * Rotating interior view of a box with sides that change color.
- * 3d red and green gradient.
- * Rotating interior view of a cylinder with sides that change color.
- * Rotating view of a cylinder with sides that change color.
- * 3d red and green gradient.
- * rotating view of a multi-colored cylinder with concave sides.
- */
-p5.prototype.plane = function(width, height, detailX, detailY) {
-  this._assert3d('plane');
-  p5._validateParameters('plane', arguments);
-  if (typeof width === 'undefined') {
-    width = 50;
-  }
-  if (typeof height === 'undefined') {
-    height = width;
-  }
-
-  if (typeof detailX === 'undefined') {
-    detailX = 1;
-  }
-  if (typeof detailY === 'undefined') {
-    detailY = 1;
-  }
-
-  const gId = `plane|${detailX}|${detailY}`;
-
-  if (!this._renderer.geometryInHash(gId)) {
-    const _plane = function() {
-      let u, v, p;
-      for (let i = 0; i <= this.detailY; i++) {
-        v = i / this.detailY;
-        for (let j = 0; j <= this.detailX; j++) {
-          u = j / this.detailX;
-          p = new p5.Vector(u - 0.5, v - 0.5, 0);
-          this.vertices.push(p);
-          this.uvs.push(u, v);
-        }
-      }
-    };
-    const planeGeom = new p5.Geometry(detailX, detailY, _plane);
-    planeGeom.computeFaces().computeNormals();
-    if (detailX <= 1 && detailY <= 1) {
-      planeGeom._makeTriangleEdges()._edgesToVertices();
-    } else if (this._renderer._doStroke) {
-      console.log(
-        'Cannot draw stroke on plane objects with more' +
-          ' than 1 detailX or 1 detailY'
-      );
-    }
-    this._renderer.createBuffers(gId, planeGeom);
-  }
-
-  this._renderer.drawBuffersScaled(gId, width, height, 1);
-  return this;
-};
 
 ///////////////////////
 /// 2D primitives
@@ -472,7 +388,6 @@ p5.RendererGL.prototype.quad = function(x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, 
   if (!this.geometryInHash(gId)) {
     const quadGeom = new p5.Geometry(detailX, detailY, function() {
       //algorithm adapted from c++ to js
-      //https://stackoverflow.com/questions/16989181/whats-the-correct-way-to-draw-a-distorted-plane-in-opengl/16993202#16993202
       let xRes = 1.0 / (this.detailX - 1);
       let yRes = 1.0 / (this.detailY - 1);
       for (let y = 0; y < this.detailY; y++) {

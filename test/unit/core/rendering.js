@@ -119,8 +119,7 @@ suite('Rendering', function() {
     'model',
     'createShader', 'shader',
     'normalMaterial', 'texture', 'ambientMaterial', 'emissiveMaterial', 'specularMaterial',
-    'shininess', 'lightFalloff',
-    'plane'
+    'shininess', 'lightFalloff'
   ];
 
   suite('webgl assertions', function() {

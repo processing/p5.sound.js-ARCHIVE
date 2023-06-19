@@ -1219,7 +1219,6 @@ class Framebuffer {
  * Since Framebuffers are controlled by WebGL, their y coordinates are stored
  * flipped compared to images and videos. When texturing with a framebuffer
  * texture, you may want to flip vertically, e.g. with
- * `plane(framebuffer.width, -framebuffer.height)`.
  *
  * @property {p5.FramebufferTexture} color
  * @for p5.Framebuffer
@@ -1259,7 +1258,6 @@ class Framebuffer {
  * Since Framebuffers are controlled by WebGL, their y coordinates are stored
  * flipped compared to images and videos. When texturing with a framebuffer
  * texture, you may want to flip vertically, e.g. with
- * `plane(framebuffer.width, -framebuffer.height)`.
  *
  * @property {p5.FramebufferTexture|undefined} depth
  * @for p5.Framebuffer
@@ -1316,7 +1314,6 @@ class Framebuffer {
  *   push();
  *   shader(depthShader);
  *   depthShader.setUniform('depth', framebuffer.depth);
- *   plane(framebuffer.width, framebuffer.height);
  *   pop();
  * }
  * </code>

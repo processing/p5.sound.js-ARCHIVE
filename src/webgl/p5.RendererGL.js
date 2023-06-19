@@ -1762,8 +1762,8 @@ p5.RendererGL = class RendererGL extends p5.Renderer {
   }
 
   _triangulate (contours) {
-    // libtess will take 3d verts and flatten to a plane for tesselation.
-    // libtess is capable of calculating a plane to tesselate on, but
+    // libtess will take 3d verts and flatten to a for tesselation.
+    // libtess is capable of calculating a to tesselate on, but
     // if all of the vertices have the same z values, we'll just
     // assume the face is facing the camera, letting us skip any performance
     // issues or bugs in libtess's automatic calculation.
@@ -1784,7 +1784,7 @@ p5.RendererGL = class RendererGL extends p5.Renderer {
     if (allSameZ) {
       this._tessy.gluTessNormal(0, 0, 1);
     } else {
-      // Let libtess pick a plane for us
+      // Let libtess pick a for us
       this._tessy.gluTessNormal(0, 0, 0);
     }
 

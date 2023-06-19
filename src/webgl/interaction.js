@@ -381,7 +381,7 @@ p5.prototype.orbitControl = function(
  * just before the end of the draw() loop.
  *
  * By default, the grid will run through the origin (0,0,0) of the sketch
- * along the XZ plane
+ * along the XZ
  * and the axes icon will be offset from the origin.  Both the grid and axes
  * icon will be sized according to the current canvas size.  Note that because the
  * grid runs parallel to the default camera view, it is often helpful to use

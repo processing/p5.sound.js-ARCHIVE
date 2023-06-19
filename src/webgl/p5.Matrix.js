@@ -657,8 +657,8 @@ p5.Matrix = class {
  * @method perspective
  * @param  {Number} fovy   [description]
  * @param  {Number} aspect [description]
- * @param  {Number} near   near clipping plane
- * @param  {Number} far    far clipping plane
+ * @param  {Number} near   near clipping 
+ * @param  {Number} far    far clipping 
  * @chainable
  */
   perspective(fovy, aspect, near, far) {
@@ -692,8 +692,8 @@ p5.Matrix = class {
  * @param  {Number} right  [description]
  * @param  {Number} bottom [description]
  * @param  {Number} top    [description]
- * @param  {Number} near   near clipping plane
- * @param  {Number} far    far clipping plane
+ * @param  {Number} near   near clipping
+ * @param  {Number} far    far clipping
  * @chainable
  */
   ortho(left, right, bottom, top, near, far) {

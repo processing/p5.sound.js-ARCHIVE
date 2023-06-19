@@ -17,36 +17,6 @@ suite('3D Primitives', function() {
     myp5.remove();
   });
 
-  suite('p5.prototype.plane', function() {
-    test('should be a function', function() {
-      assert.ok(myp5.plane);
-      assert.typeOf(myp5.plane, 'function');
-    });
-    test('no friendly-err-msg. missing height param #1.', function() {
-      assert.doesNotThrow(
-        function() {
-          myp5.plane(20);
-        },
-        Error,
-        'got unwanted exception'
-      );
-    });
-    test('wrong param type at #0', function() {
-      assert.validationError(function() {
-        myp5.plane('a', 10);
-      });
-    });
-    test('no friendly-err-msg. no parameters', function() {
-      assert.doesNotThrow(
-        function() {
-          myp5.plane();
-        },
-        Error,
-        'got unwanted exception'
-      );
-    });
-  });
-
   suite('p5.RendererGL.prototype.ellipse', function() {
     test('should be a function', function() {
       assert.ok(myp5._renderer.ellipse);

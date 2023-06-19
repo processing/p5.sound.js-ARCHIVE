@@ -49,9 +49,8 @@ import p5 from '../core/main';
  * }
  * function draw() {
  *   background(204);
- *   //move the camera away from the plane by a sin wave
+ *   //move the camera away from the  by a sin wave
  *   camera(0, 0, 20 + sin(frameCount * 0.01) * 10, 0, 0, 0, 0, 1, 0);
- *   plane(10, 10);
  * }
  * </code>
  * </div>
@@ -125,7 +124,7 @@ p5.prototype.camera = function (...args) {
  * The parameters to this function define the viewing frustum
  * (the truncated pyramid within which objects are seen by the camera) through
  * vertical field of view, aspect ratio (usually width/height), and near and far
- * clipping planes.
+ * clipping.
  *
  * If no parameters are given, the following default is used:
  * perspective(PI/3, width/height, eyeZ/10, eyeZ*10),
@@ -135,8 +134,8 @@ p5.prototype.camera = function (...args) {
  * @param  {Number} [fovy]   camera frustum vertical field of view,
  *                           from bottom to top of view, in <a href="#/p5/angleMode">angleMode</a> units
  * @param  {Number} [aspect] camera frustum aspect ratio
- * @param  {Number} [near]   frustum near plane length
- * @param  {Number} [far]    frustum far plane length
+ * @param  {Number} [near]   frustum near length
+ * @param  {Number} [far]    frustum far length
  * @chainable
  * @example
  * <div>
@@ -195,12 +194,12 @@ p5.prototype.perspective = function (...args) {
  * ortho(-width/2, width/2, -height/2, height/2).
  * @method  ortho
  * @for p5
- * @param  {Number} [left]   camera frustum left plane
- * @param  {Number} [right]  camera frustum right plane
- * @param  {Number} [bottom] camera frustum bottom plane
- * @param  {Number} [top]    camera frustum top plane
- * @param  {Number} [near]   camera frustum near plane
- * @param  {Number} [far]    camera frustum far plane
+ * @param  {Number} [left]   camera frustum left
+ * @param  {Number} [right]  camera frustum right
+ * @param  {Number} [bottom] camera frustum bottom
+ * @param  {Number} [top]    camera frustum top
+ * @param  {Number} [near]   camera frustum near
+ * @param  {Number} [far]    camera frustum far
  * @chainable
  * @example
  * <div>
@@ -211,7 +210,7 @@ p5.prototype.perspective = function (...args) {
  *   createCanvas(100, 100, WEBGL);
  *   ortho(-width / 2, width / 2, height / 2, -height / 2, 0, 500);
  *   describe(
- *     'two 3D boxes move back and forth along same plane, rotating as mouse is dragged.'
+ *     'two 3D boxes move back and forth along same, rotating as mouse is dragged.'
  *   );
  * }
  * function draw() {
@@ -234,7 +233,7 @@ p5.prototype.perspective = function (...args) {
  * </div>
  *
  * @alt
- * two 3D boxes move back and forth along same plane, rotating as mouse is dragged.
+ * two 3D boxes move back and forth along same, rotating as mouse is dragged.
  */
 p5.prototype.ortho = function (...args) {
   this._assert3d('ortho');
@@ -249,10 +248,10 @@ p5.prototype.ortho = function (...args) {
  *
  * A frustum is a geometric form: a pyramid with its top
  * cut off. With the viewer's eye at the imaginary top of
- * the pyramid, the six planes of the frustum act as clipping
- * planes when rendering a 3D view. Thus, any form inside the
- * clipping planes is visible; anything outside
- * those planes is not visible.
+ * the pyramid, the six of the frustum act as clipping
+ * when rendering a 3D view. Thus, any form inside the
+ * clipping is visible; anything outside
+ * those is not visible.
  *
  * Setting the frustum changes the perspective of the scene being rendered.
  * This can be achieved more simply in many cases by using
@@ -263,12 +262,12 @@ p5.prototype.ortho = function (...args) {
  * where eyeZ is equal to ((height/2) / tan(PI/6)).
  * @method frustum
  * @for p5
- * @param  {Number} [left]   camera frustum left plane
- * @param  {Number} [right]  camera frustum right plane
- * @param  {Number} [bottom] camera frustum bottom plane
- * @param  {Number} [top]    camera frustum top plane
- * @param  {Number} [near]   camera frustum near plane
- * @param  {Number} [far]    camera frustum far plane
+ * @param  {Number} [left]   camera frustum left
+ * @param  {Number} [right]  camera frustum right
+ * @param  {Number} [bottom] camera frustum botto
+ * @param  {Number} [top]    camera frustum top
+ * @param  {Number} [near]   camera frustum near
+ * @param  {Number} [far]    camera frustum far
  * @chainable
  * @example
  * <div>
@@ -278,7 +277,7 @@ p5.prototype.ortho = function (...args) {
  *   setAttributes('antialias', true);
  *   frustum(-0.1, 0.1, -0.1, 0.1, 0.1, 200);
  *   describe(
- *     'two 3D boxes move back and forth along same plane, rotating as mouse is dragged.'
+ *     'two 3D boxes move back and forth along same, rotating as mouse is dragged.'
  *   );
  * }
  * function draw() {
@@ -301,7 +300,7 @@ p5.prototype.ortho = function (...args) {
  * </div>
  *
  * @alt
- * two 3D boxes move back and forth along same plane, rotating as mouse is dragged.
+ * two 3D boxes move back and forth along same, rotating as mouse is dragged.
  */
 p5.prototype.frustum = function (...args) {
   this._assert3d('frustum');
@@ -791,14 +790,14 @@ p5.Camera = class Camera {
     if (near <= 0.0001) {
       near = 0.01;
       console.log(
-        'Avoid perspective near plane values close to or below 0. ' +
+        'Avoid perspective near values close to or below 0. ' +
         'Setting value to 0.01.'
       );
     }
 
     if (far < near) {
       console.log(
-        'Perspective far plane value is less than near plane value. ' +
+        'Perspective far value is less than near value. ' +
         'Nothing will be shown.'
       );
     }
@@ -882,7 +881,7 @@ p5.Camera = class Camera {
  * </code>
  * </div>
  * @alt
- * two 3D boxes move back and forth along same plane, rotating as mouse is dragged.
+ * two 3D boxes move back and forth along same, rotating as mouse is dragged.
  */
   ortho(left, right, bottom, top, near, far) {
     if (left === undefined) left = -this._renderer.width / 2;
@@ -981,7 +980,7 @@ p5.Camera = class Camera {
  * </code>
  * </div>
  * @alt
- * two 3D boxes move back and forth along same plane, rotating as mouse is dragged.
+ * two 3D boxes move back and forth along same, rotating as mouse is dragged.
  */
   frustum(left, right, bottom, top, near, far) {
     if (left === undefined) left = -this._renderer.width * 0.05;
@@ -1293,9 +1292,8 @@ p5.Camera = class Camera {
  *
  * function draw() {
  *   background(204);
- *   // Move the camera away from the plane by a sin wave
+ *   // Move the camera away from the by a sin wave
  *   cam.camera(0, 0, 20 + sin(frameCount * 0.01) * 10, 0, 0, 0, 0, 1, 0);
- *   plane(10, 10);
  * }
  * </code>
  * </div>

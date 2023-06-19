@@ -427,7 +427,6 @@ p5.prototype.resetShader = function() {
  *   createCanvas(100, 100, WEBGL);
  *   pg = createGraphics(200, 200);
  *   pg.textSize(75);
- *   describe('plane with a texture from an image created by createGraphics()');
  * }
  *
  * function draw() {
@@ -438,12 +437,9 @@ p5.prototype.resetShader = function() {
  *   texture(pg);
  *   rotateX(0.5);
  *   noStroke();
- *   plane(50);
  * }
  * </code>
  * </div>
- * @alt
- * plane with a texture from an image created by createGraphics()
  *
  * @example
  * <div>

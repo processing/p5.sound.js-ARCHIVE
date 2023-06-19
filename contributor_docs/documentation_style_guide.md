@@ -21,22 +21,32 @@ Our community is large and diverse. Many people learn to code using p5.js, and a
 - [Accessibility and Disability](#accessibility-and-disability)
 
 ### Code
-- [Code Samples](#code-samples)
-- [Comments](#comments)
-- [Whitespace](#whitespace)
-- [Semicolons](#semicolons)
-- [Naming Conventions](#naming-conventions)
-- [Variables](#variables)
-- [Strings](#strings)
-- [Boolean Operators](#boolean-operators)
-- [Conditionals](#conditionals)
-- [Iteration](#iteration)
-- [Objects](#objects)
-- [Arrays](#arrays)
-- [Functions](#functions)
-- [Arrow Functions](#arrow-functions)
-- [Classes](#classes)
-- [Assets](#assets)
+- [Documentation Style Guide](#documentation-style-guide)
+  - [Table of Contents](#table-of-contents)
+    - [Writing](#writing)
+    - [Code](#code)
+  - [YUIDoc](#yuidoc)
+  - [English](#english)
+  - [Oxford Comma](#oxford-comma)
+  - [Wording](#wording)
+  - [Unbiased Documentation](#unbiased-documentation)
+  - [Accessibility and Disability](#accessibility-and-disability)
+  - [Code Samples](#code-samples)
+  - [Comments](#comments)
+  - [Whitespace](#whitespace)
+  - [Semicolons](#semicolons)
+  - [Naming Conventions](#naming-conventions)
+  - [Variables](#variables)
+  - [Strings](#strings)
+  - [Boolean Operators](#boolean-operators)
+  - [Conditionals](#conditionals)
+  - [Iteration](#iteration)
+  - [Objects](#objects)
+  - [Arrays](#arrays)
+  - [Functions](#functions)
+  - [Arrow Functions](#arrow-functions)
+  - [Classes](#classes)
+  - [Assets](#assets)
 
 ## YUIDoc
 
@@ -388,7 +398,7 @@ let variable = 2;
 
 - Always use `const` or `let` to declare variables.
 
-> Why? Declaring a variable without `const` or `let` will make it global. We want to avoid polluting the global namespace. Captain Planet warned us of that.
+> Why? Declaring a variable without `const` or `let` will make it global. We want to avoid polluting the global namespace. Captain  warned us of that.
 
 ```javascript
 // Bad.

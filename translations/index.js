@@ -22,7 +22,5 @@ export default {
  * dev.js, which is another file in this folder.
  */
 export const languages = [
-  'en',
-  'es',
-  'ko'
+  'en'
 ];

@@ -8,7 +8,7 @@ import p5 from './main';
 import * as constants from '../core/constants';
 
 /**
- * Main graphics and rendering context, as well as the base API
+ * Main and rendering context, as well as the base API
  * implementation for p5.js "core". To be used as the superclass for
  * Renderer2D and Renderer3D classes, respectively.
  *

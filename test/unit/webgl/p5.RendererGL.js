@@ -23,52 +23,6 @@ suite('p5.RendererGL', function() {
     });
   });
 
-  suite('webglVersion', function() {
-    test('should return WEBGL2 by default', function() {
-      myp5.createCanvas(10, 10, myp5.WEBGL);
-      assert.equal(myp5.webglVersion, myp5.WEBGL2);
-    });
-
-    test('should return WEBGL1 after setAttributes', function() {
-      myp5.createCanvas(10, 10, myp5.WEBGL);
-      myp5.setAttributes({ version: 1 });
-      assert.equal(myp5.webglVersion, myp5.WEBGL);
-    });
-
-    test('works on p5.Graphics', function() {
-      myp5.createCanvas(10, 10, myp5.WEBGL);
-      myp5.setAttributes({ version: 1 });
-      const g = myp5.createGraphics(10, 10, myp5.WEBGL);
-      assert.equal(myp5.webglVersion, myp5.WEBGL);
-      assert.equal(g.webglVersion, myp5.WEBGL2);
-    });
-
-    suite('when WebGL2 is unavailable', function() {
-      let prevGetContext;
-      setup(function() {
-        prevGetContext = HTMLCanvasElement.prototype.getContext;
-        // Mock WebGL2 being unavailable
-        HTMLCanvasElement.prototype.getContext = function(type, attrs) {
-          if (type === 'webgl2') {
-            return undefined;
-          } else {
-            return prevGetContext.call(this, type, attrs);
-          }
-        };
-      });
-
-      teardown(function() {
-        // Put back the actual implementation
-        HTMLCanvasElement.prototype.getContext = prevGetContext;
-      });
-
-      test('should return WEBGL1', function() {
-        myp5.createCanvas(10, 10, myp5.WEBGL);
-        assert.equal(myp5.webglVersion, myp5.WEBGL);
-      });
-    });
-  });
-
   suite('default stroke shader', function() {
     test('check activate and deactivating fill and stroke', function(done) {
       myp5.noStroke();
@@ -115,34 +69,6 @@ suite('p5.RendererGL', function() {
 
       assert.deepEqual(getColors(myp5.P2D), getColors(myp5.WEBGL));
       done();
-    });
-  });
-
-  suite('text shader', function() {
-    test('rendering looks the same in WebGL1 and 2', function(done) {
-      myp5.loadFont('manual-test-examples/p5.Font/Inconsolata-Bold.ttf', function(font) {
-        const webgl2 = myp5.createGraphics(100, 20, myp5.WEBGL);
-        const webgl1 = myp5.createGraphics(100, 20, myp5.WEBGL);
-        webgl1.setAttributes({ version: 1 });
-
-        for (const graphic of [webgl1, webgl2]) {
-          graphic.background(255);
-          graphic.fill(0);
-          graphic.textFont(font);
-          graphic.textAlign(myp5.CENTER, myp5.CENTER);
-          graphic.text(
-            'Hello!',
-            -graphic.width / 2,
-            -graphic.height / 2,
-            graphic.width,
-            graphic.height
-          );
-          graphic.loadPixels();
-        }
-
-        assert.deepEqual(webgl1.pixels, webgl2.pixels);
-        done();
-      });
     });
   });
 
@@ -309,21 +235,6 @@ suite('p5.RendererGL', function() {
       done();
     });
 
-    test('push/pop and texture() works', function(done) {
-      myp5.createCanvas(100, 100, myp5.WEBGL);
-      var tex1 = myp5.createGraphics(1, 1);
-      myp5.texture(tex1);
-      assert.equal(tex1, myp5._renderer._tex);
-      myp5.push();
-      var tex2 = myp5.createGraphics(2, 2);
-      myp5.texture(tex2);
-      assert.equal(tex2, myp5._renderer._tex);
-      assert.notEqual(tex1, myp5._renderer._tex);
-      myp5.pop();
-      assert.equal(tex1, myp5._renderer._tex);
-      done();
-    });
-
     test('push/pop and shader() works with fill', function(done) {
       myp5.createCanvas(100, 100, myp5.WEBGL);
       var fillShader1 = myp5._renderer._getLightShader();
@@ -384,42 +295,6 @@ suite('p5.RendererGL', function() {
       assert.isTrue(img.length === 4);
       done();
     });
-
-    test('updatePixels() matches 2D mode', function() {
-      myp5.createCanvas(20, 20);
-      myp5.pixelDensity(1);
-      const getColors = function(mode) {
-        const g = myp5.createGraphics(20, 20, mode);
-        g.pixelDensity(1);
-        g.background(255);
-        g.loadPixels();
-        for (let y = 0; y < g.height; y++) {
-          for (let x = 0; x < g.width; x++) {
-            const idx = (y * g.width + x) * 4;
-            g.pixels[idx] = (x / g.width) * 255;
-            g.pixels[idx + 1] = (y / g.height) * 255;
-            g.pixels[idx + 2] = 255;
-            g.pixels[idx + 3] = 255;
-          }
-        }
-        g.updatePixels();
-        return g;
-      };
-
-      const p2d = getColors(myp5.P2D);
-      const webgl = getColors(myp5.WEBGL);
-      myp5.image(p2d, 0, 0);
-      myp5.blendMode(myp5.DIFFERENCE);
-      myp5.image(webgl, 0, 0);
-      myp5.loadPixels();
-
-      // There should be no difference, so the result should be all black
-      // at 100% opacity. We add +/- 1 for wiggle room to account for precision
-      // loss.
-      for (let i = 0; i < myp5.pixels.length; i++) {
-        expect(myp5.pixels[i]).to.be.closeTo(i % 4 === 3 ? 255 : 0, 1);
-      }
-    });
   });
 
   suite('get()', function() {
@@ -447,88 +322,6 @@ suite('p5.RendererGL', function() {
       img = myp5.get(0, 0);
       assert.isTrue(img[1] === 115);
       assert.isTrue(img.length === 4);
-      done();
-    });
-  });
-
-  suite('GL Renderer clear()', function() {
-    var pg;
-    var pixel;
-    test('webgl graphics background draws into webgl canvas', function(done) {
-      myp5.createCanvas(50, 50, myp5.WEBGL);
-      myp5.background(0, 255, 255, 255);
-      pg = myp5.createGraphics(25, 50, myp5.WEBGL);
-      pg.background(0);
-      myp5.image(pg, -myp5.width / 2, -myp5.height / 2);
-      pixel = myp5.get(0, 0);
-      assert.deepEqual(pixel, [0, 0, 0, 255]);
-      done();
-    });
-
-    test('transparent GL graphics with GL canvas', function(done) {
-      myp5.createCanvas(50, 50, myp5.WEBGL);
-      pg = myp5.createGraphics(25, 50, myp5.WEBGL);
-      myp5.background(0, 255, 255);
-      pg.clear();
-      myp5.image(pg, -myp5.width / 2, -myp5.height / 2);
-      pixel = myp5.get(0, 0);
-      assert.deepEqual(pixel, [0, 255, 255, 255]);
-      done();
-    });
-
-    test('clear color with rgba arguments', function(done) {
-      myp5.createCanvas(50, 50, myp5.WEBGL);
-      myp5.clear(1, 0, 0, 1);
-      pixel = myp5.get(0, 0);
-      assert.deepEqual(pixel, [255, 0, 0, 255]);
-      pg = myp5.createGraphics(50, 50, myp5.WEBGL);
-      pg.clear(1, 0, 0, 1);
-      pixel = pg.get(0, 0);
-      assert.deepEqual(pixel, [255, 0, 0, 255]);
-      done();
-    });
-
-    test('semi-transparent GL graphics with GL canvas', function(done) {
-      myp5.createCanvas(50, 50, myp5.WEBGL);
-      pg = myp5.createGraphics(25, 50, myp5.WEBGL);
-      myp5.background(0, 255, 255);
-      pg.background(100, 100, 100, 100);
-      myp5.image(pg, -myp5.width / 2, -myp5.height / 2);
-      pixel = myp5.get(0, 0);
-      assert.deepEqual(pixel, [39, 194, 194, 255]);
-      done();
-    });
-
-    test('webgl graphics background draws into 2D canvas', function(done) {
-      myp5.createCanvas(50, 50);
-      myp5.background(0, 255, 255, 255);
-      pg = myp5.createGraphics(25, 50, myp5.WEBGL);
-      pg.background(0);
-      myp5.image(pg, 0, 0);
-      pixel = myp5.get(0, 0);
-      assert.deepEqual(pixel, [0, 0, 0, 255]);
-      done();
-    });
-
-    test('transparent GL graphics with 2D canvas', function(done) {
-      myp5.createCanvas(50, 50);
-      pg = myp5.createGraphics(25, 50, myp5.WEBGL);
-      myp5.background(0, 255, 255);
-      pg.clear();
-      myp5.image(pg, 0, 0);
-      pixel = myp5.get(0, 0);
-      assert.deepEqual(pixel, [0, 255, 255, 255]);
-      done();
-    });
-
-    test('semi-transparent GL graphics with 2D canvas', function(done) {
-      myp5.createCanvas(50, 50);
-      pg = myp5.createGraphics(25, 50, myp5.WEBGL);
-      myp5.background(0, 255, 255);
-      pg.background(100, 100, 100, 100);
-      myp5.image(pg, 0, 0);
-      pixel = myp5.get(0, 0);
-      assert.deepEqual(pixel, [39, 194, 194, 255]);
       done();
     });
   });

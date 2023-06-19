@@ -176,46 +176,7 @@ p5.prototype.background = function(...args) {
   return this;
 };
 
-/**
- * Clears the pixels within a buffer. This function only clears the canvas.
- * It will not clear objects created by createX() methods such as
- * <a href="#/p5/createVideo">createVideo()</a> or <a href="#/p5/createDiv">createDiv()</a>.
- * Unlike the main graphics context, pixels in additional graphics areas created
- * with <a href="#/p5/createGraphics">createGraphics()</a> can be entirely
- * or partially transparent. This function clears everything to make all of
- * the pixels 100% transparent.
- *
- * Note: In WebGL mode, this function can be passed normalized RGBA color values in
- * order to clear the screen to a specific color. In addition to color, it will also
- * clear the depth buffer. If you are not using the webGL renderer
- * these color values will have no effect.
- *
- * @method clear
- * @chainable
- * @example
- * <div>
- * <code>
- * // Clear the screen on mouse press.
- * function draw() {
- *   ellipse(mouseX, mouseY, 20, 20);
- *   describe(`small white ellipses are continually drawn at mouse’s x and y
- *   coordinates.`);
- * }
- * function mousePressed() {
- *   clear();
- *   background(128);
- *   describe(
- *     'canvas is cleared, small white ellipse is drawn at mouse X and mouse Y'
- *   );
- * }
- * </code>
- * </div>
- *
- * @param {Number} r normalized red val.
- * @param {Number} g normalized green val.
- * @param {Number} b normalized blue val.
- * @param {Number} a normalized alpha val.
- */
+
 p5.prototype.clear = function(...args) {
   const _r = args[0] || 0;
   const _g = args[1] || 0;

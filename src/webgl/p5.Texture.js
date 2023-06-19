@@ -15,7 +15,7 @@ import * as constants from '../core/constants';
  * @class p5.Texture
  * @param {p5.RendererGL} renderer an instance of p5.RendererGL that
  * will provide the GL context for this new p5.Texture
- * @param {p5.Image|p5.Graphics|p5.Element|p5.MediaElement|ImageData|p5.Framebuffer|p5.FramebufferTexture|ImageData} [obj] the
+ * @param {p5.Image|p5.Element|p5.MediaElement|ImageData|p5.Framebuffer|p5.FramebufferTexture|ImageData} [obj] the
  * object containing the image data to store in the texture.
  * @param {Object} [settings] optional A javascript object containing texture
  * settings.
@@ -95,10 +95,8 @@ p5.Texture = class Texture {
     this.isSrcHTMLElement =
       typeof p5.Element !== 'undefined' &&
       obj instanceof p5.Element &&
-      !(obj instanceof p5.Graphics) &&
       !(obj instanceof p5.Renderer);
     this.isSrcP5Image = obj instanceof p5.Image;
-    this.isSrcP5Graphics = obj instanceof p5.Graphics;
     this.isSrcP5Renderer = obj instanceof p5.Renderer;
     this.isImageData =
       typeof ImageData !== 'undefined' && obj instanceof ImageData;
@@ -121,7 +119,6 @@ p5.Texture = class Texture {
       textureData = this.src.canvas;
     } else if (
       this.isSrcMediaElement ||
-    this.isSrcP5Graphics ||
     this.isSrcP5Renderer ||
     this.isSrcHTMLElement
     ) {
@@ -271,7 +268,6 @@ p5.Texture = class Texture {
         updated = true;
       }
     } else {
-      /* data instanceof p5.Graphics, probably */
       // there is not enough information to tell if the texture can be
       // conditionally updated; so to be safe, we just go ahead and upload it.
       updated = true;

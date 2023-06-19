@@ -8,8 +8,8 @@ import p5 from './main';
 
 /**
  * Base class for all elements added to a sketch, including canvas,
- * graphics buffers, and other HTML elements. It is not called directly, but <a href="#/p5.Element">p5.Element</a>
- * objects are created by calling <a href="#/p5/createCanvas">createCanvas()</a>, <a href="#/p5/createGraphics">createGraphics()</a>,
+ * buffers, and other HTML elements. It is not called directly, but <a href="#/p5.Element">p5.Element</a>
+ * objects are created by calling <a href="#/p5/createCanvas">createCanvas()</a>,
  * <a href="#/p5/createDiv">createDiv()</a>, <a href="#/p5/createImg">createImg()</a>, <a href="#/p5/createInput">createInput()</a>, etc.
  *
  * @class p5.Element

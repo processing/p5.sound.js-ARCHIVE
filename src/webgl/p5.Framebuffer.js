@@ -43,13 +43,13 @@ p5.FramebufferTexture = FramebufferTexture;
 class Framebuffer {
   /**
    * An object that one can draw to and then read as a texture. While similar
-   * to a p5.Graphics, using a p5.Framebuffer as a texture will generally run
+   * to a, using a p5.Framebuffer as a texture will generally run
    * much faster, as it lives within the same WebGL context as the canvas it
    * is created on. It only works in WebGL mode.
    *
    * @class p5.Framebuffer
    * @constructor
-   * @param {p5.Graphics|p5} target A p5 global instance or p5.Graphics
+   * @param {p5} target A p5 global instance
    * @param {Object} [settings] A settings object
    */
   constructor(target, settings = {}) {

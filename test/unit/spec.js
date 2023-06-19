@@ -7,7 +7,6 @@ var spec = {
     'error_helpers',
     'main',
     'p5.Element',
-    'p5.Graphics',
     'preload',
     'rendering',
     'structure',
@@ -25,8 +24,7 @@ var spec = {
     'p5.Framebuffer',
     'p5.Geometry',
     'p5.RendererGL',
-    'p5.Shader',
-    'p5.Texture'
+    'p5.Shader'
   ]
 };
 Object.keys(spec).map(function(folder) {

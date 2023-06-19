@@ -232,7 +232,7 @@ const defaultShaders = {
 p5.prototype.setAttributes = function (key, value) {
   if (typeof this._glAttributes === 'undefined') {
     console.log(
-      'You are trying to use setAttributes on a p5.Graphics object ' +
+      'You are trying to use setAttributes on a object ' +
       'that does not use a WEBGL renderer.'
     );
     return;
@@ -392,7 +392,7 @@ export function readPixelWebGL(
   return Array.from(pixels);
 }
 /**
- * 3D graphics class
+ * 3D class
  * @private
  * @class p5.RendererGL
  * @constructor
@@ -669,45 +669,28 @@ p5.RendererGL = class RendererGL extends p5.Renderer {
     const w = this.width;
     const h = this.height;
     const defaultId = this.canvas.id;
-    const isPGraphics = this._pInst instanceof p5.Graphics;
 
-    if (isPGraphics) {
-      const pg = this._pInst;
-      pg.canvas.parentNode.removeChild(pg.canvas);
-      pg.canvas = document.createElement('canvas');
-      const node = pg._pInst._userNode || document.body;
-      node.appendChild(pg.canvas);
-      p5.Element.call(pg, pg.canvas, pg._pInst);
-      pg.width = w;
-      pg.height = h;
-    } else {
-      let c = this.canvas;
-      if (c) {
-        c.parentNode.removeChild(c);
-      }
-      c = document.createElement('canvas');
-      c.id = defaultId;
-      if (this._pInst._userNode) {
-        this._pInst._userNode.appendChild(c);
-      } else {
-        document.body.appendChild(c);
-      }
-      this._pInst.canvas = c;
-      this.canvas = c;
+    let c = this.canvas;
+    if (c) {
+      c.parentNode.removeChild(c);
     }
+    c = document.createElement('canvas');
+    c.id = defaultId;
+    if (this._pInst._userNode) {
+      this._pInst._userNode.appendChild(c);
+    } else {
+      document.body.appendChild(c);
+    }
+    this._pInst.canvas = c;
+    this.canvas = c;
 
     const renderer = new p5.RendererGL(
       this._pInst.canvas,
-      this._pInst,
-      !isPGraphics
+      this._pInst
     );
     this._pInst._setProperty('_renderer', renderer);
     renderer.resize(w, h);
     renderer._applyDefaults();
-
-    if (!isPGraphics) {
-      this._pInst._elements.push(renderer);
-    }
 
     if (typeof callback === 'function') {
       //setTimeout with 0 forces the task to the back of the queue, this ensures that
@@ -1819,7 +1802,7 @@ p5.RendererGL = class RendererGL extends p5.Renderer {
 p5.prototype._assert3d = function (name) {
   if (!this._renderer.isP3D)
     throw new Error(
-      `${name}() is only supported in WEBGL mode. If you'd like to use 3D graphics and WebGL, see  https://p5js.org/examples/form-3d-primitives.html for more information.`
+      `${name}() is only supported in WEBGL mode. If you'd like to use 3D and WebGL, see  https://p5js.org/examples/form-3d-primitives.html for more information.`
     );
 };
 

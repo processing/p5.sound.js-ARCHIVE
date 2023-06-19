@@ -323,10 +323,10 @@ p5.Shader = class {
    * @chainable
    * @param {String} uniformName the name of the uniform.
    * Must correspond to the name used in the vertex and fragment shaders
-   * @param {Boolean|Number|Number[]|p5.Image|p5.Graphics|p5.MediaElement|p5.Texture}
+   * @param {Boolean|Number|Number[]|p5.Image|p5.MediaElement|p5.Texture}
    * data the data to associate with the uniform. The type can be
    * a boolean (true/false), a number, an array of numbers, or
-   * an image (p5.Image, p5.Graphics, p5.MediaElement, p5.Texture)
+   * an image (p5.Image, p5.MediaElement, p5.Texture)
    *
    * @example
    * <div modernizr='webgl'>

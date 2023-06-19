@@ -42,7 +42,6 @@ if (typeof IS_MINIFIED !== 'undefined') {
   // mapping names of p5 types to their constructor function
   // p5Constructors:
   //    - Color: f()
-  //    - Graphics: f()
   //    - Vector: f()
   // and so on
   const p5Constructors = {};

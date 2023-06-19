@@ -5,7 +5,7 @@ import './p5.Renderer';
 
 /**
  * p5.Renderer2D
- * The 2D graphics canvas renderer class.
+ * The 2D canvas renderer class.
  * extends p5.Renderer
  */
 const styleEmpty = 'rgba(0,0,0,0)';

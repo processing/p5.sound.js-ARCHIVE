@@ -14,7 +14,7 @@ const _PI = Math.PI;
 export const VERSION =
   'VERSION_CONST_WILL_BE_REPLACED_BY_BROWSERIFY_BUILD_PROCESS';
 
-// GRAPHICS RENDERER
+// RENDERER
 /**
  * The default, two-dimensional renderer.
  * @property {String} P2D

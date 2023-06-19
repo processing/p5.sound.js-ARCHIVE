@@ -6,7 +6,6 @@
 
 import p5 from './main';
 import * as constants from './constants';
-import './p5.Graphics';
 import './p5.Renderer2D';
 import '../webgl/p5.RendererGL';
 let defaultId = 'defaultCanvas0'; // this gets set again in createCanvas
@@ -16,9 +15,7 @@ const defaultClass = 'p5Canvas';
  * Creates a canvas element in the document and sets its dimensions
  * in pixels. This method should be called only once at the start of <a href="#/p5/setup">setup()</a>.
  * Calling <a href="#/p5/createCanvas">createCanvas</a> more than once in a
- * sketch will result in very unpredictable behavior. If you want more than
- * one drawing canvas you could use <a href="#/p5/createGraphics">createGraphics()</a>
- * (hidden by default but it can be shown).
+ * sketch will result in very unpredictable behavior.
  *
  * Important note: in 2D mode (i.e. when `p5.Renderer` is not set) the origin (0,0)
  * is positioned at the top left of the screen. In 3D mode (i.e. when `p5.Renderer`
@@ -109,7 +106,7 @@ p5.prototype.createCanvas = function(w, h, renderer) {
     document.getElementsByTagName('main')[0].appendChild(c);
   }
 
-  // Init our graphics renderer
+  // Init our renderer
   //webgl mode
   if (r === constants.WEBGL) {
     // this._setProperty('_renderer', new p5.RendererGL(c, this, true));
@@ -200,50 +197,6 @@ p5.prototype.noCanvas = function() {
   if (this.canvas) {
     this.canvas.parentNode.removeChild(this.canvas);
   }
-};
-
-/**
- * Creates and returns a new p5.Graphics object. Use this class if you need
- * to draw into an off-screen graphics buffer. The two parameters define the
- * width and height in pixels.
- *
- * A WebGL p5.Graphics will use a WebGL2 context if it is supported by the browser.
- * Check the <a href="#/p5/webglVersion">pg.webglVersion</a> property of the renderer
- * to check what version is being used, or call <a href="#/p5/setAttributes">pg.setAttributes({ version: 1 })</a>
- * to create a WebGL1 context.
- *
- * @method createGraphics
- * @param  {Number} w width of the offscreen graphics buffer
- * @param  {Number} h height of the offscreen graphics buffer
- * @param  {Constant} [renderer] either P2D or WEBGL
- *                               undefined defaults to p2d
- * @return {p5.Graphics} offscreen graphics buffer
- * @example
- * <div>
- * <code>
- * let pg;
- * function setup() {
- *   createCanvas(100, 100);
- *   pg = createGraphics(100, 100);
- * }
- *
- * function draw() {
- *   background(200);
- *   pg.background(100);
- *   pg.noStroke();
- *   pg.ellipse(pg.width / 2, pg.height / 2, 50, 50);
- *   image(pg, 50, 50);
- *   image(pg, 0, 0, 50, 50);
- * }
- * </code>
- * </div>
- *
- * @alt
- * 4 grey squares alternating light and dark grey. White quarter circle mid-left.
- */
-p5.prototype.createGraphics = function(w, h, renderer) {
-  p5._validateParameters('createGraphics', arguments);
-  return new p5.Graphics(w, h, renderer, this);
 };
 
 /**
@@ -406,7 +359,7 @@ p5.prototype.blendMode = function(mode) {
 };
 
 /**
- * The p5.js API provides a lot of functionality for creating graphics, but there is
+ * The p5.js API provides a lot of functionality for creating, but there is
  * some native HTML5 Canvas functionality that is not exposed by p5. You can still call
  * it directly using the variable `drawingContext`, as in the example shown. This is
  * the equivalent of calling `canvas.getContext('2d');` or `canvas.getContext('webgl');`.

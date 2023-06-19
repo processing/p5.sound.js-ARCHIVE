@@ -43,7 +43,7 @@ Sometimes p5.js needs to use new browser APIs or other features which haven't ye
 
 ## [p5.Element.js](./p5.Element.js)
 
-Although p5.js is a general toolkit for all sorts of interactive art projects, in practice many p5.js sketches focus on rendering two dimensional graphics into a `<canvas>` element. The `p5.Element.js` module is a wrapper around the browser's DOM API which is focused on the `<canvas>` element and also handles user input events like clicks and mouse movements. Conceptually, p5.js considers the sketch to be *the entire web page*. It's useful to separate `<canvas>` from the more general DOM because so many p5.js projects focus on `<canvas>` and this enables smaller [custom builds](https://github.com/processing/p5.js/blob/main/contributor_docs/custom_p5_build.md). 
+Although p5.js is a general toolkit for all sorts of interactive art projects, in practice many p5.js sketches focus on rendering two dimensional into a `<canvas>` element. The `p5.Element.js` module is a wrapper around the browser's DOM API which is focused on the `<canvas>` element and also handles user input events like clicks and mouse movements. Conceptually, p5.js considers the sketch to be *the entire web page*. It's useful to separate `<canvas>` from the more general DOM because so many p5.js projects focus on `<canvas>` and this enables smaller [custom builds](https://github.com/processing/p5.js/blob/main/contributor_docs/custom_p5_build.md). 
 
 # Rendering
 
@@ -51,7 +51,7 @@ Although p5.js is a general toolkit for all sorts of interactive art projects, i
 
 ## [rendering.js](./rendering.js)
 
-The `rendering.js` module presents the user-facing API for p5's various graphical output options. In the overwhelming majority of cases, a p5.js sketch will be output to a `<canvas>` tag on the current web page, but it is also possible to do "headless" output using `nocanvas` mode or "render" to a graphics buffer that is computed but never actually appears on the screen.
+The `rendering.js` module presents the user-facing API for p5's various graphical output options. In the overwhelming majority of cases, a p5.js sketch will be output to a `<canvas>` tag on the current web page, but it is also possible to do "headless" output using `nocanvas` mode or "render" to a buffer that is computed but never actually appears on the screen.
 
 ## [p5.Renderer.js](./p5.Renderer.js)
 
@@ -61,9 +61,6 @@ The `p5.Renderer.js` module provides a common base definition for a p5 project o
 
 The `p5.Renderer2D.js` module extends the generic `p5.Renderer` definition and optimizes it for two dimensional images.
 
-## [p5.Graphics.js](./p5.Graphics.js)
-
-The `p5.Graphics` module is a lightweight wrapper around renderers which is used to create output graphics in memory without ever actually drawing them on the screen.
 
 # Drawing
 

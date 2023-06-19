@@ -226,43 +226,6 @@ p5.prototype.clear = function(...args) {
  *
  * <div>
  * <code>
- * // H, S & B integer values
- * colorMode(HSB);
- * fill(255, 204, 100);
- * rect(20, 20, 60, 60);
- * describe('royal blue rect with black outline in center of canvas');
- * </code>
- * </div>
- *
- * <div>
- * <code>
- * // Named SVG/CSS color string
- * fill('red');
- * rect(20, 20, 60, 60);
- * describe('red rect with black outline in center of canvas');
- * </code>
- * </div>
- *
- * <div>
- * <code>
- * // three-digit hexadecimal RGB notation
- * fill('#fae');
- * rect(20, 20, 60, 60);
- * describe('pink rect with black outline in center of canvas');
- * </code>
- * </div>
- *
- * <div>
- * <code>
- * // six-digit hexadecimal RGB notation
- * fill('#222222');
- * rect(20, 20, 60, 60);
- * describe('black rect with black outline in center of canvas');
- * </code>
- * </div>
- *
- * <div>
- * <code>
  * // integer RGB notation
  * fill('rgb(0,255,0)');
  * rect(20, 20, 60, 60);
@@ -270,32 +233,6 @@ p5.prototype.clear = function(...args) {
  * </code>
  * </div>
  *
- * <div>
- * <code>
- * // integer RGBA notation
- * fill('rgba(0,255,0, 0.25)');
- * rect(20, 20, 60, 60);
- * describe('soft green rect with black outline in center of canvas');
- * </code>
- * </div>
- *
- * <div>
- * <code>
- * // percentage RGB notation
- * fill('rgb(100%,0%,10%)');
- * rect(20, 20, 60, 60);
- * describe('red rect with black outline in center of canvas');
- * </code>
- * </div>
- *
- * <div>
- * <code>
- * // percentage RGBA notation
- * fill('rgba(100%,0%,100%,0.5)');
- * rect(20, 20, 60, 60);
- * describe('dark fuchsia rect with black outline in center of canvas');
- * </code>
- * </div>
  *
  * <div>
  * <code>
@@ -336,84 +273,6 @@ p5.prototype.fill = function(...args) {
   this._renderer._setProperty('_fillSet', true);
   this._renderer._setProperty('_doFill', true);
   this._renderer.fill(...args);
-  return this;
-};
-
-/**
- * Disables filling geometry. If both <a href="#/p5/noStroke">noStroke()</a> and <a href="#/p5/noFill">noFill()</a> are called,
- * nothing will be drawn to the screen.
- *
- * @method noFill
- * @chainable
- * @example
- * <div>
- * <code>
- * rect(15, 10, 55, 55);
- * noFill();
- * rect(20, 20, 60, 60);
- * describe(`White rect at top middle and noFill rect center,
- * both with black outlines.`);
- * </code>
- * </div>
- *
- * <div modernizr='webgl'>
- * <code>
- * function setup() {
- *   createCanvas(100, 100, WEBGL);
- * }
- *
- * function draw() {
- *   background(0);
- *   noFill();
- *   stroke(100, 100, 240);
- *   rotateX(frameCount * 0.01);
- *   rotateY(frameCount * 0.01);
- *   box(45, 45, 45);
- *   describe('black canvas with purple cube wireframe spinning');
- * }
- * </code>
- * </div>
- */
-p5.prototype.noFill = function() {
-  this._renderer._setProperty('_doFill', false);
-  return this;
-};
-
-/**
- * Disables drawing the stroke (outline). If both <a href="#/p5/noStroke">noStroke()</a> and <a href="#/p5/noFill">noFill()</a>
- * are called, nothing will be drawn to the screen.
- *
- * @method noStroke
- * @chainable
- * @example
- * <div>
- * <code>
- * noStroke();
- * rect(20, 20, 60, 60);
- * describe('White rect at center; no outline.');
- * </code>
- * </div>
- *
- * <div modernizr='webgl'>
- * <code>
- * function setup() {
- *   createCanvas(100, 100, WEBGL);
- * }
- *
- * function draw() {
- *   background(0);
- *   noStroke();
- *   fill(240, 150, 150);
- *   rotateX(frameCount * 0.01);
- *   rotateY(frameCount * 0.01);
- *   box(45, 45, 45);
- *   describe('black canvas with pink cube spinning');
- * }
- * </code>
- * </div>
- */
-p5.prototype.noStroke = function() {
-  this._renderer._setProperty('_doStroke', false);
   return this;
 };
 
@@ -464,47 +323,6 @@ p5.prototype.noStroke = function() {
  *
  * <div>
  * <code>
- * // H, S & B integer values
- * colorMode(HSB);
- * strokeWeight(4);
- * stroke(255, 204, 100);
- * rect(20, 20, 60, 60);
- * describe('White rect at center with royal blue outline.');
- * </code>
- * </div>
- *
- * <div>
- * <code>
- * // Named SVG/CSS color string
- * stroke('red');
- * strokeWeight(4);
- * rect(20, 20, 60, 60);
- * describe('White rect at center with red outline.');
- * </code>
- * </div>
- *
- * <div>
- * <code>
- * // three-digit hexadecimal RGB notation
- * stroke('#fae');
- * strokeWeight(4);
- * rect(20, 20, 60, 60);
- * describe('White rect at center with pink outline.');
- * </code>
- * </div>
- *
- * <div>
- * <code>
- * // six-digit hexadecimal RGB notation
- * stroke('#222222');
- * strokeWeight(4);
- * rect(20, 20, 60, 60);
- * describe('White rect at center with black outline.');
- * </code>
- * </div>
- *
- * <div>
- * <code>
  * // integer RGB notation
  * stroke('rgb(0,255,0)');
  * strokeWeight(4);
@@ -513,45 +331,6 @@ p5.prototype.noStroke = function() {
  * </code>
  * </div>
  *
- * <div>
- * <code>
- * // integer RGBA notation
- * stroke('rgba(0,255,0,0.25)');
- * strokeWeight(4);
- * rect(20, 20, 60, 60);
- * describe('White rect at center with soft green outline.');
- * </code>
- * </div>
- *
- * <div>
- * <code>
- * // percentage RGB notation
- * stroke('rgb(100%,0%,10%)');
- * strokeWeight(4);
- * rect(20, 20, 60, 60);
- * describe('White rect at center with red outline.');
- * </code>
- * </div>
- *
- * <div>
- * <code>
- * // percentage RGBA notation
- * stroke('rgba(100%,0%,100%,0.5)');
- * strokeWeight(4);
- * rect(20, 20, 60, 60);
- * describe('White rect at center with dark fuchsia outline.');
- * </code>
- * </div>
- *
- * <div>
- * <code>
- * // p5 Color object
- * stroke(color(0, 0, 255));
- * strokeWeight(4);
- * rect(20, 20, 60, 60);
- * describe('White rect at center with blue outline.');
- * </code>
- * </div>
  */
 
 /**
@@ -584,114 +363,6 @@ p5.prototype.stroke = function(...args) {
   this._renderer._setProperty('_strokeSet', true);
   this._renderer._setProperty('_doStroke', true);
   this._renderer.stroke(...args);
-  return this;
-};
-
-/**
- * All drawing that follows <a href="#/p5/erase">erase()</a> will subtract from
- * the canvas. Erased areas will reveal the web page underneath the canvas. Erasing
- * can be canceled with <a href="#/p5/noErase">noErase()</a>.
- *
- * Drawing done with and <a href="#/p5/background">
- * background()</a> in between <a href="#/p5/erase">erase()</a> and
- * <a href="#/p5/noErase">noErase()</a> will not erase the canvas but works as usual.
- *
- * @method erase
- * @param  {Number}   [strengthFill]      A number (0-255) for the strength of erasing for a shape's fill.
- *                                        This will default to 255 when no argument is given, which
- *                                        is full strength.
- * @param  {Number}   [strengthStroke]    A number (0-255) for the strength of erasing for a shape's stroke.
- *                                        This will default to 255 when no argument is given, which
- *                                        is full strength.
- *
- * @chainable
- * @example
- * <div>
- * <code>
- * background(100, 100, 250);
- * fill(250, 100, 100);
- * rect(20, 20, 60, 60);
- * erase();
- * ellipse(25, 30, 30);
- * noErase();
- * describe(`60×60 centered pink rect, purple background.
- * Elliptical area in top-left of rect is erased white.`);
- * </code>
- * </div>
- *
- * <div>
- * <code>
- * background(150, 250, 150);
- * fill(100, 100, 250);
- * rect(20, 20, 60, 60);
- * strokeWeight(5);
- * erase(150, 255);
- * triangle(50, 10, 70, 50, 90, 10);
- * noErase();
- * describe(`60×60 centered purple rect, mint green background.
- * Triangle in top-right is partially erased with fully erased outline.`);
- * </code>
- * </div>
- *
- * <div>
- * <code>
- * function setup() {
- *   smooth();
- *   createCanvas(100, 100, WEBGL);
- *   // Make a &lt;p&gt; element and put it behind the canvas
- *   let p = createP('I am a dom element');
- *   p.center();
- *   p.style('font-size', '20px');
- *   p.style('text-align', 'center');
- *   p.style('z-index', '-9999');
- * }
- *
- * function draw() {
- *   background(250, 250, 150);
- *   fill(15, 195, 185);
- *   noStroke();
- *   erase();
- *   rotateY(frameCount * 0.02);
- *   translate(0, 0, 40);
- *   torus(15, 5);
- *   noErase();
- * }
- * </code>
- * </div>
- */
-p5.prototype.erase = function(opacityFill = 255, opacityStroke = 255) {
-  this._renderer.erase(opacityFill, opacityStroke);
-
-  return this;
-};
-
-/**
- * Ends erasing that was started with <a href="#/p5/erase">erase()</a>.
- * The <a href="#/p5/fill">fill()</a>, <a href="#/p5/stroke">stroke()</a>, and
- * <a href="#/p5/blendMode">blendMode()</a> settings will return to what they were
- * prior to calling <a href="#/p5/erase">erase()</a>.
- *
- * @method noErase
- * @chainable
- * @example
- * <div>
- * <code>
- * background(235, 145, 15);
- * noStroke();
- * fill(30, 45, 220);
- * rect(30, 10, 10, 80);
- * erase();
- * ellipse(50, 50, 60);
- * noErase();
- * rect(70, 10, 10, 80);
- * describe(`Orange background, with two tall blue rectangles.
- * A centered ellipse erased the first blue rect but not the second.`);
- * </code>
- * </div>
- */
-
-p5.prototype.noErase = function() {
-  this._renderer.noErase();
   return this;
 };
 

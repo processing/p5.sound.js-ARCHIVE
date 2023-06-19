@@ -48,21 +48,12 @@ p5.Renderer2D.prototype.background = function (...args) {
   // create background rect
   const color = this._pInst.color(...args);
 
-
   const newFill = color.toString();
   this._setFill(newFill);
-
-  if (this._isErasing) {
-    this.blendMode(this._cachedBlendMode);
-  }
 
   this.drawingContext.fillRect(0, 0, this.width, this.height);
   // reset fill
   this._setFill(curFill);
-
-  if (this._isErasing) {
-    this._pInst.erase();
-  }
 
   this.drawingContext.restore();
 };
@@ -86,28 +77,6 @@ p5.Renderer2D.prototype.stroke = function (...args) {
 
 
 };
-
-p5.Renderer2D.prototype.erase = function (opacityFill, opacityStroke) {
-  if (!this._isErasing) {
-    // cache the fill style
-    this._cachedFillStyle = this.drawingContext.fillStyle;
-    const newFill = this._pInst.color(255, opacityFill).toString();
-    this.drawingContext.fillStyle = newFill;
-
-    //cache the stroke style
-    this._cachedStrokeStyle = this.drawingContext.strokeStyle;
-    const newStroke = this._pInst.color(255, opacityStroke).toString();
-    this.drawingContext.strokeStyle = newStroke;
-
-    //cache blendMode
-    const tempBlendMode = this._cachedBlendMode;
-    this.blendMode(constants.REMOVE);
-    this._cachedBlendMode = tempBlendMode;
-
-    this._isErasing = true;
-  }
-};
-
 
 //////////////////////////////////////////////
 // IMAGE | Pixels

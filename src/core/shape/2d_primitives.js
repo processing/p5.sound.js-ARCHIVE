@@ -59,18 +59,11 @@ p5.prototype._renderEllipse = function(x, y, w, h) {
     w = Math.abs(w);
   }
 
-  if (typeof h === 'undefined') {
-    // Duplicate 3rd argument if only 3 given.
-    h = w;
-  } else if (h < 0) {
+  if (h < 0) {
     h = Math.abs(h);
   }
-  this._renderer.ellipse([x, y, w, h]);
 
-  //accessible Outputs
-  if (this._accessibleOutputs.grid || this._accessibleOutputs.text) {
-    this._accsOutput('ellipse', [vals.x, vals.y, vals.w, vals.h]);
-  }
+  this._renderer.ellipse([x, y, w, h]);
 
   return this;
 };

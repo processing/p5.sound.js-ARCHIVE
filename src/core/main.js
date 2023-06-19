@@ -425,90 +425,6 @@ class p5 {
       }
     };
 
-    /**
-     * Removes the entire p5 sketch. This will remove the canvas and any
-     * elements created by p5.js. It will also stop the draw loop and unbind
-     * any properties or methods from the window global scope. It will
-     * leave a variable p5 in case you wanted to create a new p5 sketch.
-     * If you like, you can set p5 = null to erase it. While all functions and
-     * variables and objects created by the p5 library will be removed, any
-     * other global variables created by your code will remain.
-     *
-     * @method remove
-     * @example
-     * <div class='norender'><code>
-     * function draw() {
-     *   ellipse(50, 50, 10, 10);
-     * }
-     *
-     * function mousePressed() {
-     *   remove(); // remove whole sketch on mouse press
-     * }
-     * </code></div>
-     *
-     * @alt
-     * nothing displayed
-     *
-     */
-    this.remove = () => {
-      const loadingScreen = document.getElementById(this._loadingScreenId);
-      if (loadingScreen) {
-        loadingScreen.parentNode.removeChild(loadingScreen);
-        // Add 1 to preload counter to prevent the sketch ever executing setup()
-        this._incrementPreload();
-      }
-      if (this._curElement) {
-        // stop draw
-        this._loop = false;
-        if (this._requestAnimId) {
-          window.cancelAnimationFrame(this._requestAnimId);
-        }
-
-        // unregister events sketch-wide
-        for (const ev in this._events) {
-          window.removeEventListener(ev, this._events[ev]);
-        }
-
-        // remove DOM elements created by p5, and listeners
-        for (const e of this._elements) {
-          if (e.elt && e.elt.parentNode) {
-            e.elt.parentNode.removeChild(e.elt);
-          }
-          for (const elt_ev in e._events) {
-            e.elt.removeEventListener(elt_ev, e._events[elt_ev]);
-          }
-        }
-
-        // call any registered remove functions
-        const self = this;
-        this._registeredMethods.remove.forEach(f => {
-          if (typeof f !== 'undefined') {
-            f.call(self);
-          }
-        });
-      }
-      // remove window bound properties and methods
-      if (this._isGlobal) {
-        for (const p in p5.prototype) {
-          try {
-            delete window[p];
-          } catch (x) {
-            window[p] = undefined;
-          }
-        }
-        for (const p2 in this) {
-          if (this.hasOwnProperty(p2)) {
-            try {
-              delete window[p2];
-            } catch (x) {
-              window[p2] = undefined;
-            }
-          }
-        }
-        p5.instance = null;
-      }
-    };
-
     // call any registered init functions
     this._registeredMethods.init.forEach(function(f) {
       if (typeof f !== 'undefined') {
@@ -714,14 +630,8 @@ p5.VERSION = constants.VERSION;
 // functions that cause preload to wait
 // more can be added by using registerPreloadMethod(func)
 p5.prototype._preloadMethods = {
-  loadJSON: p5.prototype,
   loadImage: p5.prototype,
-  loadStrings: p5.prototype,
-  loadXML: p5.prototype,
   loadBytes: p5.prototype,
-  loadTable: p5.prototype,
-  loadFont: p5.prototype,
-  loadModel: p5.prototype,
   loadShader: p5.prototype
 };
 

@@ -379,42 +379,6 @@ p5.prototype.windowWidth = getWindowWidth();
  */
 p5.prototype.windowHeight = getWindowHeight();
 
-/**
- * The <a href="#/p5/windowResized">windowResized()</a> function is called once
- * every time the browser window is resized. This is a good place to resize the
- * canvas or do any other adjustments to accommodate the new window size.
- *
- * @method windowResized
- * @param {Object} [event] optional Event callback argument.
- * @example
- * <div class="norender"><code>
- * function setup() {
- *   createCanvas(windowWidth, windowHeight);
- * }
- *
- * function draw() {
- *   background(0, 100, 200);
- * }
- *
- * function windowResized() {
- *   resizeCanvas(windowWidth, windowHeight);
- * }
- * </code></div>
- * @alt
- * This example does not render anything.
- */
-p5.prototype._onresize = function(e) {
-  this._setProperty('windowWidth', getWindowWidth());
-  this._setProperty('windowHeight', getWindowHeight());
-  const context = this._isGlobal ? window : this;
-  let executeDefault;
-  if (typeof context.windowResized === 'function') {
-    executeDefault = context.windowResized(e);
-    if (executeDefault !== undefined && !executeDefault) {
-      e.preventDefault();
-    }
-  }
-};
 
 function getWindowWidth() {
   return (

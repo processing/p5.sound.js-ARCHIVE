@@ -303,19 +303,6 @@ p5.Renderer2D.prototype._getPixel = function (x, y) {
   ];
 };
 
-p5.Renderer2D.prototype.loadPixels = function () {
-  const pixelsState = this._pixelsState; // if called by p5.Image
-
-  const pd = pixelsState._pixelDensity;
-  const w = this.width * pd;
-  const h = this.height * pd;
-  const imageData = this.drawingContext.getImageData(0, 0, w, h);
-  // @todo this should actually set pixels per object, so diff buffers can
-  // have diff pixel arrays.
-  pixelsState._setProperty('imageData', imageData);
-  pixelsState._setProperty('pixels', imageData.data);
-};
-
 p5.Renderer2D.prototype.set = function (x, y, imgOrCol) {
   // round down to get integer numbers
   x = Math.floor(x);

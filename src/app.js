@@ -20,9 +20,6 @@ import './color/creating_reading';
 import './color/p5.Color';
 import './color/setting';
 
-// image
-import './image/pixels';
-
 // utilities
 import './utilities/conversion';
 

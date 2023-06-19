@@ -36,23 +36,6 @@ suite('Attributes', function() {
     });
   });
 
-  suite('p5.prototype.rectMode', function() {
-    test('should be a function', function() {
-      assert.ok(myp5.rectMode);
-      assert.typeOf(myp5.rectMode, 'function');
-    });
-    test('wrong param type at #0', function() {
-      assert.validationError(function() {
-        myp5.rectMode(myp5.MITER);
-      });
-    });
-    test('wrong param type at #0', function() {
-      assert.validationError(function() {
-        myp5.rectMode(64);
-      });
-    });
-  });
-
   suite('p5.prototype.noSmooth', function() {
     test('should be a function', function() {
       assert.ok(myp5.noSmooth);

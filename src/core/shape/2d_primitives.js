@@ -7,7 +7,6 @@
  */
 
 import p5 from '../main';
-import canvas from '../helpers';
 
 /**
  * Draws an ellipse (oval) to the canvas. An ellipse with equal width and height
@@ -42,17 +41,13 @@ import canvas from '../helpers';
  * @param  {Number} y
  * @param  {Number} w
  * @param  {Number} h
- * @param  {Integer} [detail] optional parameter for WebGL mode only. This is to
- *                         specify the number of vertices that makes up the
- *                         perimeter of the ellipse. Default value is 25. Won't
- *                         draw a stroke for a detail of more than 50.
  */
-p5.prototype.ellipse = function(x, y, w, h, detailX) {
+p5.prototype.ellipse = function(x, y, w, h) {
   return this._renderEllipse(...arguments);
 };
 
 // internal method for drawing ellipses (without parameter validation)
-p5.prototype._renderEllipse = function(x, y, w, h, detailX) {
+p5.prototype._renderEllipse = function(x, y, w, h) {
   // if the current stroke and fill settings wouldn't result in something
   // visible, exit immediately
   if (!this._renderer._doStroke && !this._renderer._doFill) {
@@ -70,9 +65,7 @@ p5.prototype._renderEllipse = function(x, y, w, h, detailX) {
   } else if (h < 0) {
     h = Math.abs(h);
   }
-
-  const vals = canvas.modeAdjust(x, y, w, h, this._renderer._ellipseMode);
-  this._renderer.ellipse([vals.x, vals.y, vals.w, vals.h, detailX]);
+  this._renderer.ellipse([x, y, w, h]);
 
   //accessible Outputs
   if (this._accessibleOutputs.grid || this._accessibleOutputs.text) {

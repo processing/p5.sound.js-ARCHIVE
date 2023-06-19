@@ -2,7 +2,6 @@
 import p5 from './core/main';
 import './core/constants';
 import './core/environment';
-import './core/helpers';
 import './core/preload';
 import './core/p5.Element';
 import './core/p5.Renderer';

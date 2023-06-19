@@ -46,10 +46,8 @@ p5.Renderer = function (elt, pInst, isMainCanvas) {
   this._textBaseline = constants.BASELINE;
   this._textWrap = constants.WORD;
 
-  this._rectMode = constants.CORNER;
   this._ellipseMode = constants.CENTER;
   this._curveTightness = 0;
-  this._imageMode = constants.CORNER;
 
   this._tint = null;
   this._doStroke = true;

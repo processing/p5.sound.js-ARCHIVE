@@ -7,7 +7,6 @@
  */
 
 import p5 from '../core/main';
-import * as constants from '../core/constants';
 import './p5.Color';
 
 /**
@@ -259,49 +258,6 @@ p5.prototype.clear = function(...args) {
  * </div>
  *
  */
-
-/**
- * @method colorMode
- * @param {Constant} mode
- * @param {Number} max1     range for the red or hue depending on the
- *                              current color mode
- * @param {Number} max2     range for the green or saturation depending
- *                              on the current color mode
- * @param {Number} max3     range for the blue or brightness/lightness
- *                              depending on the current color mode
- * @param {Number} [maxA]   range for the alpha
- * @chainable
- */
-p5.prototype.colorMode = function(mode, max1, max2, max3, maxA) {
-  if (
-    mode === constants.RGB ||
-    mode === constants.HSB ||
-    mode === constants.HSL
-  ) {
-    // Set color mode.
-    this._colorMode = mode;
-
-    // Set color maxes.
-    const maxes = this._colorMaxes[mode];
-    if (arguments.length === 2) {
-      maxes[0] = max1; // Red
-      maxes[1] = max1; // Green
-      maxes[2] = max1; // Blue
-      maxes[3] = max1; // Alpha
-    } else if (arguments.length === 4) {
-      maxes[0] = max1; // Red
-      maxes[1] = max2; // Green
-      maxes[2] = max3; // Blue
-    } else if (arguments.length === 5) {
-      maxes[0] = max1; // Red
-      maxes[1] = max2; // Green
-      maxes[2] = max3; // Blue
-      maxes[3] = maxA; // Alpha
-    }
-  }
-
-  return this;
-};
 
 /**
  * Sets the color used to fill shapes. For example, if you run fill(204, 102, 0),

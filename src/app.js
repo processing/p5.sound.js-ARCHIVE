@@ -21,7 +21,6 @@ import './color/p5.Color';
 import './color/setting';
 
 // image
-import './image/image';
 import './image/pixels';
 
 // utilities

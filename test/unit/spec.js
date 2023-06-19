@@ -13,7 +13,6 @@ var spec = {
     'transform',
     'version'
   ],
-  image: ['loading', 'pixels', 'downloading'],
   math: ['calculation', 'noise', 'p5.Vector', 'random', 'trigonometry'],
   utilities: ['conversion']
 };

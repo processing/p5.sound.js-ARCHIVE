@@ -62,10 +62,6 @@
       "p_9": "9번째"
     },
     "pre": "\n🌸 p5.js says: {{message}}",
-    "sketchReaderErrors": {
-      "reservedConst": "p5.js에서 이미 쓰고 있는 변수 \"{{symbol}}\"를 사용하셨습니다. 해당 변수를 다른 이름으로 바꾸어 주세요.\n\n+ 추가 정보: {{url}}",
-      "reservedFunc": "p5.js에서 이미 쓰고 있는 함수 \"{{symbol}}\"를 사용하셨습니다. 해당 함수를 다른 이름으로 바꾸어 주세요.\n\n+ 추가 정보: {{url}}"
-    },
     "welcome": "{{logo}} 환영합니다, 이 메세지는 에러를 찾는 디버깅 안내문입니다. 안내가 필요없는 경우 p5.js대신 p5.min.js를 사용하세요.",
     "wrongPreload": "{{location}} \"{{func}}\"가 호출되며 p5js 라이브러리 내부에서 다음 오류가 발생했습니다: \"{{error}}\".\n\n 함수 \"{{func}}\"가 preload()에서 호출되었기 때문일 수 있습니다. preload() 함수 안에서는 지정된 함수(예: loadImage, loadJSON, loadFont, loadStrings 등)만 호출할 수 있습니다."
   }

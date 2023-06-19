@@ -331,15 +331,6 @@ p5.prototype.saveGif = async function(
     p.position(0, 0);
   }
 
-  let pixels;
-  let gl;
-  if (this._renderer instanceof p5.RendererGL) {
-    // if we have a WEBGL context, initialize the pixels array
-    // and the gl context to use them inside the loop
-    gl = this.drawingContext;
-    pixels = new Uint8Array(gl.drawingBufferWidth * gl.drawingBufferHeight * 4);
-  }
-
   // stop the loop since we are going to manually redraw
   this.noLoop();
 
@@ -364,25 +355,8 @@ p5.prototype.saveGif = async function(
     // or another
     let data = undefined;
 
-    if (this._renderer instanceof p5.RendererGL) {
-      pixels = new Uint8Array(
-        gl.drawingBufferWidth * gl.drawingBufferHeight * 4
-      );
-      gl.readPixels(
-        0,
-        0,
-        gl.drawingBufferWidth,
-        gl.drawingBufferHeight,
-        gl.RGBA,
-        gl.UNSIGNED_BYTE,
-        pixels
-      );
-
-      data = _flipPixels(pixels);
-    } else {
-      data = this.drawingContext.getImageData(0, 0, this.width, this.height)
-        .data;
-    }
+    data = this.drawingContext.getImageData(0, 0, this.width, this.height)
+      .data;
 
     frames.push(data);
     frameIterator++;
@@ -509,34 +483,6 @@ p5.prototype.saveGif = async function(
 
   p5.prototype.downloadFile(blob, fileName, extension);
 };
-
-function _flipPixels(pixels) {
-  // extracting the pixels using readPixels returns
-  // an upside down image. we have to flip it back
-  // first. this solution is proposed by gman on
-  // this stack overflow answer:
-  // https://stackoverflow.com/questions/41969562/how-can-i-flip-the-result-of-webglrenderingcontext-readpixels
-
-  const halfHeight = parseInt(height / 2);
-  const bytesPerRow = width * 4;
-
-  // make a temp buffer to hold one row
-  const temp = new Uint8Array(width * 4);
-  for (let y = 0; y < halfHeight; ++y) {
-    const topOffset = y * bytesPerRow;
-    const bottomOffset = (height - y - 1) * bytesPerRow;
-
-    // make copy of a row on the top half
-    temp.set(pixels.subarray(topOffset, topOffset + bytesPerRow));
-
-    // copy a row from the bottom half to the top
-    pixels.copyWithin(topOffset, bottomOffset, bottomOffset + bytesPerRow);
-
-    // copy the copy of the top half row to the bottom half
-    pixels.set(temp, bottomOffset);
-  }
-  return pixels;
-}
 
 function _generateGlobalPalette(frames) {
   // make an array the size of every possible color in every possible frame

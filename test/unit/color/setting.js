@@ -68,48 +68,7 @@ suite('color/Setting', function() {
     });
   });
 
-  suite('p5.RendererGL.prototype.erase', function() {
-    test('should set renderer to erasing state', function() {
-      my3D.erase();
-      assert.isTrue(my3D._renderer._isErasing);
-    });
 
-    test('should cache renderer fill', function() {
-      my3D.fill(255, 0, 0);
-      const curFillColor = my3D._renderer.curFillColor;
-      my3D.erase();
-      assert.deepEqual(my3D._renderer._cachedFillStyle, curFillColor);
-    });
-
-    test('should cache renderer stroke', function() {
-      my3D.stroke(255, 0, 0);
-      const strokeStyle = my3D._renderer.curStrokeColor;
-      my3D.erase();
-      assert.deepEqual(my3D._renderer._cachedStrokeStyle, strokeStyle);
-    });
-
-    test('should cache renderer blend', function() {
-      my3D.blendMode(my3D.SCREEN);
-      my3D.erase();
-      assert.deepEqual(my3D._renderer._cachedBlendMode, my3D.SCREEN);
-    });
-
-    test('should set fill strength', function() {
-      my3D.erase(125);
-      assert.deepEqual(my3D._renderer.curFillColor, [1, 1, 1, 125 / 255]);
-    });
-
-    test('should set stroke strength', function() {
-      my3D.erase(255, 50);
-      assert.deepEqual(my3D._renderer.curStrokeColor, [1, 1, 1, 50 / 255]);
-    });
-
-    test('should set default values when no arguments', function() {
-      my3D.erase();
-      assert.deepEqual(my3D._renderer.curFillColor, [1, 1, 1, 1]);
-      assert.deepEqual(my3D._renderer.curStrokeColor, [1, 1, 1, 1]);
-    });
-  });
 
   suite('p5.prototype.noErase', function() {
     test('should be a function', function() {
@@ -139,29 +98,6 @@ suite('color/Setting', function() {
     });
   });
 
-  suite('p5.RendererGL.prototype.noErase', function() {
-    test('should turn off renderer erasing state', function() {
-      my3D.erase();
-      my3D.noErase();
-      assert.isFalse(my3D._renderer._isErasing);
-    });
-
-    test('should restore cached renderer fill', function() {
-      my3D.fill(255, 0, 0);
-      const fillStyle = my3D._renderer.curFillColor.slice();
-      my3D.erase();
-      my3D.noErase();
-      assert.deepEqual([1, 0, 0, 1], fillStyle);
-    });
-
-    test('should restore cached renderer stroke', function() {
-      my3D.stroke(255, 0, 0);
-      const strokeStyle = my3D._renderer.curStrokeColor.slice();
-      my3D.erase();
-      my3D.noErase();
-      assert.deepEqual([1, 0, 0, 1], strokeStyle);
-    });
-  });
 
   suite('p5.prototype.colorMode', function() {
     test('should be a function', function() {

@@ -319,7 +319,7 @@ if (typeof IS_MINIFIED !== 'undefined') {
       }
     }
     const keyArray = Object.keys(p5Constructors);
-    const classesWithGlobalFns = ['Renderer', 'Renderer2D', 'RendererGL'];
+    const classesWithGlobalFns = ['Renderer', 'Renderer2D'];
     let functionArray = [];
     //get the names of all p5.js functions which are available globally
     for (let i = 0; i < classesWithGlobalFns.length; i++) {

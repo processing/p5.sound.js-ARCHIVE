@@ -7,7 +7,6 @@
 import p5 from './main';
 import * as constants from './constants';
 import './p5.Renderer2D';
-import '../webgl/p5.RendererGL';
 let defaultId = 'defaultCanvas0'; // this gets set again in createCanvas
 const defaultClass = 'p5Canvas';
 
@@ -107,17 +106,11 @@ p5.prototype.createCanvas = function(w, h, renderer) {
   }
 
   // Init our renderer
-  //webgl mode
-  if (r === constants.WEBGL) {
-    // this._setProperty('_renderer', new p5.RendererGL(c, this, true));
-    // this._elements.push(this._renderer);
-  } else {
-    //P2D mode
-    if (!this._defaultGraphicsCreated) {
-      this._setProperty('_renderer', new p5.Renderer2D(c, this, true));
-      this._defaultGraphicsCreated = true;
-      this._elements.push(this._renderer);
-    }
+  //P2D mode
+  if (!this._defaultGraphicsCreated) {
+    this._setProperty('_renderer', new p5.Renderer2D(c, this, true));
+    this._defaultGraphicsCreated = true;
+    this._elements.push(this._renderer);
   }
   this._renderer.resize(w, h);
   this._renderer._applyDefaults();

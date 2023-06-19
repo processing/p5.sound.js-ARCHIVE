@@ -272,36 +272,18 @@ p5.prototype._copyHelper = (
   // ie top-left = -width/2, -height/2
   let sxMod = 0;
   let syMod = 0;
-  if (srcImage._renderer && srcImage._renderer.isP3D) {
-    sxMod = srcImage.width / 2;
-    syMod = srcImage.height / 2;
-  }
-  if (dstImage._renderer && dstImage._renderer.isP3D) {
-    p5.RendererGL.prototype.image.call(
-      dstImage._renderer,
-      srcImage,
-      sx + sxMod,
-      sy + syMod,
-      sw,
-      sh,
-      dx,
-      dy,
-      dw,
-      dh
-    );
-  } else {
-    dstImage.drawingContext.drawImage(
-      srcImage.canvas,
-      s * (sx + sxMod),
-      s * (sy + syMod),
-      s * sw,
-      s * sh,
-      dx,
-      dy,
-      dw,
-      dh
-    );
-  }
+  dstImage.drawingContext.drawImage(
+    srcImage.canvas,
+    s * (sx + sxMod),
+    s * (sy + syMod),
+    s * sw,
+    s * sh,
+    dx,
+    dy,
+    dw,
+    dh
+  );
+
 };
 
 /**

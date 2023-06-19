@@ -212,52 +212,6 @@ function mergeOverloadedMethods(data) {
   });
 }
 
-// build a copy of data.json for the FES, restructured for object lookup on
-// classitems and removing all the parts not needed by the FES
-function buildParamDocs(docs) {
-  let newClassItems = {};
-  // the fields we need for the FES, discard everything else
-  let allowed = new Set(['name', 'class', 'module', 'params', 'overloads']);
-  for (let classitem of docs.classitems) {
-    if (classitem.name && classitem.class) {
-      for (let key in classitem) {
-        if (!allowed.has(key)) {
-          delete classitem[key];
-        }
-      }
-      if (classitem.hasOwnProperty('overloads')) {
-        for (let overload of classitem.overloads) {
-          // remove line number and return type
-          if (overload.line) {
-            delete overload.line;
-          }
-
-          if (overload.return) {
-            delete overload.return;
-          }
-        }
-      }
-      if (!newClassItems[classitem.class]) {
-        newClassItems[classitem.class] = {};
-      }
-
-      newClassItems[classitem.class][classitem.name] = classitem;
-    }
-  }
-
-  let fs = require('fs');
-  let path = require('path');
-  let out = fs.createWriteStream(
-    path.join(process.cwd(), 'docs', 'parameterData.json'),
-    {
-      flags: 'w',
-      mode: '0644'
-    }
-  );
-  out.write(JSON.stringify(newClassItems, null, 2));
-  out.end();
-}
-
 function renderItemDescriptionsAsMarkdown(item) {
   if (item.description) {
     const entities = new Entities();

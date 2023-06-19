@@ -54,7 +54,6 @@ const defaultClass = 'p5Canvas';
  * Black line extending from top-left of canvas to bottom right.
  */
 p5.prototype.createCanvas = function(w, h, renderer) {
-  p5._validateParameters('createCanvas', arguments);
   //optional: renderer, otherwise defaults to p2d
   const r = renderer || constants.P2D;
   let c;
@@ -144,7 +143,6 @@ p5.prototype.createCanvas = function(w, h, renderer) {
  * No image displayed.
  */
 p5.prototype.resizeCanvas = function(w, h, noRedraw) {
-  p5._validateParameters('resizeCanvas', arguments);
   if (this._renderer) {
     // save canvas properties
     const props = {};
@@ -265,7 +263,6 @@ p5.prototype.noCanvas = function() {
  * Thick red & blue diagonal rounded lines intersecting center. dark at overlap
  */
 p5.prototype.blendMode = function(mode) {
-  p5._validateParameters('blendMode', arguments);
   if (mode === constants.NORMAL) {
     // Warning added 3/26/19, can be deleted in future (1.0 release?)
     console.warn(

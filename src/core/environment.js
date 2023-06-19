@@ -290,7 +290,6 @@ p5.prototype.cursor = function(type, x, y) {
  * @return {Number}       current frameRate
  */
 p5.prototype.frameRate = function(fps) {
-  p5._validateParameters('frameRate', arguments);
   if (typeof fps !== 'number' || fps < 0) {
     return this._frameRate;
   } else {
@@ -564,7 +563,6 @@ p5.prototype.height = 0;
  * This example does not render anything.
  */
 p5.prototype.fullscreen = function(val) {
-  p5._validateParameters('fullscreen', arguments);
   // no arguments, return fullscreen or not
   if (typeof val === 'undefined') {
     return (
@@ -624,7 +622,6 @@ p5.prototype.fullscreen = function(val) {
  * @returns {Number} current pixel density of the sketch
  */
 p5.prototype.pixelDensity = function(val) {
-  p5._validateParameters('pixelDensity', arguments);
   let returnValue;
   if (typeof val === 'number') {
     if (val !== this._pixelDensity) {

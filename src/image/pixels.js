@@ -162,7 +162,6 @@ p5.prototype.pixels = [];
  * @param  {Constant} blendMode
  */
 p5.prototype.blend = function(...args) {
-  p5._validateParameters('blend', args);
   if (this._renderer) {
     this._renderer.blend(...args);
   } else {
@@ -224,8 +223,6 @@ p5.prototype.blend = function(...args) {
  * @param  {Integer} dh
  */
 p5.prototype.copy = function(...args) {
-  p5._validateParameters('copy', args);
-
   let srcImage, sx, sy, sw, sh, dx, dy, dw, dh;
   if (args.length === 9) {
     srcImage = args[0];
@@ -452,7 +449,6 @@ p5.prototype._copyHelper = (
  * image of a brickwall with less detail
  */
 p5.prototype.filter = function(operation, value) {
-  p5._validateParameters('filter', arguments);
   if (this.canvas !== undefined) {
     Filters.apply(this.canvas, Filters[operation], value);
   } else {
@@ -541,7 +537,6 @@ p5.prototype.filter = function(operation, value) {
  * @return {Number[]}      color of pixel at x,y in array format [R, G, B, A]
  */
 p5.prototype.get = function(x, y, w, h) {
-  p5._validateParameters('get', arguments);
   return this._renderer.get(...arguments);
 };
 
@@ -577,7 +572,6 @@ p5.prototype.get = function(x, y, w, h) {
  * two images of the rocky mountains. one on top, one on bottom of canvas.
  */
 p5.prototype.loadPixels = function(...args) {
-  p5._validateParameters('loadPixels', args);
   this._renderer.loadPixels();
 };
 
@@ -692,7 +686,6 @@ p5.prototype.set = function(x, y, imgOrCol) {
  * two images of the rocky mountains. one on top, one on bottom of canvas.
  */
 p5.prototype.updatePixels = function(x, y, w, h) {
-  p5._validateParameters('updatePixels', arguments);
   // graceful fail - if loadPixels() or set() has not been called, pixel
   // array will be empty, ignore call to updatePixels()
   if (this.pixels.length === 0) {

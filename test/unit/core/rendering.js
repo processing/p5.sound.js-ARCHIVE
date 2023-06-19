@@ -111,35 +111,4 @@ suite('Rendering', function() {
       assert.deepEqual(myp5._glAttributes.antialias, true);
     });
   });
-
-  var webglMethods = [
-    'rotateX', 'rotateY', 'rotateZ',
-    'camera', 'perspective', 'ortho', 'frustum', 'orbitControl',
-    'ambientLight', 'directionalLight', 'pointLight', 'lights', 'specularColor', 'spotLight',
-    'model',
-    'normalMaterial', 'texture', 'ambientMaterial', 'emissiveMaterial', 'specularMaterial',
-    'shininess', 'lightFalloff'
-  ];
-
-  suite('webgl assertions', function() {
-    for (var i = 0; i < webglMethods.length; i++) {
-      var webglMethod = webglMethods[i];
-      test(
-        webglMethod + '() should throw a WEBGL assertion Error',
-        (function(webglMethod) {
-          return function() {
-            var validateParamters = myp5.validateParameters;
-            myp5.validateParameters = false;
-            try {
-              expect(function() {
-                myp5[webglMethod].call(myp5);
-              }).to.throw(Error, /is only supported in WEBGL mode/);
-            } finally {
-              myp5.validateParameters = validateParamters;
-            }
-          };
-        })(webglMethod)
-      );
-    }
-  });
 });

@@ -87,7 +87,6 @@ import omggif from 'omggif';
  * no image displayed
  */
 p5.prototype.createImage = function(width, height) {
-  p5._validateParameters('createImage', arguments);
   return new p5.Image(width, height);
 };
 
@@ -139,7 +138,6 @@ p5.prototype.createImage = function(width, height) {
  *  @param  {String} [extension]
  */
 p5.prototype.saveCanvas = function() {
-  p5._validateParameters('saveCanvas', arguments);
 
   // copy arguments to array
   const args = [].slice.call(arguments);
@@ -459,7 +457,6 @@ p5.prototype.encodeAndDownloadGif = function(pImg, filename) {
  * canvas background goes from light to dark with mouse x.
  */
 p5.prototype.saveFrames = function(fName, ext, _duration, _fps, callback) {
-  p5._validateParameters('saveFrames', arguments);
   let duration = _duration || 3;
   duration = p5.prototype.constrain(duration, 0, 15);
   duration = duration * 1000;

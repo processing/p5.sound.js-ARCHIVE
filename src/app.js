@@ -2,10 +2,6 @@
 import p5 from './core/main';
 import './core/constants';
 import './core/environment';
-import './core/friendly_errors/stacktrace';
-import './core/friendly_errors/validate_params';
-import './core/friendly_errors/file_errors';
-import './core/friendly_errors/fes_core';
 import './core/helpers';
 import './core/legacy';
 import './core/preload';

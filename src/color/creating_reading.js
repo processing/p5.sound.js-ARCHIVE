@@ -9,9 +9,6 @@
 import p5 from '../core/main';
 import * as constants from '../core/constants';
 import './p5.Color';
-import '../core/friendly_errors/validate_params';
-import '../core/friendly_errors/file_errors';
-import '../core/friendly_errors/fes_core';
 
 /**
  * Extracts the alpha value from a color or pixel array.
@@ -36,7 +33,6 @@ import '../core/friendly_errors/fes_core';
  * </div>
  */
 p5.prototype.alpha = function(c) {
-  p5._validateParameters('alpha', arguments);
   return this.color(c)._getAlpha();
 };
 
@@ -62,7 +58,6 @@ p5.prototype.alpha = function(c) {
  *
  */
 p5.prototype.blue = function(c) {
-  p5._validateParameters('blue', arguments);
   return this.color(c)._getBlue();
 };
 
@@ -106,7 +101,6 @@ p5.prototype.blue = function(c) {
  * </div>
  */
 p5.prototype.brightness = function(c) {
-  p5._validateParameters('brightness', arguments);
   return this.color(c)._getBrightness();
 };
 
@@ -285,7 +279,6 @@ p5.prototype.brightness = function(c) {
  * @return {p5.Color}
  */
 p5.prototype.color = function() {
-  p5._validateParameters('color', arguments);
   if (arguments[0] instanceof p5.Color) {
     return arguments[0]; // Do nothing if argument is already a color object.
   }
@@ -318,7 +311,6 @@ p5.prototype.color = function() {
  * </div>
  */
 p5.prototype.green = function(c) {
-  p5._validateParameters('green', arguments);
   return this.color(c)._getGreen();
 };
 
@@ -352,7 +344,6 @@ p5.prototype.green = function(c) {
  *
  */
 p5.prototype.hue = function(c) {
-  p5._validateParameters('hue', arguments);
   return this.color(c)._getHue();
 };
 
@@ -399,7 +390,6 @@ p5.prototype.hue = function(c) {
  */
 
 p5.prototype.lerpColor = function(c1, c2, amt) {
-  p5._validateParameters('lerpColor', arguments);
   const mode = this._colorMode;
   const maxes = this._colorMaxes;
   let l0, l1, l2, l3;
@@ -471,7 +461,6 @@ p5.prototype.lerpColor = function(c1, c2, amt) {
  * </div>
  */
 p5.prototype.lightness = function(c) {
-  p5._validateParameters('lightness', arguments);
   return this.color(c)._getLightness();
 };
 
@@ -510,7 +499,6 @@ p5.prototype.lightness = function(c) {
  * </div>
  */
 p5.prototype.red = function(c) {
-  p5._validateParameters('red', arguments);
   return this.color(c)._getRed();
 };
 
@@ -542,7 +530,6 @@ p5.prototype.red = function(c) {
  * </div>
  */
 p5.prototype.saturation = function(c) {
-  p5._validateParameters('saturation', arguments);
   return this.color(c)._getSaturation();
 };
 

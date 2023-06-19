@@ -116,9 +116,7 @@ FetchResources.type = 'backend';
 export let translator = (key, values) => {
   console.debug('p5.js translator called before translations were loaded');
 
-  // Certain FES functionality may trigger before translations are downloaded.
-  // Using "partialBundledLanguages" option during initialization, we can
-  // still use our fallback language to display messages
+
   i18next.t(key, values); /* i18next-extract-disable-line */
 };
 // (We'll set this to a real value in the init function below!)

@@ -11,10 +11,6 @@ import * as constants from '../core/constants';
 import omggif from 'omggif';
 import { GIFEncoder, quantize, nearestColorIndex } from 'gifenc';
 
-import '../core/friendly_errors/validate_params';
-import '../core/friendly_errors/file_errors';
-import '../core/friendly_errors/fes_core';
-
 /**
  * Loads an image from a path and creates a <a href="#/p5.Image">p5.Image</a> from it.
  *
@@ -67,7 +63,6 @@ import '../core/friendly_errors/fes_core';
  * image of the underside of a white umbrella and grided ceililng above
  */
 p5.prototype.loadImage = function(path, successCallback, failureCallback) {
-  p5._validateParameters('loadImage', arguments);
   const pImg = new p5.Image(1, 1, this);
   const self = this;
 
@@ -942,8 +937,6 @@ p5.prototype.image = function(
 ) {
   // set defaults per spec: https://goo.gl/3ykfOq
 
-  p5._validateParameters('image', arguments);
-
   let defW = img.width;
   let defH = img.height;
   yAlign = yAlign || constants.CENTER;
@@ -1111,7 +1104,6 @@ p5.prototype.image = function(
  * @param  {p5.Color}      color   the tint color
  */
 p5.prototype.tint = function(...args) {
-  p5._validateParameters('tint', args);
   const c = this.color(...args);
   this._renderer._tint = c.levels;
 };
@@ -1220,7 +1212,6 @@ p5.prototype._getTintedImageCanvas =
  * large square image of bricks
  */
 p5.prototype.imageMode = function(m) {
-  p5._validateParameters('imageMode', arguments);
   if (
     m === constants.CORNER ||
     m === constants.CORNERS ||

@@ -9,10 +9,6 @@
 import p5 from '../main';
 import * as constants from '../constants';
 import canvas from '../helpers';
-import '../friendly_errors/fes_core';
-import '../friendly_errors/file_errors';
-import '../friendly_errors/validate_params';
-
 /**
  * This function does 3 things:
  *
@@ -170,7 +166,6 @@ p5.prototype._normalizeArcAngles = (
  *
  */
 p5.prototype.arc = function(x, y, w, h, start, stop, mode, detail) {
-  p5._validateParameters('arc', arguments);
 
   // if the current stroke and fill settings wouldn't result in something
   // visible, exit immediately
@@ -267,7 +262,6 @@ p5.prototype.arc = function(x, y, w, h, start, stop, mode, detail) {
  *                         draw a stroke for a detail of more than 50.
  */
 p5.prototype.ellipse = function(x, y, w, h, detailX) {
-  p5._validateParameters('ellipse', arguments);
   return this._renderEllipse(...arguments);
 };
 
@@ -293,7 +287,6 @@ p5.prototype.ellipse = function(x, y, w, h, detailX) {
  *
  */
 p5.prototype.circle = function() {
-  p5._validateParameters('circle', arguments);
   const args = Array.prototype.slice.call(arguments, 0, 2);
   args.push(arguments[2]);
   args.push(arguments[2]);
@@ -399,7 +392,6 @@ p5.prototype._renderEllipse = function(x, y, w, h, detailX) {
  * @chainable
  */
 p5.prototype.line = function(...args) {
-  p5._validateParameters('line', args);
 
   if (this._renderer._doStroke) {
     this._renderer.line(...args);
@@ -482,7 +474,6 @@ p5.prototype.line = function(...args) {
  * @chainable
  */
 p5.prototype.point = function(...args) {
-  p5._validateParameters('point', args);
 
   if (this._renderer._doStroke) {
     if (args.length === 1 && args[0] instanceof p5.Vector) {
@@ -576,7 +567,6 @@ p5.prototype.point = function(...args) {
  * @chainable
  */
 p5.prototype.quad = function(...args) {
-  p5._validateParameters('quad', args);
 
   if (this._renderer._doStroke || this._renderer._doFill) {
     if (this._renderer.isP3D && args.length < 12) {
@@ -664,7 +654,6 @@ p5.prototype.quad = function(...args) {
  * @chainable
  */
 p5.prototype.rect = function(...args) {
-  p5._validateParameters('rect', args);
   return this._renderRect(...args);
 };
 
@@ -719,7 +708,6 @@ p5.prototype.rect = function(...args) {
  *
  */
 p5.prototype.square = function(x, y, s, tl, tr, br, bl) {
-  p5._validateParameters('square', arguments);
   // duplicate width for height in case of square
   return this._renderRect.call(this, x, y, s, s, tl, tr, br, bl);
 };
@@ -780,7 +768,6 @@ p5.prototype._renderRect = function() {
  *
  */
 p5.prototype.triangle = function(...args) {
-  p5._validateParameters('triangle', args);
 
   if (this._renderer._doStroke || this._renderer._doFill) {
     this._renderer.triangle(args);

@@ -392,7 +392,6 @@ p5.Image = class {
    * @return {Number[]}      color of pixel at x,y in array format [R, G, B, A]
    */
   get(x, y, w, h) {
-    p5._validateParameters('p5.Image.get', arguments);
     return p5.Renderer2D.prototype.get.apply(this, arguments);
   }
 
@@ -843,7 +842,6 @@ p5.Image = class {
    * @param  {Constant} blendMode
    */
   blend(...args) {
-    p5._validateParameters('p5.Image.blend', arguments);
     p5.prototype.blend.apply(this, args);
     this.setModified(true);
   }

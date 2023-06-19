@@ -8,60 +8,6 @@ import * as constants from '../core/constants';
 import { checkWebGLCapabilities } from './p5.Texture';
 import { readPixelsWebGL, readPixelWebGL } from './p5.RendererGL';
 
-class FramebufferCamera extends p5.Camera {
-  /**
-   * A <a href="#/p5.Camera">p5.Camera</a> attached to a
-   * <a href="#/p5.Framebuffer">p5.Framebuffer</a>.
-   *
-   * @class p5.FramebufferCamera
-   * @constructor
-   * @param {p5.Framebuffer} framebuffer The framebuffer this camera is
-   * attached to
-   * @private
-   */
-  constructor(framebuffer) {
-    super(framebuffer.target._renderer);
-    this.fbo = framebuffer;
-
-    // WebGL textures are upside-down compared to textures that come from
-    // images and graphics. Framebuffer cameras need to invert their y
-    // axes when being rendered to so that the texture comes out rightway up
-    // when read in shaders or image().
-    this.yScale = -1;
-  }
-
-  _computeCameraDefaultSettings() {
-    super._computeCameraDefaultSettings();
-    this.defaultAspectRatio = this.fbo.width / this.fbo.height;
-    this.defaultEyeZ =
-      this.fbo.height / 2.0 / Math.tan(this.defaultCameraFOV / 2.0);
-    this.defaultCameraNear = this.defaultEyeZ * 0.1;
-    this.defaultCameraFar = this.defaultEyeZ * 10;
-  }
-
-  /**
-   * Resets the camera to a default perspective camera sized to match
-   * the p5.Framebuffer it is attached to.
-   *
-   * @method resize
-   * @private
-   */
-  _resize() {
-    // If we're using the default camera, update the aspect ratio
-    if (this.cameraType === 'default') {
-      this._computeCameraDefaultSettings();
-      this._setDefaultCamera();
-    } else {
-      this.perspective(
-        this.cameraFOV,
-        this.fbo.width / this.fbo.height
-      );
-    }
-  }
-}
-
-p5.FramebufferCamera = FramebufferCamera;
-
 class FramebufferTexture {
   /**
    * A <a href="#/p5.Texture">p5.Texture</a> corresponding to a property of a
@@ -678,24 +624,6 @@ class Framebuffer {
     this._recreateTextures();
     this.defaultCamera._resize();
   }
-
-  /**
-   * Creates and returns a new
-   * <a href="#/p5.FramebufferCamera">p5.FramebufferCamera</a> to be used
-   * while drawing to this framebuffer. The camera will be set as the
-   * currently active camera.
-   *
-   * @method createCamera
-   * @returns {p5.Camera} A new camera
-   */
-  createCamera() {
-    const cam = new FramebufferCamera(this);
-    cam._computeCameraDefaultSettings();
-    cam._setDefaultCamera();
-    this.target._renderer._curCamera = cam;
-    return cam;
-  }
-
   /**
    * Given a raw texture wrapper, delete its stored texture from WebGL memory,
    * and remove it from p5's list of active textures.

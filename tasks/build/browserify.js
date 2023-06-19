@@ -7,22 +7,22 @@ import browserify from 'browserify';
 import derequire from 'derequire';
 
 const bannerTemplate =
-  '/*! p5.js v<%= pkg.version %> <%= grunt.template.today("mmmm dd, yyyy") %> */';
+  '/*! p5.sound.js v<%= pkg.version %> <%= grunt.template.today("mmmm dd, yyyy") %> */';
 
 module.exports = function(grunt) {
   const srcFilePath = require.resolve('../../src/app.js');
 
   grunt.registerTask(
     'browserify',
-    'Compile the p5.js source with Browserify',
+    'Compile the p5.sound.js source with Browserify',
     function(param) {
       const isMin = param === 'min';
       const isTest = param === 'test';
       const isDev = param === 'dev';
 
       const filename = isMin
-        ? 'p5.pre-min.js'
-        : isTest ? 'p5-test.js' : 'p5.js';
+        ? 'p5.sound.pre-min.js'
+        : isTest ? 'p5.sound-test.js' : 'p5.sound.js';
 
       // This file will not exist until it has been built
       const libFilePath = resolve('lib/' + filename);
@@ -51,9 +51,7 @@ module.exports = function(grunt) {
           .exclude('../../docs/reference/data.json')
           .exclude('../../../docs/parameterData.json')
           .exclude('../../translations')
-          .exclude('./browser_errors')
-          .ignore('i18next')
-          .ignore('i18next-browser-languagedetector');
+          .exclude('./browser_errors');
       }
 
       if (!isDev) {

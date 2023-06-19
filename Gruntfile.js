@@ -29,8 +29,7 @@ module.exports = grunt => {
         middleware: function(connect, options, middlewares) {
           middlewares.unshift(
             require('connect-modrewrite')([
-              '^/assets/js/p5(\\.min)?\\.js(.*) /lib/p5$1.js$2 [L]',
-              '^/assets/js/p5\\.(sound)(\\.min)?\\.js(.*) /lib/addons/p5.$1$2.js$3 [L]'
+              '^/assets/js/p5.sound(\\.min)?\\.js(.*) /lib/p5.sound$1.js$2 [L]'
             ]),
             function(req, res, next) {
               res.setHeader('Access-Control-Allow-Origin', '*');
@@ -135,10 +134,7 @@ module.exports = grunt => {
       yui: {
         files: [
           'src/**/*.js',
-          'lib/addons/*.js',
-          'src/**/*.frag',
-          'src/**/*.vert',
-          'src/**/*.glsl'
+          'lib/addons/*.js'
         ],
         tasks: [
           'browserify',
@@ -196,7 +192,7 @@ module.exports = grunt => {
       },
       dist: {
         files: {
-          'lib/p5.pre-min.js': 'lib/p5.js'
+          'lib/p5.sound.pre-min.js': 'lib/p5.sound.js'
         }
       }
     },
@@ -211,11 +207,11 @@ module.exports = grunt => {
           }
         },
         banner:
-          '/*! p5.js v<%= pkg.version %> <%= grunt.template.today("mmmm dd, yyyy") %> */ '
+          '/*! p5.sound.js v<%= pkg.version %> <%= grunt.template.today("mmmm dd, yyyy") %> */ '
       },
       dist: {
         files: {
-          'lib/p5.min.js': ['lib/p5.pre-min.js'],
+          'lib/p5.sound.min.js': ['lib/p5.sound.pre-min.js'],
           'lib/modules/p5Custom.min.js': ['lib/modules/p5Custom.pre-min.js']
         }
       }
@@ -263,10 +259,8 @@ module.exports = grunt => {
       release: {
         expand: true,
         src: [
-          'lib/p5.js',
-          'lib/p5.min.js',
-          'lib/addons/p5.sound.js',
-          'lib/addons/p5.sound.min.js'
+          'lib/p5.sound.js',
+          'lib/p5.sound.min.js'
         ],
         dest: 'release/',
         flatten: true
@@ -275,12 +269,7 @@ module.exports = grunt => {
         files: [
           {
             expand: true,
-            src: ['lib/p5.js', 'lib/p5.min.js'],
-            dest: 'bower-repo/'
-          },
-          {
-            expand: true,
-            src: 'lib/addons/*',
+            src: ['lib/p5.sound.js', 'lib/p5.sound.min.js'],
             dest: 'bower-repo/'
           }
         ]
@@ -292,15 +281,14 @@ module.exports = grunt => {
     compress: {
       main: {
         options: {
-          archive: 'release/p5.zip'
+          archive: 'release/p5.sound.zip'
         },
         files: [
           {
             cwd: 'lib/',
             src: [
-              'p5.js',
-              'p5.min.js',
-              'addons/*',
+              'p5.sound.js',
+              'p5.sound.min.js',
               'empty-example/*',
               'README.txt'
             ],

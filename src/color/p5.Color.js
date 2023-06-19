@@ -236,104 +236,6 @@ p5.Color = class Color {
     this._calculateLevels();
   }
 
-  /**
-   * The setRed method sets the red component of a color.
-   * The range depends on your color mode, in the default RGB mode it's between 0 and 255.
-   * @method setRed
-   * @param {Number} red the new red value
-   * @example
-   * <div>
-   * <code>
-   * let backgroundColor;
-   *
-   * function setup() {
-   *   backgroundColor = color(100, 50, 150);
-   * }
-   *
-   * function draw() {
-   *   backgroundColor.setRed(128 + 128 * sin(millis() / 1000));
-   *   background(backgroundColor);
-   *   describe('canvas with gradually changing background color');
-   * }
-   * </code>
-   * </div>
-   */
-  setRed(new_red) {
-    this._array[0] = new_red / this.maxes[constants.RGB][0];
-    this._calculateLevels();
-  }
-
-  /**
-   * The setGreen method sets the green component of a color.
-   * The range depends on your color mode, in the default RGB mode it's between 0 and 255.
-   * @method setGreen
-   * @param {Number} green the new green value
-   * @example
-   * <div>
-   * <code>
-   * let backgroundColor = color(100, 50, 150);
-   * function draw() {
-   *   backgroundColor.setGreen(128 + 128 * sin(millis() / 1000));
-   *   background(backgroundColor);
-   *   describe('canvas with gradually changing background color');
-   * }
-   * </code>
-   * </div>
-   *
-   **/
-  setGreen(new_green) {
-    this._array[1] = new_green / this.maxes[constants.RGB][1];
-    this._calculateLevels();
-  }
-
-  /**
-   * The setBlue method sets the blue component of a color.
-   * The range depends on your color mode, in the default RGB mode it's between 0 and 255.
-   * @method setBlue
-   * @param {Number} blue the new blue value
-   * @example
-   * <div>
-   * <code>
-   * let backgroundColor = color(100, 50, 150);
-   * function draw() {
-   *   backgroundColor.setBlue(128 + 128 * sin(millis() / 1000));
-   *   background(backgroundColor);
-   *   describe('canvas with gradually changing background color');
-   * }
-   * </code>
-   * </div>
-   *
-   **/
-  setBlue(new_blue) {
-    this._array[2] = new_blue / this.maxes[constants.RGB][2];
-    this._calculateLevels();
-  }
-
-  /**
-   * The setAlpha method sets the transparency (alpha) value of a color.
-   * The range depends on your color mode, in the default RGB mode it's between 0 and 255.
-   * @method setAlpha
-   * @param {Number} alpha the new alpha value
-   * @example
-   * <div>
-   * <code>
-   * function draw() {
-   *   clear();
-   *   background(200);
-   *   squareColor = color(100, 50, 100);
-   *   squareColor.setAlpha(128 + 128 * sin(millis() / 1000));
-   *   fill(squareColor);
-   *   rect(13, 13, width - 26, height - 26);
-   *   describe('a square with gradually changing opacity on a gray background');
-   * }
-   * </code>
-   * </div>
-   **/
-  setAlpha(new_alpha) {
-    this._array[3] = new_alpha / this.maxes[this.mode][3];
-    this._calculateLevels();
-  }
-
   // calculates and stores the closest screen levels
   _calculateLevels() {
     const array = this._array;
@@ -350,10 +252,6 @@ p5.Color = class Color {
   _storeModeAndMaxes(new_mode, new_maxes) {
     this.mode = new_mode;
     this.maxes = new_maxes;
-  }
-
-  _getMode() {
-    return this.mode;
   }
 
   _getMaxes() {

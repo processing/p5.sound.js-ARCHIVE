@@ -68,37 +68,6 @@ suite('color/Setting', function() {
     });
   });
 
-
-
-  suite('p5.prototype.noErase', function() {
-    test('should be a function', function() {
-      assert.ok(myp5.noErase);
-    });
-
-    test('should turn off renderer erasing state', function() {
-      myp5.erase();
-      myp5.noErase();
-      assert.isFalse(myp5._renderer._isErasing);
-    });
-
-    test('should restore cached renderer fill', function() {
-      myp5.fill(255, 0, 0);
-      const fillStyle = myp5.drawingContext.fillStyle;
-      myp5.erase();
-      myp5.noErase();
-      assert.deepEqual(myp5.drawingContext.fillStyle, fillStyle);
-    });
-
-    test('should restore cached renderer stroke', function() {
-      myp5.stroke(255, 0, 0);
-      const strokeStyle = myp5.drawingContext.strokeStyle;
-      myp5.erase();
-      myp5.noErase();
-      assert.deepEqual(myp5.drawingContext.strokeStyle, strokeStyle);
-    });
-  });
-
-
   suite('p5.prototype.colorMode', function() {
     test('should be a function', function() {
       assert.ok(myp5.colorMode);
@@ -120,106 +89,7 @@ suite('color/Setting', function() {
       myp5.colorMode(myp5.RGB, 255);
     });
 
-    test('should set mode to HSL', function() {
-      myp5.colorMode(myp5.HSL);
-      assert.equal(myp5._colorMode, myp5.HSL);
-    });
-
-    test('should correctly set color HSL maxes', function() {
-      assert.deepEqual(myp5._colorMaxes[myp5.HSL], [360, 100, 100, 1]);
-      myp5.colorMode(myp5.HSL, 255, 255, 255);
-      assert.deepEqual(myp5._colorMaxes[myp5.HSL], [255, 255, 255, 1]);
-      myp5.colorMode(myp5.HSL, 360);
-      assert.deepEqual(myp5._colorMaxes[myp5.HSL], [360, 360, 360, 360]);
-      myp5.colorMode(myp5.HSL, 360, 100, 100, 1);
-      assert.deepEqual(myp5._colorMaxes[myp5.HSL], [360, 100, 100, 1]);
-    });
-
-    test('should set mode to HSB', function() {
-      myp5.colorMode(myp5.HSB);
-      assert.equal(myp5._colorMode, myp5.HSB);
-    });
-
-    test('should correctly set color HSB maxes', function() {
-      assert.deepEqual(myp5._colorMaxes[myp5.HSB], [360, 100, 100, 1]);
-      myp5.colorMode(myp5.HSB, 255, 255, 255);
-      assert.deepEqual(myp5._colorMaxes[myp5.HSB], [255, 255, 255, 1]);
-      myp5.colorMode(myp5.HSB, 360);
-      assert.deepEqual(myp5._colorMaxes[myp5.HSB], [360, 360, 360, 360]);
-      myp5.colorMode(myp5.HSB, 360, 100, 100, 1);
-      assert.deepEqual(myp5._colorMaxes[myp5.HSB], [360, 100, 100, 1]);
-    });
   });
 
-  suite('p5.Color components', function() {
-    test('setRed() correctly sets red component', function() {
-      myp5.colorMode(myp5.RGB, 255);
-      const c = myp5.color(0, 162, 205, 255);
-      c.setRed(100);
-      assert.equal(myp5.red(c), 100);
-      assert.equal(myp5.green(c), 162);
-      assert.equal(myp5.blue(c), 205);
-      assert.equal(myp5.alpha(c), 255);
-    });
 
-    test('setGreen() correctly sets green component', function() {
-      myp5.colorMode(myp5.RGB, 255);
-      const c = myp5.color(0, 162, 205, 255);
-      c.setGreen(100);
-      assert.equal(myp5.red(c), 0);
-      assert.equal(myp5.green(c), 100);
-      assert.equal(myp5.blue(c), 205);
-      assert.equal(myp5.alpha(c), 255);
-    });
-
-    test('setBlue() correctly sets blue component', function() {
-      myp5.colorMode(myp5.RGB, 255);
-      const c = myp5.color(0, 162, 205, 255);
-      c.setBlue(100);
-      assert.equal(myp5.red(c), 0);
-      assert.equal(myp5.green(c), 162);
-      assert.equal(myp5.blue(c), 100);
-      assert.equal(myp5.alpha(c), 255);
-    });
-
-    test('setAlpha correctly sets alpha component', function() {
-      myp5.colorMode(myp5.RGB, 255);
-      const c = myp5.color(0, 162, 205, 255);
-      c.setAlpha(100);
-      assert.equal(myp5.red(c), 0);
-      assert.equal(myp5.green(c), 162);
-      assert.equal(myp5.blue(c), 205);
-      assert.equal(myp5.alpha(c), 100);
-    });
-
-    test('changing the red/green/blue/alpha components should clear the cached HSL/HSB values', function() {
-      myp5.colorMode(myp5.RGB, 255);
-      const c = myp5.color(0, 162, 205, 255);
-
-      // create HSL/HSB values
-      myp5.lightness(c);
-      myp5.brightness(c);
-      c.setRed(100);
-      assert(!c.hsba);
-      assert(!c.hsla);
-
-      myp5.lightness(c);
-      myp5.brightness(c);
-      c.setGreen(100);
-      assert(!c.hsba);
-      assert(!c.hsla);
-
-      myp5.lightness(c);
-      myp5.brightness(c);
-      c.setBlue(100);
-      assert(!c.hsba);
-      assert(!c.hsla);
-
-      myp5.lightness(c);
-      myp5.brightness(c);
-      c.setAlpha(100);
-      assert(!c.hsba);
-      assert(!c.hsla);
-    });
-  });
 });

@@ -1,4 +1,5 @@
 import p5 from '../core/main';
+import { initialize as initTranslator } from './internationalization';
 
 /**
  * _globalInit

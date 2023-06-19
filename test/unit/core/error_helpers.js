@@ -15,17 +15,6 @@ suite('Error Helpers', function() {
     myp5.remove();
   });
 
-  suite('friendly error logger', function() {
-    test('basic', function() {
-      assert.doesNotThrow(
-        function() {
-          p5._friendlyError('basic', 'basic');
-        },
-        Error,
-        'got unwanted exception'
-      );
-    });
-  });
 
   suite('helpForMisusedAtTopLevelCode', function() {
     var help = function(msg) {

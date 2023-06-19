@@ -4,12 +4,10 @@
  * @for p5
  * @requires core
  * @requires constants
- * @requires color_conversion
  */
 
 import p5 from '../core/main';
 import * as constants from '../core/constants';
-import color_conversion from './color_conversion';
 
 /**
  * CSS named colors.
@@ -175,24 +173,11 @@ const namedColors = {
  */
 const WHITESPACE = /\s*/; // Match zero or more whitespace characters.
 const INTEGER = /(\d{1,3})/; // Match integers: 79, 255, etc.
-const DECIMAL = /((?:\d+(?:\.\d+)?)|(?:\.\d+))/; // Match 129.6, 79, .9, etc.
-const PERCENT = new RegExp(`${DECIMAL.source}%`); // Match 12.9%, 79%, .9%, etc.
 
 /**
  * Full color string patterns. The capture groups are necessary.
  */
 const colorPatterns = {
-  // Match colors in format #XXX, e.g. #416.
-  HEX3: /^#([a-f0-9])([a-f0-9])([a-f0-9])$/i,
-
-  // Match colors in format #XXXX, e.g. #5123.
-  HEX4: /^#([a-f0-9])([a-f0-9])([a-f0-9])([a-f0-9])$/i,
-
-  // Match colors in format #XXXXXX, e.g. #b4d455.
-  HEX6: /^#([a-f0-9]{2})([a-f0-9]{2})([a-f0-9]{2})$/i,
-
-  // Match colors in format #XXXXXXXX, e.g. #b4d45535.
-  HEX8: /^#([a-f0-9]{2})([a-f0-9]{2})([a-f0-9]{2})([a-f0-9]{2})$/i,
 
   // Match colors in format rgb(R, G, B), e.g. rgb(255, 0, 128).
   RGB: new RegExp(
@@ -203,112 +188,6 @@ const colorPatterns = {
       INTEGER.source,
       ',',
       INTEGER.source,
-      '\\)$'
-    ].join(WHITESPACE.source),
-    'i'
-  ),
-
-  // Match colors in format rgb(R%, G%, B%), e.g. rgb(100%, 0%, 28.9%).
-  RGB_PERCENT: new RegExp(
-    [
-      '^rgb\\(',
-      PERCENT.source,
-      ',',
-      PERCENT.source,
-      ',',
-      PERCENT.source,
-      '\\)$'
-    ].join(WHITESPACE.source),
-    'i'
-  ),
-
-  // Match colors in format rgb(R, G, B, A), e.g. rgb(255, 0, 128, 0.25).
-  RGBA: new RegExp(
-    [
-      '^rgba\\(',
-      INTEGER.source,
-      ',',
-      INTEGER.source,
-      ',',
-      INTEGER.source,
-      ',',
-      DECIMAL.source,
-      '\\)$'
-    ].join(WHITESPACE.source),
-    'i'
-  ),
-
-  // Match colors in format rgb(R%, G%, B%, A), e.g. rgb(100%, 0%, 28.9%, 0.5).
-  RGBA_PERCENT: new RegExp(
-    [
-      '^rgba\\(',
-      PERCENT.source,
-      ',',
-      PERCENT.source,
-      ',',
-      PERCENT.source,
-      ',',
-      DECIMAL.source,
-      '\\)$'
-    ].join(WHITESPACE.source),
-    'i'
-  ),
-
-  // Match colors in format hsla(H, S%, L%), e.g. hsl(100, 40%, 28.9%).
-  HSL: new RegExp(
-    [
-      '^hsl\\(',
-      INTEGER.source,
-      ',',
-      PERCENT.source,
-      ',',
-      PERCENT.source,
-      '\\)$'
-    ].join(WHITESPACE.source),
-    'i'
-  ),
-
-  // Match colors in format hsla(H, S%, L%, A), e.g. hsla(100, 40%, 28.9%, 0.5).
-  HSLA: new RegExp(
-    [
-      '^hsla\\(',
-      INTEGER.source,
-      ',',
-      PERCENT.source,
-      ',',
-      PERCENT.source,
-      ',',
-      DECIMAL.source,
-      '\\)$'
-    ].join(WHITESPACE.source),
-    'i'
-  ),
-
-  // Match colors in format hsb(H, S%, B%), e.g. hsb(100, 40%, 28.9%).
-  HSB: new RegExp(
-    [
-      '^hsb\\(',
-      INTEGER.source,
-      ',',
-      PERCENT.source,
-      ',',
-      PERCENT.source,
-      '\\)$'
-    ].join(WHITESPACE.source),
-    'i'
-  ),
-
-  // Match colors in format hsba(H, S%, B%, A), e.g. hsba(100, 40%, 28.9%, 0.5).
-  HSBA: new RegExp(
-    [
-      '^hsba\\(',
-      INTEGER.source,
-      ',',
-      PERCENT.source,
-      ',',
-      PERCENT.source,
-      ',',
-      DECIMAL.source,
       '\\)$'
     ].join(WHITESPACE.source),
     'i'
@@ -347,7 +226,7 @@ p5.Color = class Color {
     this._storeModeAndMaxes(pInst._colorMode, pInst._colorMaxes);
 
     // Calculate normalized RGBA values.
-    if (![constants.RGB, constants.HSL, constants.HSB].includes(this.mode)) {
+    if (![constants.RGB].includes(this.mode)) {
       throw new Error(`${this.mode} is an invalid colorMode.`);
     } else {
       this._array = Color._parseInputs.apply(this, vals);
@@ -355,209 +234,6 @@ p5.Color = class Color {
 
     // Expose closest screen color.
     this._calculateLevels();
-  }
-
-  /**
-   * This method returns the color formatted as a string. This can be useful
-   * for debugging, or for using p5.js with other libraries.
-   *
-   * @method toString
-   * @param {String} [format] How the color string will be formatted.
-   * Leaving this empty formats the string as rgba(r, g, b, a).
-   * '#rgb' '#rgba' '#rrggbb' and '#rrggbbaa' format as hexadecimal color codes.
-   * 'rgb' 'hsb' and 'hsl' return the color formatted in the specified color mode.
-   * 'rgba' 'hsba' and 'hsla' are the same as above but with alpha channels.
-   * 'rgb%' 'hsb%' 'hsl%' 'rgba%' 'hsba%' and 'hsla%' format as percentages.
-   * @return {String} the formatted string
-   *
-   * @example
-   * <div>
-   * <code>
-   * createCanvas(200, 100);
-   * let myColor;
-   * stroke(255);
-   * myColor = color(100, 100, 250);
-   * fill(myColor);
-   * rotate(HALF_PI);
-   * text(myColor.toString(), 0, -5);
-   * text(myColor.toString('#rrggbb'), 0, -30);
-   * text(myColor.toString('rgba%'), 0, -55);
-   * describe('A canvas with 3 text representation of their color.');
-   * </code>
-   * </div>
-   *
-   * <div>
-   * <code>
-   * let myColor = color(100, 130, 250);
-   * text(myColor.toString('#rrggbb'), 25, 25);
-   * </code>
-   * </div>
-   */
-  toString(format) {
-    const a = this.levels;
-    const f = this._array;
-    const alpha = f[3]; // String representation uses normalized alpha
-
-    switch (format) {
-      case '#rrggbb':
-        return '#'.concat(
-          a[0] < 16 ? '0'.concat(a[0].toString(16)) : a[0].toString(16),
-          a[1] < 16 ? '0'.concat(a[1].toString(16)) : a[1].toString(16),
-          a[2] < 16 ? '0'.concat(a[2].toString(16)) : a[2].toString(16)
-        );
-
-      case '#rrggbbaa':
-        return '#'.concat(
-          a[0] < 16 ? '0'.concat(a[0].toString(16)) : a[0].toString(16),
-          a[1] < 16 ? '0'.concat(a[1].toString(16)) : a[1].toString(16),
-          a[2] < 16 ? '0'.concat(a[2].toString(16)) : a[2].toString(16),
-          a[3] < 16 ? '0'.concat(a[3].toString(16)) : a[3].toString(16)
-        );
-
-      case '#rgb':
-        return '#'.concat(
-          Math.round(f[0] * 15).toString(16),
-          Math.round(f[1] * 15).toString(16),
-          Math.round(f[2] * 15).toString(16)
-        );
-
-      case '#rgba':
-        return '#'.concat(
-          Math.round(f[0] * 15).toString(16),
-          Math.round(f[1] * 15).toString(16),
-          Math.round(f[2] * 15).toString(16),
-          Math.round(f[3] * 15).toString(16)
-        );
-
-      case 'rgb':
-        return 'rgb('.concat(a[0], ', ', a[1], ', ', a[2], ')');
-
-      case 'rgb%':
-        return 'rgb('.concat(
-          (100 * f[0]).toPrecision(3),
-          '%, ',
-          (100 * f[1]).toPrecision(3),
-          '%, ',
-          (100 * f[2]).toPrecision(3),
-          '%)'
-        );
-
-      case 'rgba%':
-        return 'rgba('.concat(
-          (100 * f[0]).toPrecision(3),
-          '%, ',
-          (100 * f[1]).toPrecision(3),
-          '%, ',
-          (100 * f[2]).toPrecision(3),
-          '%, ',
-          (100 * f[3]).toPrecision(3),
-          '%)'
-        );
-
-      case 'hsb':
-      case 'hsv':
-        if (!this.hsba) this.hsba = color_conversion._rgbaToHSBA(this._array);
-        return 'hsb('.concat(
-          this.hsba[0] * this.maxes[constants.HSB][0],
-          ', ',
-          this.hsba[1] * this.maxes[constants.HSB][1],
-          ', ',
-          this.hsba[2] * this.maxes[constants.HSB][2],
-          ')'
-        );
-
-      case 'hsb%':
-      case 'hsv%':
-        if (!this.hsba) this.hsba = color_conversion._rgbaToHSBA(this._array);
-        return 'hsb('.concat(
-          (100 * this.hsba[0]).toPrecision(3),
-          '%, ',
-          (100 * this.hsba[1]).toPrecision(3),
-          '%, ',
-          (100 * this.hsba[2]).toPrecision(3),
-          '%)'
-        );
-
-      case 'hsba':
-      case 'hsva':
-        if (!this.hsba) this.hsba = color_conversion._rgbaToHSBA(this._array);
-        return 'hsba('.concat(
-          this.hsba[0] * this.maxes[constants.HSB][0],
-          ', ',
-          this.hsba[1] * this.maxes[constants.HSB][1],
-          ', ',
-          this.hsba[2] * this.maxes[constants.HSB][2],
-          ', ',
-          alpha,
-          ')'
-        );
-
-      case 'hsba%':
-      case 'hsva%':
-        if (!this.hsba) this.hsba = color_conversion._rgbaToHSBA(this._array);
-        return 'hsba('.concat(
-          (100 * this.hsba[0]).toPrecision(3),
-          '%, ',
-          (100 * this.hsba[1]).toPrecision(3),
-          '%, ',
-          (100 * this.hsba[2]).toPrecision(3),
-          '%, ',
-          (100 * alpha).toPrecision(3),
-          '%)'
-        );
-
-      case 'hsl':
-        if (!this.hsla) this.hsla = color_conversion._rgbaToHSLA(this._array);
-        return 'hsl('.concat(
-          this.hsla[0] * this.maxes[constants.HSL][0],
-          ', ',
-          this.hsla[1] * this.maxes[constants.HSL][1],
-          ', ',
-          this.hsla[2] * this.maxes[constants.HSL][2],
-          ')'
-        );
-
-      case 'hsl%':
-        if (!this.hsla) this.hsla = color_conversion._rgbaToHSLA(this._array);
-        return 'hsl('.concat(
-          (100 * this.hsla[0]).toPrecision(3),
-          '%, ',
-          (100 * this.hsla[1]).toPrecision(3),
-          '%, ',
-          (100 * this.hsla[2]).toPrecision(3),
-          '%)'
-        );
-
-      case 'hsla':
-        if (!this.hsla) this.hsla = color_conversion._rgbaToHSLA(this._array);
-        return 'hsla('.concat(
-          this.hsla[0] * this.maxes[constants.HSL][0],
-          ', ',
-          this.hsla[1] * this.maxes[constants.HSL][1],
-          ', ',
-          this.hsla[2] * this.maxes[constants.HSL][2],
-          ', ',
-          alpha,
-          ')'
-        );
-
-      case 'hsla%':
-        if (!this.hsla) this.hsla = color_conversion._rgbaToHSLA(this._array);
-        return 'hsl('.concat(
-          (100 * this.hsla[0]).toPrecision(3),
-          '%, ',
-          (100 * this.hsla[1]).toPrecision(3),
-          '%, ',
-          (100 * this.hsla[2]).toPrecision(3),
-          '%, ',
-          (100 * alpha).toPrecision(3),
-          '%)'
-        );
-
-      case 'rgba':
-      default:
-        return 'rgba('.concat(a[0], ',', a[1], ',', a[2], ',', alpha, ')');
-    }
   }
 
   /**
@@ -667,13 +343,6 @@ p5.Color = class Color {
       levels[i] = Math.round(array[i] * 255);
     }
 
-    // Clear cached HSL/HSB values
-    this.hsla = null;
-    this.hsba = null;
-  }
-
-  _getAlpha() {
-    return this._array[3] * this.maxes[this.mode][3];
   }
 
   // stores the color mode and maxes in this instance of Color
@@ -691,70 +360,6 @@ p5.Color = class Color {
     return this.maxes;
   }
 
-  _getBlue() {
-    return this._array[2] * this.maxes[constants.RGB][2];
-  }
-
-  _getBrightness() {
-    if (!this.hsba) {
-      this.hsba = color_conversion._rgbaToHSBA(this._array);
-    }
-    return this.hsba[2] * this.maxes[constants.HSB][2];
-  }
-
-  _getGreen() {
-    return this._array[1] * this.maxes[constants.RGB][1];
-  }
-
-  /**
-   * Hue is the same in HSB and HSL, but the maximum value may be different.
-   * This function will return the HSB-normalized saturation when supplied with
-   * an HSB color object, but will default to the HSL-normalized saturation
-   * otherwise.
-   */
-  _getHue() {
-    if (this.mode === constants.HSB) {
-      if (!this.hsba) {
-        this.hsba = color_conversion._rgbaToHSBA(this._array);
-      }
-      return this.hsba[0] * this.maxes[constants.HSB][0];
-    } else {
-      if (!this.hsla) {
-        this.hsla = color_conversion._rgbaToHSLA(this._array);
-      }
-      return this.hsla[0] * this.maxes[constants.HSL][0];
-    }
-  }
-
-  _getLightness() {
-    if (!this.hsla) {
-      this.hsla = color_conversion._rgbaToHSLA(this._array);
-    }
-    return this.hsla[2] * this.maxes[constants.HSL][2];
-  }
-
-  _getRed() {
-    return this._array[0] * this.maxes[constants.RGB][0];
-  }
-
-  /**
-   * Saturation is scaled differently in HSB and HSL. This function will return
-   * the HSB saturation when supplied with an HSB color object, but will default
-   * to the HSL saturation otherwise.
-   */
-  _getSaturation() {
-    if (this.mode === constants.HSB) {
-      if (!this.hsba) {
-        this.hsba = color_conversion._rgbaToHSBA(this._array);
-      }
-      return this.hsba[1] * this.maxes[constants.HSB][1];
-    } else {
-      if (!this.hsla) {
-        this.hsla = color_conversion._rgbaToHSLA(this._array);
-      }
-      return this.hsla[1] * this.maxes[constants.HSL][1];
-    }
-  }
   /**
  * For a number of different inputs, returns a color formatted as [r, g, b, a]
  * arrays, with each component normalized between 0 and 1.
@@ -814,14 +419,7 @@ p5.Color = class Color {
         }
       }
 
-      // Convert to RGBA and return.
-      if (mode === constants.HSL) {
-        return color_conversion._hslaToRGBA(results);
-      } else if (mode === constants.HSB) {
-        return color_conversion._hsbaToRGBA(results);
-      } else {
-        return results;
-      }
+
     } else if (numArgs === 1 && typeof r === 'string') {
       const str = r.trim().toLowerCase();
 
@@ -830,135 +428,16 @@ p5.Color = class Color {
         return Color._parseInputs.call(this, namedColors[str]);
       }
 
-      // Try RGBA pattern matching.
-      if (colorPatterns.HEX3.test(str)) {
-        // #rgb
-        results = colorPatterns.HEX3.exec(str)
-          .slice(1)
-          .map(color => parseInt(color + color, 16) / 255);
-        results[3] = 1;
-        return results;
-      } else if (colorPatterns.HEX6.test(str)) {
-        // #rrggbb
-        results = colorPatterns.HEX6.exec(str)
-          .slice(1)
-          .map(color => parseInt(color, 16) / 255);
-        results[3] = 1;
-        return results;
-      } else if (colorPatterns.HEX4.test(str)) {
-        // #rgba
-        results = colorPatterns.HEX4.exec(str)
-          .slice(1)
-          .map(color => parseInt(color + color, 16) / 255);
-        return results;
-      } else if (colorPatterns.HEX8.test(str)) {
-        // #rrggbbaa
-        results = colorPatterns.HEX8.exec(str)
-          .slice(1)
-          .map(color => parseInt(color, 16) / 255);
-        return results;
-      } else if (colorPatterns.RGB.test(str)) {
+      if (colorPatterns.RGB.test(str)) {
         // rgb(R,G,B)
         results = colorPatterns.RGB.exec(str)
           .slice(1)
           .map(color => color / 255);
         results[3] = 1;
         return results;
-      } else if (colorPatterns.RGB_PERCENT.test(str)) {
-        // rgb(R%,G%,B%)
-        results = colorPatterns.RGB_PERCENT.exec(str)
-          .slice(1)
-          .map(color => parseFloat(color) / 100);
-        results[3] = 1;
-        return results;
-      } else if (colorPatterns.RGBA.test(str)) {
-        // rgba(R,G,B,A)
-        results = colorPatterns.RGBA.exec(str)
-          .slice(1)
-          .map((color, idx) => {
-            if (idx === 3) {
-              return parseFloat(color);
-            }
-            return color / 255;
-          });
-        return results;
-      } else if (colorPatterns.RGBA_PERCENT.test(str)) {
-        // rgba(R%,G%,B%,A%)
-        results = colorPatterns.RGBA_PERCENT.exec(str)
-          .slice(1)
-          .map((color, idx) => {
-            if (idx === 3) {
-              return parseFloat(color);
-            }
-            return parseFloat(color) / 100;
-          });
-        return results;
       }
 
-      // Try HSLA pattern matching.
-      if (colorPatterns.HSL.test(str)) {
-        // hsl(H,S,L)
-        results = colorPatterns.HSL.exec(str)
-          .slice(1)
-          .map((color, idx) => {
-            if (idx === 0) {
-              return parseInt(color, 10) / 360;
-            }
-            return parseInt(color, 10) / 100;
-          });
-        results[3] = 1;
-      } else if (colorPatterns.HSLA.test(str)) {
-        // hsla(H,S,L,A)
-        results = colorPatterns.HSLA.exec(str)
-          .slice(1)
-          .map((color, idx) => {
-            if (idx === 0) {
-              return parseInt(color, 10) / 360;
-            } else if (idx === 3) {
-              return parseFloat(color);
-            }
-            return parseInt(color, 10) / 100;
-          });
-      }
-      results = results.map(value => Math.max(Math.min(value, 1), 0));
-      if (results.length) {
-        return color_conversion._hslaToRGBA(results);
-      }
 
-      // Try HSBA pattern matching.
-      if (colorPatterns.HSB.test(str)) {
-        // hsb(H,S,B)
-        results = colorPatterns.HSB.exec(str)
-          .slice(1)
-          .map((color, idx) => {
-            if (idx === 0) {
-              return parseInt(color, 10) / 360;
-            }
-            return parseInt(color, 10) / 100;
-          });
-        results[3] = 1;
-      } else if (colorPatterns.HSBA.test(str)) {
-        // hsba(H,S,B,A)
-        results = colorPatterns.HSBA.exec(str)
-          .slice(1)
-          .map((color, idx) => {
-            if (idx === 0) {
-              return parseInt(color, 10) / 360;
-            } else if (idx === 3) {
-              return parseFloat(color);
-            }
-            return parseInt(color, 10) / 100;
-          });
-      }
-
-      if (results.length) {
-        // (loop backwards for performance)
-        for (i = results.length - 1; i >= 0; --i) {
-          results[i] = Math.max(Math.min(results[i], 1), 0);
-        }
-
-        return color_conversion._hsbaToRGBA(results);
-      }
 
       // Input did not match any CSS color pattern: default to white.
       results = [1, 1, 1, 1];

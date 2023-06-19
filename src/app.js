@@ -13,7 +13,6 @@ import './core/shape/2d_primitives';
 import './core/shape/attributes';
 
 // color
-import './color/color_conversion';
 import './color/creating_reading';
 import './color/p5.Color';
 import './color/setting';

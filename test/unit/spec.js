@@ -15,7 +15,7 @@ var spec = {
   ],
   image: ['p5.Image', 'loading', 'pixels', 'filters', 'downloading'],
   math: ['calculation', 'noise', 'p5.Vector', 'random', 'trigonometry'],
-  utilities: ['array_functions', 'conversion']
+  utilities: ['conversion']
 };
 Object.keys(spec).map(function(folder) {
   spec[folder].map(function(file) {

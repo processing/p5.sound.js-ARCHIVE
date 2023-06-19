@@ -1003,41 +1003,6 @@ p5.RendererGL = class RendererGL extends p5.Renderer {
       )
     );
   }
-
-  updatePixels() {
-    const fbo = this._getTempFramebuffer();
-    fbo.pixels = this._pixelsState.pixels;
-    fbo.updatePixels();
-    this._pInst.push();
-    this._pInst.resetMatrix();
-    this._pInst.clear();
-    this._pInst.imageMode(constants.CENTER);
-    this._pInst.image(fbo, 0, 0);
-    this._pInst.pop();
-    this.GL.clearDepth(1);
-    this.GL.clear(this.GL.DEPTH_BUFFER_BIT);
-  }
-
-  /**
- * @private
- * @returns {p5.Framebuffer} A p5.Framebuffer set to match the size and settings
- * of the renderer's canvas. It will be created if it does not yet exist, and
- * reused if it does.
- */
-  _getTempFramebuffer() {
-    if (!this._tempFramebuffer) {
-      this._tempFramebuffer = this._pInst.createFramebuffer({
-        format: constants.UNSIGNED_BYTE,
-        useDepth: this._pInst._glAttributes.depth,
-        depthFormat: constants.UNSIGNED_INT,
-        antialias: this._pInst._glAttributes.antialias
-      });
-    }
-    return this._tempFramebuffer;
-  }
-
-
-
   //////////////////////////////////////////////
   // HASH | for geometry
   //////////////////////////////////////////////
@@ -1075,11 +1040,6 @@ p5.RendererGL = class RendererGL extends p5.Renderer {
       );
     }
 
-    for (const framebuffer of this.framebuffers) {
-      // Notify framebuffers of the resize so that any auto-sized framebuffers
-      // can also update their size
-      framebuffer._canvasSizeChanged();
-    }
   }
 
   /**
@@ -1471,9 +1431,6 @@ p5.RendererGL = class RendererGL extends p5.Renderer {
 
   getTexture(input) {
     let src = input;
-    if (src instanceof p5.Framebuffer) {
-      src = src.color;
-    }
 
     const texture = this.textures.get(src);
     if (texture) {
@@ -1483,10 +1440,6 @@ p5.RendererGL = class RendererGL extends p5.Renderer {
     const tex = new p5.Texture(this, src);
     this.textures.set(src, tex);
     return tex;
-  }
-
-  createFramebuffer(options) {
-    return new p5.Framebuffer(this, options);
   }
 
   _setStrokeUniforms(strokeShader) {

@@ -15,7 +15,7 @@ import * as constants from '../core/constants';
  * @class p5.Texture
  * @param {p5.RendererGL} renderer an instance of p5.RendererGL that
  * will provide the GL context for this new p5.Texture
- * @param {p5.Image|p5.Element|p5.MediaElement|ImageData|p5.Framebuffer|p5.FramebufferTexture|ImageData} [obj] the
+ * @param {p5.Image|p5.Element|p5.MediaElement|ImageData|ImageData} [obj] the
  * object containing the image data to store in the texture.
  * @param {Object} [settings] optional A javascript object containing texture
  * settings.
@@ -100,7 +100,6 @@ p5.Texture = class Texture {
     this.isSrcP5Renderer = obj instanceof p5.Renderer;
     this.isImageData =
       typeof ImageData !== 'undefined' && obj instanceof ImageData;
-    this.isFramebufferTexture = obj instanceof p5.FramebufferTexture;
 
     const textureData = this._getTextureDataFromSource();
     this.width = textureData.width;
@@ -112,9 +111,7 @@ p5.Texture = class Texture {
 
   _getTextureDataFromSource () {
     let textureData;
-    if (this.isFramebufferTexture) {
-      textureData = this.src.rawTexture();
-    } else if (this.isSrcP5Image) {
+    if (this.isSrcP5Image) {
     // param is a p5.Image
       textureData = this.src.canvas;
     } else if (
@@ -139,9 +136,7 @@ p5.Texture = class Texture {
    */
   init (data) {
     const gl = this._renderer.GL;
-    if (!this.isFramebufferTexture) {
-      this.glTex = gl.createTexture();
-    }
+    this.glTex = gl.createTexture();
 
     this.glWrapS = this._renderer.textureWrapX;
     this.glWrapT = this._renderer.textureWrapY;
@@ -153,9 +148,7 @@ p5.Texture = class Texture {
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, this.glMagFilter);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, this.glMinFilter);
 
-    if (this.isFramebufferTexture) {
-      // Do nothing, the framebuffer manages its own content
-    } else if (
+    if (
       this.width === 0 ||
       this.height === 0 ||
       (this.isSrcMediaElement && !this.src.loadedmetadata)
@@ -198,12 +191,6 @@ p5.Texture = class Texture {
     const data = this.src;
     if (data.width === 0 || data.height === 0) {
       return false; // nothing to do!
-    }
-
-    // FramebufferTexture instances wrap raw WebGL textures already, which
-    // don't need any extra updating, as they already live on the GPU
-    if (this.isFramebufferTexture) {
-      return false;
     }
 
     const textureData = this._getTextureDataFromSource();
@@ -312,11 +299,7 @@ p5.Texture = class Texture {
   }
 
   getTexture() {
-    if (this.isFramebufferTexture) {
-      return this.src.rawTexture();
-    } else {
-      return this.glTex;
-    }
+    return this.glTex;
   }
 
   /**

@@ -173,7 +173,6 @@ class p5 {
     this._userNode = node;
     this._curElement = null;
     this._elements = [];
-    this._glAttributes = null;
     this._requestAnimId = 0;
     this._preloadCount = 0;
     this._isGlobal = false;
@@ -689,8 +688,6 @@ class p5 {
             }
           });
         } catch (e) {
-          let message = `p5 had problems creating the global function "${prop}", possibly because your code is already using that name as a variable. You may want to rename your variable to something else.`;
-          p5._friendlyError(message, prop);
           globalObject[prop] = value;
         }
       } else {

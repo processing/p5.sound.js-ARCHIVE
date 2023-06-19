@@ -23,10 +23,6 @@ The `structure.js` module is best thought of as a collection of ways to make *mo
 
 The `constants.js` module provides various default values mostly related to math and web standards using clear semantic names to increase syntax clarity when they are used in other algorithms. These values are attached to the `p5` object prototype as properties by the constructor function so they can be more easily accessed by other parts of the p5.js library or by user code.
 
-
-## [legacy.js](./legacy.js)
-These are functions that are part of the Processing API but are not part of the p5.js API. In some cases they have a new name, in others, they are removed completely. Not all unsupported Processing functions are listed here but we try to include ones that a user coming from Processing might likely call.
-
 # Browser
 
 *utilizing and abstracting web technologies*

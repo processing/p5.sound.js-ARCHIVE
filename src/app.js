@@ -22,7 +22,6 @@ import './color/setting';
 
 // image
 import './image/image';
-import './image/loading_displaying';
 import './image/pixels';
 
 // utilities

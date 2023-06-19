@@ -203,7 +203,6 @@ const defaultShaders = {
  *   }
  *
  *   specularMaterial(255);
- *   sphere(width * 0.1);
  *
  *   rotateX(t * 0.77);
  *   rotateY(t * 0.83);
@@ -950,22 +949,16 @@ p5.RendererGL = class RendererGL extends p5.Renderer {
  *   strokeWeight(8);
  *   rotateX(frameCount * 0.01);
  *   rotateY(frameCount * 0.01);
- *   sphere(75);
  *   pop();
  *   push();
  *   translate(0, 200, 0);
  *   strokeWeight(1);
  *   rotateX(frameCount * 0.01);
  *   rotateY(frameCount * 0.01);
- *   sphere(75);
  *   pop();
  * }
  * </code>
  * </div>
- *
- * @alt
- * black canvas with two purple rotating spheres with pink
- * outlines the sphere on top has much heavier outlines,
  */
   strokeWeight(w) {
     if (this.curStrokeWeight !== w) {

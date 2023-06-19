@@ -221,7 +221,6 @@ class Framebuffer {
    *   framebuffer.begin();
    *   background(255);
    *   normalMaterial();
-   *   sphere(20);
    *   framebuffer.end();
    *
    *   background(100);
@@ -231,10 +230,6 @@ class Framebuffer {
    * </code>
    * </div>
    *
-   * @alt
-   * A red, green, and blue sphere is drawn in the middle of a white rectangle
-   * which starts in the top left of the canvas and whose bottom right is at
-   * the user's mouse
    */
   resize(width, height) {
     this.autoSized = false;
@@ -1117,10 +1112,8 @@ class Framebuffer {
    *   noStroke();
    *   lights();
    *
-   *   // Draw a sphere to the framebuffer
    *   framebuffer.begin();
    *   background(0);
-   *   sphere(25);
    *   framebuffer.end();
    *
    *   // Load its pixels and draw a gradient over the lower half of the canvas
@@ -1151,11 +1144,6 @@ class Framebuffer {
    * }
    * </code>
    * </div>
-   *
-   * @alt
-   * A sphere partly occluded by a gradient from cyan to white to magenta on
-   * the lower half of the canvas, with a 3D cube drawn on top of that in the
-   * lower right corner.
    */
   updatePixels() {
     const gl = this.gl;
@@ -1251,7 +1239,6 @@ class Framebuffer {
  *   framebuffer.begin();
  *   background(255);
  *   normalMaterial();
- *   sphere(20);
  *   framebuffer.end();
  *
  *   // Draw the framebuffer to the main canvas
@@ -1260,8 +1247,6 @@ class Framebuffer {
  * </code>
  * </div>
  *
- * @alt
- * A red, green, and blue sphere in the middle of the canvas
  */
 
 /**

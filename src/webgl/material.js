@@ -688,18 +688,15 @@ p5.prototype.textureWrap = function(wrapX, wrapY = wrapX) {
  * <code>
  * function setup() {
  *   createCanvas(100, 100, WEBGL);
- *   describe('Sphere with normal material');
  * }
  *
  * function draw() {
  *   background(200);
  *   normalMaterial();
- *   sphere(40);
  * }
  * </code>
  * </div>
- * @alt
- * Sphere with normal material
+
  */
 p5.prototype.normalMaterial = function(...args) {
   this._assert3d('normalMaterial');
@@ -745,19 +742,15 @@ p5.prototype.normalMaterial = function(...args) {
  * <code>
  * function setup() {
  *   createCanvas(100, 100, WEBGL);
- *   describe('sphere reflecting red, blue, and green light');
  * }
  * function draw() {
  *   background(0);
  *   noStroke();
  *   ambientLight(255);
  *   ambientMaterial(70, 130, 230);
- *   sphere(40);
  * }
  * </code>
  * </div>
- * @alt
- * sphere reflecting red, blue, and green light
  *
  * @example
  * <div>
@@ -855,20 +848,16 @@ p5.prototype.ambientMaterial = function(v1, v2, v3) {
  * <code>
  * function setup() {
  *   createCanvas(100, 100, WEBGL);
- *   describe('sphere with green emissive material');
  * }
  * function draw() {
  *   background(0);
  *   noStroke();
  *   ambientLight(0);
  *   emissiveMaterial(130, 230, 0);
- *   sphere(40);
  * }
  * </code>
  * </div>
  *
- * @alt
- * sphere with green emissive material
  */
 
 /**
@@ -995,7 +984,6 @@ p5.prototype.specularMaterial = function(v1, v2, v3, alpha) {
  * <code>
  * function setup() {
  *   createCanvas(100, 100, WEBGL);
- *   describe('two spheres, one more shiny than the other');
  * }
  * function draw() {
  *   background(0);
@@ -1007,15 +995,9 @@ p5.prototype.specularMaterial = function(v1, v2, v3, alpha) {
  *   specularMaterial(250);
  *   translate(-25, 0, 0);
  *   shininess(1);
- *   sphere(20);
- *   translate(50, 0, 0);
- *   shininess(20);
- *   sphere(20);
  * }
  * </code>
  * </div>
- * @alt
- * two spheres, one more shiny than the other
  */
 p5.prototype.shininess = function(shine) {
   this._assert3d('shininess');

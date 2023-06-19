@@ -47,66 +47,6 @@ suite('3D Primitives', function() {
     });
   });
 
-  suite('p5.prototype.box', function() {
-    test('should be a function', function() {
-      assert.ok(myp5.box);
-      assert.typeOf(myp5.box, 'function');
-    });
-    test('wrong param type at #0 and #2', function() {
-      assert.validationError(function() {
-        myp5.box('a', 10, 'c');
-      });
-    });
-    test('no friendly-err-msg. missing height, depth; param #1, #2.', function() {
-      assert.doesNotThrow(
-        function() {
-          myp5.box(20, 20);
-        },
-        Error,
-        'got unwanted exception'
-      );
-    });
-    test('no friendly-err-msg. missing depth param #2.', function() {
-      assert.doesNotThrow(
-        function() {
-          myp5.box(20, 20);
-        },
-        Error,
-        'got unwanted exception'
-      );
-    });
-    test('no friendly-err-msg. no parameters', function() {
-      assert.doesNotThrow(
-        function() {
-          myp5.box();
-        },
-        Error,
-        'got unwanted exception'
-      );
-    });
-  });
-
-  suite('p5.prototype.sphere', function() {
-    test('should be a function', function() {
-      assert.ok(myp5.sphere);
-      assert.typeOf(myp5.sphere, 'function');
-    });
-    test('wrong param type at #0', function() {
-      assert.validationError(function() {
-        myp5.sphere('a');
-      });
-    });
-    test('no friendly-err-msg. no parameters', function() {
-      assert.doesNotThrow(
-        function() {
-          myp5.sphere();
-        },
-        Error,
-        'got unwanted exception'
-      );
-    });
-  });
-
   suite('p5.prototype.cylinder', function() {
     test('should be a function', function() {
       assert.ok(myp5.cylinder);

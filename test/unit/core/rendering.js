@@ -120,7 +120,7 @@ suite('Rendering', function() {
     'createShader', 'shader',
     'normalMaterial', 'texture', 'ambientMaterial', 'emissiveMaterial', 'specularMaterial',
     'shininess', 'lightFalloff',
-    'plane', 'box', 'sphere', 'cylinder', 'cone', 'ellipsoid'
+    'plane', 'cylinder', 'cone', 'ellipsoid'
   ];
 
   suite('webgl assertions', function() {

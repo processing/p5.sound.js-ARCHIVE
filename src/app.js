@@ -18,7 +18,10 @@ import './color/p5.Color';
 import './color/setting';
 
 // sound
+import { getAudioContext } from './sound/audioContext';
+p5.prototype.getAudioContext = getAudioContext;
 import './sound/p5.Oscillator';
+
 
 // utilities
 import './utilities/conversion';

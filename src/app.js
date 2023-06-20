@@ -21,6 +21,7 @@ import './color/setting';
 import { getAudioContext } from './sound/audioContext';
 p5.prototype.getAudioContext = getAudioContext;
 import './sound/p5.Oscillator';
+import './sound/p5.SoundFile';
 
 
 // utilities

@@ -1,5 +1,5 @@
 // core
-import p5 from './core/main';
+import p5BLA from './core/main';
 import './core/constants';
 import './core/environment';
 import './core/preload';
@@ -19,7 +19,8 @@ import './color/setting';
 
 // sound
 import { getAudioContext } from './sound/audioContext';
-p5.prototype.getAudioContext = getAudioContext;
+p5BLA.prototype.getAudioContext = getAudioContext;
+import './sound/main';
 import './sound/p5.Oscillator';
 import './sound/p5.SoundFile';
 
@@ -29,4 +30,4 @@ import './utilities/conversion';
 
 import './core/init';
 
-module.exports = p5;
+module.exports = p5BLA;

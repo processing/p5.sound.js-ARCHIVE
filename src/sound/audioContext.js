@@ -1,4 +1,4 @@
-const audiocontext = new window.AudioContext();
+const audioContext = new window.AudioContext();
 
 /**
  * <p>Returns the Audio Context for this sketch. Useful for users
@@ -34,7 +34,7 @@ const audiocontext = new window.AudioContext();
  *
  */
 export function getAudioContext() {
-  return audiocontext;
+  return audioContext;
 }
 
-export default audiocontext;
+export default audioContext;

@@ -36,8 +36,8 @@ class Main {
     //   // an array of all musical parts in the sketch
     //   this.parts = [];
 
-  //   // file extensions to search for
-  //   this.extensions = [];
+    // file extensions to search for
+    this.extensions = [];
   }
 }
 
@@ -75,7 +75,7 @@ const p5sound = new Main();
  *
  *  <p>If no value is provided, returns a Web Audio API Gain Node</p>
  *
- *  @method  outputVolume
+ *  @method outputVolume
  *  @param {Number|Object} volume  Volume (amplitude) between 0.0
  *                                     and 1.0 or modulating signal/oscillator
  *  @param {Number} [rampTime]  Fade for t seconds

@@ -7,7 +7,6 @@ import './core/p5.Element';
 import './core/p5.Renderer';
 import './core/p5.Renderer2D';
 import './core/rendering';
-import './core/shim';
 import './core/structure';
 import './core/shape/2d_primitives';
 import './core/shape/attributes';

@@ -31,10 +31,6 @@ The `constants.js` module provides various default values mostly related to math
 
 The `environment.js` module detects and semantically reassigns various features of the code execution environment that are arguably beyond the control of the p5.js library, such as device properties, window dimensions, and the URL bar. In general, this module should only contain code that exposes mechanics of the web that usually would not be considered part of the p5.js "sketch." This module is conceptually similar to `init.js` in that it tests the environment in which the p5.js code is executing, but one major difference is that broadly speaking the code in `environment.js` does *not* need to run solely at initialization as with `init.js`, and can be invoked whenever necessary.
 
-## [shim.js](./shim.js)
-
-Sometimes p5.js needs to use new browser APIs or other features which haven't yet been completely standardized; for example, a feature that still uses [vendor prefixes](https://developer.mozilla.org/en-US/docs/Glossary/Vendor_Prefix). In any such cases where it is necessary to handle multiple versions of the same functionality, the `shim.js` module juggles the available variants and assigns the results of that evaluation to a standardized property on the `p5` object. The rest of the p5.js library can then use that functionality without needing to constantly reconsider the specific browser implementation details.
-
 ## [p5.Element.js](./p5.Element.js)
 
 Although p5.js is a general toolkit for all sorts of interactive art projects, in practice many p5.js sketches focus on rendering two dimensional into a `<canvas>` element. The `p5.Element.js` module is a wrapper around the browser's DOM API which is focused on the `<canvas>` element and also handles user input events like clicks and mouse movements. Conceptually, p5.js considers the sketch to be *the entire web page*. It's useful to separate `<canvas>` from the more general DOM because so many p5.js projects focus on `<canvas>` and this enables smaller [custom builds](https://github.com/processing/p5.js/blob/main/contributor_docs/custom_p5_build.md). 

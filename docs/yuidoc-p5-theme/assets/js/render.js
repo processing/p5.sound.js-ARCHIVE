@@ -1,6 +1,6 @@
 var renderCode = function(exampleName) {
 
-  var _p5 = p5;
+  var _p5sound = p5sound;
   var instances = [];
   var selector = 'example';
   var examples = document.getElementsByClassName(selector);
@@ -268,7 +268,7 @@ var renderCode = function(exampleName) {
     };
 
     // when a hash is changed, remove all the sounds,
-    // even tho the p5 sketch has been disposed.
+    // even tho the p5sound sketch has been disposed.
     function registerHashChange() {
       window.onhashchange = function(e) {
         for (var i = 0; i < instances.length; i++) {
@@ -282,7 +282,7 @@ var renderCode = function(exampleName) {
       registerHashChange();
 
       setTimeout(function() {
-        var myp5 = new _p5(s, cnv);
+        var myp5sound = new _p5(s, cnv);
         $( ".example-content" ).find('div').each(function() {
           $this = $( this );
           var pre = $this.find('pre')[0];
@@ -290,7 +290,7 @@ var renderCode = function(exampleName) {
             $this.height( Math.max($(pre).height()*1.1, 100) + 20 );
           }
         });
-        instances[i] = myp5;
+        instances[i] = myp5sound;
       }, 100);
     });
 

@@ -6,7 +6,7 @@
     "es6": true
   },
   "globals": {
-    "p5": true
+    "p5sound": true
   },
   "root": true,
   "extends": ["eslint:recommended"],

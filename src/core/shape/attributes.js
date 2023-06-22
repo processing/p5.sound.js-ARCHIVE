@@ -6,7 +6,7 @@
  * @requires constants
  */
 
-import p5 from '../main';
+import p5sound from '../main';
 import * as constants from '../constants';
 
 /**
@@ -57,7 +57,7 @@ import * as constants from '../constants';
  * </code>
  * </div>
  */
-p5.prototype.ellipseMode = function(m) {
+p5sound.prototype.ellipseMode = function(m) {
   if (
     m === constants.CORNER ||
     m === constants.CORNERS ||
@@ -93,7 +93,7 @@ p5.prototype.ellipseMode = function(m) {
  * </code>
  * </div>
  */
-p5.prototype.noSmooth = function() {
+p5sound.prototype.noSmooth = function() {
   if (!this._renderer.isP3D) {
     if ('imageSmoothingEnabled' in this.drawingContext) {
       this.drawingContext.imageSmoothingEnabled = false;
@@ -157,7 +157,7 @@ p5.prototype.noSmooth = function() {
  * </code>
  * </div>
  */
-p5.prototype.rectMode = function(m) {
+p5sound.prototype.rectMode = function(m) {
   if (
     m === constants.CORNER ||
     m === constants.CORNERS ||
@@ -194,7 +194,7 @@ p5.prototype.rectMode = function(m) {
  * </code>
  * </div>
  */
-p5.prototype.smooth = function() {
+p5sound.prototype.smooth = function() {
   this.setAttributes('antialias', true);
   if (!this._renderer.isP3D) {
     if ('imageSmoothingEnabled' in this.drawingContext) {
@@ -230,7 +230,7 @@ p5.prototype.smooth = function() {
  * </code>
  * </div>
  */
-p5.prototype.strokeCap = function(cap) {
+p5sound.prototype.strokeCap = function(cap) {
   if (
     cap === constants.ROUND ||
     cap === constants.SQUARE ||
@@ -296,7 +296,7 @@ p5.prototype.strokeCap = function(cap) {
  * </code>
  * </div>
  */
-p5.prototype.strokeJoin = function(join) {
+p5sound.prototype.strokeJoin = function(join) {
   if (
     join === constants.ROUND ||
     join === constants.BEVEL ||
@@ -344,9 +344,9 @@ p5.prototype.strokeJoin = function(join) {
  * </code>
  * </div>
  */
-p5.prototype.strokeWeight = function(w) {
+p5sound.prototype.strokeWeight = function(w) {
   this._renderer.strokeWeight(w);
   return this;
 };
 
-export default p5;
+export default p5sound;

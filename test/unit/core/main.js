@@ -1,15 +1,15 @@
 const { expect } = require('chai');
 
 suite('Core', function() {
-  suite('p5.prototype.registerMethod', function() {
+  suite('p5sound.prototype.registerMethod', function() {
     test('should register and call "init" methods', function() {
-      var originalInit = p5.prototype._registeredMethods.init;
-      var myp5, myInitCalled;
+      var originalInit = p5sound.prototype._registeredMethods.init;
+      var myp5sound, myInitCalled;
 
-      p5.prototype._registeredMethods.init = [];
+      p5sound.prototype._registeredMethods.init = [];
 
       try {
-        p5.prototype.registerMethod('init', function myInit() {
+        p5sound.prototype.registerMethod('init', function myInit() {
           assert(
             !myInitCalled,
             'myInit should only be called once during test suite'
@@ -19,21 +19,21 @@ suite('Core', function() {
           this.myInitCalled = true;
         });
 
-        myp5 = new p5(function(sketch) {
+        myp5sound = new p5sound(function(sketch) {
           assert(sketch.hasOwnProperty('myInitCalled'));
           assert(sketch.myInitCalled);
 
           sketch.sketchFunctionCalled = true;
         });
 
-        assert(myp5.sketchFunctionCalled);
+        assert(myp5sound.sketchFunctionCalled);
       } finally {
-        p5.prototype._registeredMethods.init = originalInit;
+        p5sound.prototype._registeredMethods.init = originalInit;
       }
     });
   });
 
-  suite('new p5() / global mode', function() {
+  suite('new p5sound() / global mode', function() {
     var iframe;
 
     teardown(function() {
@@ -61,7 +61,7 @@ suite('Core', function() {
       });
     });
 
-    test('works when p5.js is loaded asynchronously', function() {
+    test('works when p5sound.js is loaded asynchronously', function() {
       return new Promise(function(resolve, reject) {
         iframe = createP5Iframe(`
           <script>
@@ -83,9 +83,9 @@ suite('Core', function() {
           [
             P5_SCRIPT_TAG,
             '<script>',
-            'new p5();',
-            'originalP5Instance = p5.instance',
-            'myURL = p5.prototype.getURL();',
+            'new p5sound();',
+            'originalP5Instance = p5sound.instance',
+            'myURL = p5sound.prototype.getURL();',
             'function setup() { setupCalled = true; }',
             'window.addEventListener("load", onDoneLoading, false);',
             '</script>'
@@ -96,14 +96,14 @@ suite('Core', function() {
         var win = iframe.elt.contentWindow;
         assert.equal(typeof win.myURL, 'string');
         assert.strictEqual(win.setupCalled, true);
-        assert.strictEqual(win.originalP5Instance, win.p5.instance);
+        assert.strictEqual(win.originalP5Instance, win.p5sound.instance);
       });
     });
   });
 
-  suite('p5.prototype._createFriendlyGlobalFunctionBinder', function() {
+  suite('p5sound.prototype._createFriendlyGlobalFunctionBinder', function() {
     var noop = function() {};
-    var createBinder = p5.prototype._createFriendlyGlobalFunctionBinder;
+    var createBinder = p5sound.prototype._createFriendlyGlobalFunctionBinder;
     var logMsg, globalObject, bind, iframe;
 
     teardown(function() {
@@ -136,7 +136,7 @@ suite('Core', function() {
           bind('text', noop);
           expect(
             _friendlyErrorStub.calledOnce,
-            'p5._friendlyError was not called'
+            'p5sound._friendlyError was not called'
           ).to.be.true;
         } finally {
           _friendlyErrorStub.restore();
@@ -159,7 +159,7 @@ suite('Core', function() {
           bind('text', noop);
           expect(
             _friendlyErrorStub.calledOnce,
-            'p5._friendlyError was called in minified p5.js'
+            'p5sound._friendlyError was called in minified p5sound.js'
           ).to.be.false;
         } finally {
           _friendlyErrorStub.restore();
@@ -203,7 +203,7 @@ suite('Core', function() {
     });
 
     // This is a regression test for
-    // https://github.com/processing/p5.js/issues/1350.
+    // https://github.com/processing/p5sound.js/issues/1350.
     test('should not warn about overwriting preload methods', function() {
       globalObject.loadJSON = function() {
         throw new Error();
@@ -221,7 +221,7 @@ suite('Core', function() {
     });
 
     test('instance preload is independent of window', function() {
-      // callback for p5 instance mode.
+      // callback for p5sound instance mode.
       // It does not define a preload.
       // This tests that we don't call the global preload accidentally.
       function cb(s) {
@@ -237,7 +237,7 @@ suite('Core', function() {
             'globalPreloads = 0;',
             'function setup() { }',
             'function preload() { window.globalPreloads++; }',
-            'new p5(' + cb.toString() + ');',
+            'new p5sound(' + cb.toString() + ');',
             '</script>'
           ].join('\n')
         );

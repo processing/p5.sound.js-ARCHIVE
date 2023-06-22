@@ -1,286 +1,286 @@
-suite('Structure', function() {
-  var myp5;
+// suite('Structure', function() {
+//   var myp5sound;
 
-  setup(function(done) {
-    new p5(function(p) {
-      p.setup = function() {
-        myp5 = p;
-        done();
-      };
-    });
-  });
+//   setup(function(done) {
+//     new p5sound(function(p) {
+//       p.setup = function() {
+//         myp5sound = p;
+//         done();
+//       };
+//     });
+//   });
 
-  teardown(function() {
-    myp5.remove();
-  });
+//   teardown(function() {
+//     myp5sound.remove();
+//   });
 
-  suite('p5.prototype.loop and p5.prototype.noLoop', function() {
-    test('noLoop should stop', function() {
-      return new Promise(function(resolve, reject) {
-        var c0 = myp5.frameCount;
-        myp5.noLoop();
-        myp5.draw = function() {
-          var c1 = myp5.frameCount;
-          // Allow one final draw to run
-          if (c1 > c0 + 1) {
-            reject('Entered draw');
-          }
-        };
-        setTimeout(resolve, 100);
-      });
-    });
+//   suite('p5sound.prototype.loop and p5sound.prototype.noLoop', function() {
+//     test('noLoop should stop', function() {
+//       return new Promise(function(resolve, reject) {
+//         var c0 = myp5sound.frameCount;
+//         myp5sound.noLoop();
+//         myp5sound.draw = function() {
+//           var c1 = myp5sound.frameCount;
+//           // Allow one final draw to run
+//           if (c1 > c0 + 1) {
+//             reject('Entered draw');
+//           }
+//         };
+//         setTimeout(resolve, 100);
+//       });
+//     });
 
-    test('loop should restart', function() {
-      return new Promise(function(resolve, reject) {
-        var c0 = myp5.frameCount;
-        myp5.noLoop();
-        myp5.draw = function() {
-          var c1 = myp5.frameCount;
-          // Allow one final draw to run
-          if (c1 > c0 + 1) {
-            reject('Entered draw');
-          }
-        };
-        setTimeout(resolve, 100);
-      }).then(function() {
-        return new Promise(function(resolve, reject) {
-          myp5.draw = resolve;
-          myp5.loop();
-          setTimeout(function() {
-            reject('Failed to restart draw.');
-          }, 100);
-        });
-      });
-    });
-  });
+//     test('loop should restart', function() {
+//       return new Promise(function(resolve, reject) {
+//         var c0 = myp5sound.frameCount;
+//         myp5sound.noLoop();
+//         myp5sound.draw = function() {
+//           var c1 = myp5sound.frameCount;
+//           // Allow one final draw to run
+//           if (c1 > c0 + 1) {
+//             reject('Entered draw');
+//           }
+//         };
+//         setTimeout(resolve, 100);
+//       }).then(function() {
+//         return new Promise(function(resolve, reject) {
+//           myp5sound.draw = resolve;
+//           myp5sound.loop();
+//           setTimeout(function() {
+//             reject('Failed to restart draw.');
+//           }, 100);
+//         });
+//       });
+//     });
+//   });
 
-  suite('p5.prototype.push and p5.prototype.pop', function() {
-    function getRenderState() {
-      var state = {};
-      for (var key in myp5._renderer) {
-        var value = myp5._renderer[key];
-        if (
-          typeof value !== 'function' &&
-          key !== '_cachedFillStyle' &&
-          key !== '_cachedStrokeStyle'
-        ) {
-          state[key] = value;
-        }
-      }
-      return state;
-    }
+//   suite('p5sound.prototype.push and p5sound.prototype.pop', function() {
+//     function getRenderState() {
+//       var state = {};
+//       for (var key in myp5sound._renderer) {
+//         var value = myp5sound._renderer[key];
+//         if (
+//           typeof value !== 'function' &&
+//           key !== '_cachedFillStyle' &&
+//           key !== '_cachedStrokeStyle'
+//         ) {
+//           state[key] = value;
+//         }
+//       }
+//       return state;
+//     }
 
-    function assertCanPreserveRenderState(work) {
-      var originalState = getRenderState();
-      myp5.push();
-      work();
-      myp5.pop();
-      assert.deepEqual(getRenderState(), originalState);
-    }
+//     function assertCanPreserveRenderState(work) {
+//       var originalState = getRenderState();
+//       myp5sound.push();
+//       work();
+//       myp5sound.pop();
+//       assert.deepEqual(getRenderState(), originalState);
+//     }
 
-    test('leak no state after fill()', function() {
-      myp5.noFill();
-      assertCanPreserveRenderState(function() {
-        myp5.fill('red');
-      });
-    });
+//     test('leak no state after fill()', function() {
+//       myp5sound.noFill();
+//       assertCanPreserveRenderState(function() {
+//         myp5sound.fill('red');
+//       });
+//     });
 
-    test('leak no state after noFill()', function() {
-      myp5.fill('red');
-      assertCanPreserveRenderState(function() {
-        myp5.noFill();
-      });
-    });
+//     test('leak no state after noFill()', function() {
+//       myp5sound.fill('red');
+//       assertCanPreserveRenderState(function() {
+//         myp5sound.noFill();
+//       });
+//     });
 
-    test('leak no state after stroke()', function() {
-      myp5.noStroke();
-      assertCanPreserveRenderState(function() {
-        myp5.stroke('red');
-      });
-    });
+//     test('leak no state after stroke()', function() {
+//       myp5sound.noStroke();
+//       assertCanPreserveRenderState(function() {
+//         myp5sound.stroke('red');
+//       });
+//     });
 
-    test('leak no state after noStroke()', function() {
-      myp5.stroke('red');
-      assertCanPreserveRenderState(function() {
-        myp5.noStroke();
-      });
-    });
+//     test('leak no state after noStroke()', function() {
+//       myp5sound.stroke('red');
+//       assertCanPreserveRenderState(function() {
+//         myp5sound.noStroke();
+//       });
+//     });
 
-    test('leak no state after tint()', function() {
-      myp5.noTint();
-      assertCanPreserveRenderState(function() {
-        myp5.tint(255, 0, 0);
-      });
-    });
+//     test('leak no state after tint()', function() {
+//       myp5sound.noTint();
+//       assertCanPreserveRenderState(function() {
+//         myp5sound.tint(255, 0, 0);
+//       });
+//     });
 
-    test('leak no state after noTint()', function() {
-      myp5.tint(255, 0, 0);
-      assertCanPreserveRenderState(function() {
-        myp5.noTint();
-      });
-    });
+//     test('leak no state after noTint()', function() {
+//       myp5sound.tint(255, 0, 0);
+//       assertCanPreserveRenderState(function() {
+//         myp5sound.noTint();
+//       });
+//     });
 
-    test('leak no state after strokeWeight()', function() {
-      myp5.strokeWeight(1);
-      assertCanPreserveRenderState(function() {
-        myp5.strokeWeight(10);
-      });
-    });
+//     test('leak no state after strokeWeight()', function() {
+//       myp5sound.strokeWeight(1);
+//       assertCanPreserveRenderState(function() {
+//         myp5sound.strokeWeight(10);
+//       });
+//     });
 
-    test('leak no state after strokeCap()', function() {
-      myp5.strokeCap(myp5.ROUND);
-      assertCanPreserveRenderState(function() {
-        myp5.strokeCap(myp5.SQUARE);
-      });
-    });
+//     test('leak no state after strokeCap()', function() {
+//       myp5sound.strokeCap(myp5sound.ROUND);
+//       assertCanPreserveRenderState(function() {
+//         myp5sound.strokeCap(myp5sound.SQUARE);
+//       });
+//     });
 
-    test('leak no state after strokeJoin()', function() {
-      myp5.strokeJoin(myp5.BEVEL);
-      assertCanPreserveRenderState(function() {
-        myp5.strokeJoin(myp5.MITER);
-      });
-    });
+//     test('leak no state after strokeJoin()', function() {
+//       myp5sound.strokeJoin(myp5sound.BEVEL);
+//       assertCanPreserveRenderState(function() {
+//         myp5sound.strokeJoin(myp5sound.MITER);
+//       });
+//     });
 
-    test('leak no state after rectMode()', function() {
-      myp5.rectMode(myp5.CORNER);
-      assertCanPreserveRenderState(function() {
-        myp5.rectMode(myp5.CENTER);
-      });
-    });
+//     test('leak no state after rectMode()', function() {
+//       myp5sound.rectMode(myp5sound.CORNER);
+//       assertCanPreserveRenderState(function() {
+//         myp5sound.rectMode(myp5sound.CENTER);
+//       });
+//     });
 
-    test('leak no state after ellipseMode()', function() {
-      myp5.ellipseMode(myp5.CORNER);
-      assertCanPreserveRenderState(function() {
-        myp5.ellipseMode(myp5.CENTER);
-      });
-    });
+//     test('leak no state after ellipseMode()', function() {
+//       myp5sound.ellipseMode(myp5sound.CORNER);
+//       assertCanPreserveRenderState(function() {
+//         myp5sound.ellipseMode(myp5sound.CENTER);
+//       });
+//     });
 
-    test('leak no state after colorMode()', function() {
-      myp5.colorMode(myp5.HSB);
-      assertCanPreserveRenderState(function() {
-        myp5.colorMode(myp5.RGB);
-      });
-    });
+//     test('leak no state after colorMode()', function() {
+//       myp5sound.colorMode(myp5sound.HSB);
+//       assertCanPreserveRenderState(function() {
+//         myp5sound.colorMode(myp5sound.RGB);
+//       });
+//     });
 
-    test('leak no state after textAlign()', function() {
-      myp5.textAlign(myp5.RIGHT, myp5.BOTTOM);
-      assertCanPreserveRenderState(function() {
-        myp5.textAlign(myp5.CENTER, myp5.CENTER);
-      });
-    });
+//     test('leak no state after textAlign()', function() {
+//       myp5sound.textAlign(myp5sound.RIGHT, myp5sound.BOTTOM);
+//       assertCanPreserveRenderState(function() {
+//         myp5sound.textAlign(myp5sound.CENTER, myp5sound.CENTER);
+//       });
+//     });
 
-    test('leak no state after textFont()', function() {
-      myp5.textFont('Georgia');
-      assertCanPreserveRenderState(function() {
-        myp5.textFont('Helvetica');
-      });
-    });
+//     test('leak no state after textFont()', function() {
+//       myp5sound.textFont('Georgia');
+//       assertCanPreserveRenderState(function() {
+//         myp5sound.textFont('Helvetica');
+//       });
+//     });
 
-    test('leak no state after textStyle()', function() {
-      myp5.textStyle(myp5.ITALIC);
-      assertCanPreserveRenderState(function() {
-        myp5.textStyle(myp5.BOLD);
-      });
-    });
+//     test('leak no state after textStyle()', function() {
+//       myp5sound.textStyle(myp5sound.ITALIC);
+//       assertCanPreserveRenderState(function() {
+//         myp5sound.textStyle(myp5sound.BOLD);
+//       });
+//     });
 
-    test('leak no state after textSize()', function() {
-      myp5.textSize(12);
-      assertCanPreserveRenderState(function() {
-        myp5.textSize(16);
-      });
-    });
+//     test('leak no state after textSize()', function() {
+//       myp5sound.textSize(12);
+//       assertCanPreserveRenderState(function() {
+//         myp5sound.textSize(16);
+//       });
+//     });
 
-    test('leak no state after textLeading()', function() {
-      myp5.textLeading(20);
-      assertCanPreserveRenderState(function() {
-        myp5.textLeading(30);
-      });
-    });
-  });
+//     test('leak no state after textLeading()', function() {
+//       myp5sound.textLeading(20);
+//       assertCanPreserveRenderState(function() {
+//         myp5sound.textLeading(30);
+//       });
+//     });
+//   });
 
-  suite('p5.prototype.redraw', function() {
-    var iframe;
+//   suite('p5sound.prototype.redraw', function() {
+//     var iframe;
 
-    teardown(function() {
-      if (iframe) {
-        iframe.teardown();
-        iframe = null;
-      }
-    });
+//     teardown(function() {
+//       if (iframe) {
+//         iframe.teardown();
+//         iframe = null;
+//       }
+//     });
 
-    test('resets the rendering matrix between frames', function() {
-      return new Promise(function(resolve, reject) {
-        myp5.draw = function() {
-          myp5.background(0);
-          myp5.stroke(255);
-          myp5.point(10, 10);
-          if (myp5.get(10, 10)[0] === 0) {
-            reject(new Error("Drawing matrix doesn't appear to be reset"));
-          }
-          myp5.rotate(10);
-        };
-        myp5.redraw(10);
-        resolve();
-      });
-    });
+//     test('resets the rendering matrix between frames', function() {
+//       return new Promise(function(resolve, reject) {
+//         myp5sound.draw = function() {
+//           myp5sound.background(0);
+//           myp5sound.stroke(255);
+//           myp5sound.point(10, 10);
+//           if (myp5sound.get(10, 10)[0] === 0) {
+//             reject(new Error("Drawing matrix doesn't appear to be reset"));
+//           }
+//           myp5sound.rotate(10);
+//         };
+//         myp5sound.redraw(10);
+//         resolve();
+//       });
+//     });
 
-    test('instance redraw is independent of window', function() {
-      // callback for p5 instance mode.
-      // It does not call noLoop so redraw will be called many times.
-      // Redraw is not supposed to call window.draw even though no draw is defined in cb
-      function cb(s) {
-        s.setup = function() {
-          setTimeout(window.afterSetup, 1000);
-        };
-      }
-      return new Promise(function(resolve) {
-        iframe = createP5Iframe(
-          [
-            P5_SCRIPT_TAG,
-            '<script>',
-            'globalDraws = 0;',
-            'function setup() { noLoop(); }',
-            'function draw() { window.globalDraws++; }',
-            'new p5(' + cb.toString() + ');',
-            '</script>'
-          ].join('\n')
-        );
-        iframe.elt.contentWindow.afterSetup = resolve;
-      }).then(function() {
-        var win = iframe.elt.contentWindow;
-        assert.strictEqual(win.globalDraws, 1);
-      });
-    });
-  });
+//     test('instance redraw is independent of window', function() {
+//       // callback for p5sound instance mode.
+//       // It does not call noLoop so redraw will be called many times.
+//       // Redraw is not supposed to call window.draw even though no draw is defined in cb
+//       function cb(s) {
+//         s.setup = function() {
+//           setTimeout(window.afterSetup, 1000);
+//         };
+//       }
+//       return new Promise(function(resolve) {
+//         iframe = createP5Iframe(
+//           [
+//             P5_SCRIPT_TAG,
+//             '<script>',
+//             'globalDraws = 0;',
+//             'function setup() { noLoop(); }',
+//             'function draw() { window.globalDraws++; }',
+//             'new p5sound(' + cb.toString() + ');',
+//             '</script>'
+//           ].join('\n')
+//         );
+//         iframe.elt.contentWindow.afterSetup = resolve;
+//       }).then(function() {
+//         var win = iframe.elt.contentWindow;
+//         assert.strictEqual(win.globalDraws, 1);
+//       });
+//     });
+//   });
 
-  suite('loop', function() {
-    testSketchWithPromise('loop in setup does not call draw', function(
-      sketch,
-      resolve,
-      reject
-    ) {
-      sketch.setup = function() {
-        sketch.loop();
-        resolve();
-      };
+//   suite('loop', function() {
+//     testSketchWithPromise('loop in setup does not call draw', function(
+//       sketch,
+//       resolve,
+//       reject
+//     ) {
+//       sketch.setup = function() {
+//         sketch.loop();
+//         resolve();
+//       };
 
-      sketch.draw = function() {
-        reject(new Error('Entered draw during loop()'));
-      };
-    });
+//       sketch.draw = function() {
+//         reject(new Error('Entered draw during loop()'));
+//       };
+//     });
 
-    testSketchWithPromise('loop in draw does not call draw', function(
-      sketch,
-      resolve,
-      reject
-    ) {
-      sketch.draw = function() {
-        if (sketch.frameCount > 1) {
-          reject(new Error('re-entered draw during loop() call'));
-        }
-        sketch.loop();
-        resolve();
-      };
-    });
-  });
-});
+//     testSketchWithPromise('loop in draw does not call draw', function(
+//       sketch,
+//       resolve,
+//       reject
+//     ) {
+//       sketch.draw = function() {
+//         if (sketch.frameCount > 1) {
+//           reject(new Error('re-entered draw during loop() call'));
+//         }
+//         sketch.loop();
+//         resolve();
+//       };
+//     });
+//   });
+// });

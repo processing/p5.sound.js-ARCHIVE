@@ -1,23 +1,23 @@
 /**
  * @module DOM
  * @submodule DOM
- * @for p5.Element
+ * @for p5sound.Element
  */
 
-import p5 from './main';
+import p5sound from './main';
 
 /**
  * Base class for all elements added to a sketch, including canvas,
- * buffers, and other HTML elements. It is not called directly, but <a href="#/p5.Element">p5.Element</a>
+ * buffers, and other HTML elements. It is not called directly, but <a href="#/p5sound.Element">p5sound.Element</a>
  * objects are created by calling <a href="#/p5/createCanvas">createCanvas()</a>,
  * <a href="#/p5/createDiv">createDiv()</a>, <a href="#/p5/createImg">createImg()</a>, <a href="#/p5/createInput">createInput()</a>, etc.
  *
- * @class p5.Element
+ * @class p5sound.Element
  * @constructor
  * @param {String} elt DOM node that is wrapped
- * @param {p5} [pInst] pointer to p5 instance
+ * @param {p5sound} [pInst] pointer to p5sound instance
  */
-p5.Element = class {
+p5sound.Element = class {
   constructor(elt, pInst) {
     /**
      * Underlying HTML element. All normal HTML methods can be called on this.
@@ -49,13 +49,13 @@ p5.Element = class {
    *
    * Attaches the element to the parent specified. A way of setting
    * the container for the element. Accepts either a string ID, DOM
-   * node, or <a href="#/p5.Element">p5.Element</a>. If no arguments are given, parent node is returned.
+   * node, or <a href="#/p5sound.Element">p5sound.Element</a>. If no arguments are given, parent node is returned.
    * For more ways to position the canvas, see the
-   * <a href='https://github.com/processing/p5.js/wiki/Positioning-your-canvas'>
+   * <a href='https://github.com/processing/p5sound.js/wiki/Positioning-your-canvas'>
    * positioning the canvas</a> wiki page.
    *
    * @method parent
-   * @param  {String|p5.Element|Object} parent the ID, DOM node, or <a href="#/p5.Element">p5.Element</a>
+   * @param  {String|p5sound.Element|Object} parent the ID, DOM node, or <a href="#/p5sound.Element">p5sound.Element</a>
    *                         of desired parent element
    * @chainable
    *
@@ -72,7 +72,7 @@ p5.Element = class {
    * <div class='norender'><code>
    * let div0 = createDiv('this is the parent');
    * let div1 = createDiv('this is the child');
-   * div1.parent(div0); // use p5.Element
+   * div1.parent(div0); // use p5sound.Element
    * </code></div>
    *
    * <div class='norender'><code>
@@ -93,7 +93,7 @@ p5.Element = class {
    */
   /**
    * @method parent
-   * @return {p5.Element}
+   * @return {p5sound.Element}
    */
   parent(p) {
     if (typeof p === 'undefined') {
@@ -105,7 +105,7 @@ p5.Element = class {
         p = p.substring(1);
       }
       p = document.getElementById(p);
-    } else if (p instanceof p5.Element) {
+    } else if (p instanceof p5sound.Element) {
       p = p.elt;
     }
     p.appendChild(this.elt);
@@ -117,7 +117,7 @@ p5.Element = class {
    * Sets the ID of the element. If no ID argument is passed in, it instead
    * returns the current ID of the element.
    * Note that only one element can have a particular id in a page.
-   * The <a href="#/p5.Element/class">class()</a> method can be used
+   * The <a href="#/p5sound.Element/class">class()</a> method can be used
    * to identify multiple elements with the same class name.
    *
    * @method id
@@ -191,9 +191,9 @@ p5.Element = class {
   // General handler for event attaching and detaching
   static _adjustListener(ev, fxn, ctx) {
     if (fxn === false) {
-      p5.Element._detachListener(ev, ctx);
+      p5sound.Element._detachListener(ev, ctx);
     } else {
-      p5.Element._attachListener(ev, fxn, ctx);
+      p5sound.Element._attachListener(ev, fxn, ctx);
     }
     return this;
   }
@@ -201,7 +201,7 @@ p5.Element = class {
   static _attachListener(ev, fxn, ctx) {
     // detach the old listener if there was one
     if (ctx._events[ev]) {
-      p5.Element._detachListener(ev, ctx);
+      p5sound.Element._detachListener(ev, ctx);
     }
     const f = fxn.bind(ctx);
     ctx.elt.addEventListener(ev, f, false);
@@ -222,4 +222,4 @@ p5.Element = class {
   }
 };
 
-export default p5.Element;
+export default p5sound.Element;

@@ -1,40 +1,40 @@
-var cnv, soundFile, fft, peakDetect;
-var ellipseWidth = 10;
+// var cnv, soundFile, fft, peakDetect;
+// var ellipseWidth = 10;
 
-function preload() {
-  soundFile = loadSound('../_files/beat.mp3');
-}
+// function preload() {
+//   soundFile = loadSound('../_files/beat.mp3');
+// }
 
-function setup() {
-  cnv = createCanvas(100, 100);
+// function setup() {
+//   cnv = createCanvas(100, 100);
 
-  fft = new p5.FFT();
-  peakDetect = new p5.PeakDetect();
+//   fft = new p5sound.FFT();
+//   peakDetect = new p5sound.PeakDetect();
 
-  setupSound();
-}
+//   setupSound();
+// }
 
-function draw() {
-  background(0);
+// function draw() {
+//   background(0);
 
-  fft.analyze();
-  peakDetect.update(fft);
+//   fft.analyze();
+//   peakDetect.update(fft);
 
-  if (peakDetect.isDetected) {
-    ellipseWidth = 50;
-  } else {
-    ellipseWidth *= 0.95;
-  }
+//   if (peakDetect.isDetected) {
+//     ellipseWidth = 50;
+//   } else {
+//     ellipseWidth *= 0.95;
+//   }
 
-  ellipse(width / 2, height / 2, ellipseWidth, ellipseWidth);
-}
+//   ellipse(width / 2, height / 2, ellipseWidth, ellipseWidth);
+// }
 
-function setupSound() {
-  cnv.mouseClicked(function() {
-    if (soundFile.isPlaying()) {
-      soundFile.stop();
-    } else {
-      soundFile.play();
-    }
-  });
-}
+// function setupSound() {
+//   cnv.mouseClicked(function() {
+//     if (soundFile.isPlaying()) {
+//       soundFile.stop();
+//     } else {
+//       soundFile.play();
+//     }
+//   });
+// }

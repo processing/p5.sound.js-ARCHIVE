@@ -8,8 +8,8 @@
       reqwest: '../node_modules/reqwest/reqwest'
     }
   });
-  require(['app'], function( p5 ) {
-    new p5(function( p ) {
+  require(['app'], function( p5sound ) {
+    new p5sound(function( p ) {
       p.setup = function() {
         p.fill('red');
         p.rect(0,0,10,10);

@@ -3,14 +3,14 @@
 node_modules/*
 experiments/*
 lib_old/*
-lib/p5.*
+lib/p5sound.*
 lib/modules
 docs/reference/*
 !*.gitkeep
 examples/3d/
 .idea
 dist/
-p5.zip
+p5sound.zip
 bower-repo/
 p5-website/
 .vscode/settings.json

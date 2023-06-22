@@ -4,23 +4,23 @@
  * @for p5
  */
 
-import p5 from './main';
+import p5sound from './main';
 import * as constants from '../core/constants';
 
 /**
  * Main and rendering context, as well as the base API
- * implementation for p5.js "core". To be used as the superclass for
+ * implementation for p5sound.js "core". To be used as the superclass for
  * Renderer2D and Renderer3D classes, respectively.
  *
- * @class p5.Renderer
+ * @class p5sound.Renderer
  * @constructor
- * @extends p5.Element
+ * @extends p5sound.Element
  * @param {String} elt DOM node that is wrapped
- * @param {p5} [pInst] pointer to p5 instance
+ * @param {p5sound} [pInst] pointer to p5sound instance
  * @param {Boolean} [isMainCanvas] whether we're using it as main canvas
  */
-p5.Renderer = function (elt, pInst, isMainCanvas) {
-  p5.Element.call(this, elt, pInst);
+p5sound.Renderer = function (elt, pInst, isMainCanvas) {
+  p5sound.Element.call(this, elt, pInst);
   this.canvas = elt;
   this._pixelsState = pInst;
   if (isMainCanvas) {
@@ -33,7 +33,7 @@ p5.Renderer = function (elt, pInst, isMainCanvas) {
   } else {
     // hide if offscreen buffer by default
     this.canvas.style.display = 'none';
-    this._styles = []; // non-main elt styles stored in p5.Renderer
+    this._styles = []; // non-main elt styles stored in p5sound.Renderer
   }
 
   this._ellipseMode = constants.CENTER;
@@ -45,11 +45,11 @@ p5.Renderer = function (elt, pInst, isMainCanvas) {
   this._fillSet = false;
 };
 
-p5.Renderer.prototype = Object.create(p5.Element.prototype);
+p5sound.Renderer.prototype = Object.create(p5sound.Element.prototype);
 
 // the renderer should return a 'style' object that it wishes to
 // store on the push stack.
-p5.Renderer.prototype.push = function () {
+p5sound.Renderer.prototype.push = function () {
   return {
     properties: {
       _doStroke: this._doStroke,
@@ -65,7 +65,7 @@ p5.Renderer.prototype.push = function () {
 // a pop() operation is in progress
 // the renderer is passed the 'style' object that it returned
 // from its push() method.
-p5.Renderer.prototype.pop = function (style) {
+p5sound.Renderer.prototype.pop = function (style) {
   if (style.properties) {
     // copy the style properties back into the renderer
     Object.assign(this, style.properties);
@@ -75,7 +75,7 @@ p5.Renderer.prototype.pop = function (style) {
 /**
  * Resize our canvas element.s
  */
-p5.Renderer.prototype.resize = function (w, h) {
+p5sound.Renderer.prototype.resize = function (w, h) {
   this.width = w;
   this.height = h;
   this.elt.width = w * this._pInst._pixelDensity;
@@ -88,7 +88,7 @@ p5.Renderer.prototype.resize = function (w, h) {
   }
 };
 
-p5.Renderer.prototype.get = function (x, y, w, h) {
+p5sound.Renderer.prototype.get = function (x, y, w, h) {
   const pixelsState = this._pixelsState;
   const pd = pixelsState._pixelDensity;
   const canvas = this.canvas;
@@ -113,7 +113,7 @@ p5.Renderer.prototype.get = function (x, y, w, h) {
     // get(x,y,w,h)
   }
 
-  const region = new p5.Image(w, h);
+  const region = new p5sound.Image(w, h);
   region.canvas
     .getContext('2d')
     .drawImage(canvas, x, y, w * pd, h * pd, 0, 0, w, h);
@@ -121,8 +121,8 @@ p5.Renderer.prototype.get = function (x, y, w, h) {
   return region;
 };
 
-p5.Renderer.prototype._applyDefaults = function () {
+p5sound.Renderer.prototype._applyDefaults = function () {
   return this;
 };
 
-export default p5.Renderer;
+export default p5sound.Renderer;

@@ -6,12 +6,12 @@
  * @requires constants
  */
 
-import p5 from '../core/main';
-import './p5.Color';
+import p5sound from '../core/main';
+import './p5sound.Color';
 
 /**
  * The <a href="#/p5/background">background()</a> function sets the color used
- * for the background of the p5.js canvas. The default background is transparent.
+ * for the background of the p5sound.js canvas. The default background is transparent.
  * This function is typically used within <a href="#/p5/draw">draw()</a> to clear
  * the display window at the beginning of each frame, but it can be used inside
  * <a href="#/p5/setup">setup()</a> to set the background on the first frame of
@@ -26,11 +26,11 @@ import './p5.Color';
  * and all named color strings are supported. In this case, an alpha number
  * value as a second argument is not supported, the RGBA form should be used.
  *
- * A <a href="#/p5.Color">p5.Color</a> object can also be provided to set the background color.
+ * A <a href="#/p5sound.Color">p5sound.Color</a> object can also be provided to set the background color.
  *
  *
  * @method background
- * @param {p5.Color} color  any value created by the <a href="#/p5/color">color()</a> function
+ * @param {p5sound.Color} color  any value created by the <a href="#/p5/color">color()</a> function
  * @chainable
  *
  * @example
@@ -117,7 +117,7 @@ import './p5.Color';
  *
  * <div>
  * <code>
- * // p5 Color object
+ * // p5sound Color object
  * background(color(0, 0, 255));
  * describe('canvas with blue background');
  * </code>
@@ -166,13 +166,13 @@ import './p5.Color';
  * @param  {Number}  [a]
  * @chainable
  */
-p5.prototype.background = function(...args) {
+p5sound.prototype.background = function(...args) {
   this._renderer.background(...args);
   return this;
 };
 
 
-p5.prototype.clear = function(...args) {
+p5sound.prototype.clear = function(...args) {
   const _r = args[0] || 0;
   const _g = args[1] || 0;
   const _b = args[2] || 0;
@@ -194,7 +194,7 @@ p5.prototype.clear = function(...args) {
  * and all named color strings are supported. In this case, an alpha number
  * value as a second argument is not supported, the RGBA form should be used.
  *
- * A <a href="#/p5.Color">p5.Color</a> object can also be provided to set the fill color.
+ * A <a href="#/p5sound.Color">p5sound.Color</a> object can also be provided to set the fill color.
  *
  * @method fill
  * @param  {Number}        v1      red or hue value relative to
@@ -236,7 +236,7 @@ p5.prototype.clear = function(...args) {
  *
  * <div>
  * <code>
- * // p5 Color object
+ * // p5sound Color object
  * fill(color(0, 0, 255));
  * rect(20, 20, 60, 60);
  * describe('blue rect with black outline in center of canvas');
@@ -266,10 +266,10 @@ p5.prototype.clear = function(...args) {
 
 /**
  * @method fill
- * @param  {p5.Color}      color   the fill color
+ * @param  {p5sound.Color}      color   the fill color
  * @chainable
  */
-p5.prototype.fill = function(...args) {
+p5sound.prototype.fill = function(...args) {
   this._renderer._setProperty('_fillSet', true);
   this._renderer._setProperty('_doFill', true);
   this._renderer.fill(...args);
@@ -288,7 +288,7 @@ p5.prototype.fill = function(...args) {
  * number value as a second argument is not supported, the RGBA form should be
  * used.
  *
- * A <a href="#/p5.Color">p5.Color</a> object can also be provided to set the stroke color.
+ * A <a href="#/p5sound.Color">p5sound.Color</a> object can also be provided to set the stroke color.
  *
  * @method stroke
  * @param  {Number}        v1      red or hue value relative to
@@ -355,15 +355,15 @@ p5.prototype.fill = function(...args) {
 
 /**
  * @method stroke
- * @param  {p5.Color}      color   the stroke color
+ * @param  {p5sound.Color}      color   the stroke color
  * @chainable
  */
 
-p5.prototype.stroke = function(...args) {
+p5sound.prototype.stroke = function(...args) {
   this._renderer._setProperty('_strokeSet', true);
   this._renderer._setProperty('_doStroke', true);
   this._renderer.stroke(...args);
   return this;
 };
 
-export default p5;
+export default p5sound;

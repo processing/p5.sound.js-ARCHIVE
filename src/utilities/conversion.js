@@ -5,7 +5,7 @@
  * @requires core
  */
 
-import p5 from '../core/main';
+import p5sound from '../core/main';
 
 
 /**
@@ -36,7 +36,7 @@ import p5 from '../core/main';
  * @param {Integer}       [radix]
  * @return {Number[]}                   integer representation of values
  */
-p5.prototype.int = function(n, radix = 10) {
+p5sound.prototype.int = function(n, radix = 10) {
   if (n === Infinity || n === 'Infinity') {
     return Infinity;
   } else if (n === -Infinity || n === '-Infinity') {
@@ -48,8 +48,8 @@ p5.prototype.int = function(n, radix = 10) {
   } else if (typeof n === 'boolean') {
     return n ? 1 : 0;
   } else if (n instanceof Array) {
-    return n.map(n => p5.prototype.int(n, radix));
+    return n.map(n => p5sound.prototype.int(n, radix));
   }
 };
 
-export default p5;
+export default p5sound;

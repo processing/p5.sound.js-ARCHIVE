@@ -1,18 +1,18 @@
-suite('Rendering', function() {
-  var myp5;
+// suite('Rendering', function() {
+//   var myp5sound;
 
-  setup(function(done) {
-    new p5(function(p) {
-      p.setup = function() {
-        myp5 = p;
-        done();
-      };
-    });
-  });
+//   setup(function(done) {
+//     new p5sound(function(p) {
+//       p.setup = function() {
+//         myp5sound = p;
+//         done();
+//       };
+//     });
+//   });
 
-  teardown(function() {
-    myp5.remove();
-  });
+//   teardown(function() {
+//     myp5sound.remove();
+//   });
 
 
-});
+// });

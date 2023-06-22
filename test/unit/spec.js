@@ -1,18 +1,18 @@
 var spec = {
-  color: ['creating_reading', 'p5.Color', 'setting'],
+  color: ['creating_reading', 'p5sound.Color', 'setting'],
   core: [
     '2d_primitives',
     'attributes',
     'environment',
     'error_helpers',
     'main',
-    'p5.Element',
+    'p5sound.Element',
     'preload',
     'rendering',
     'structure',
     'version'
   ],
-  math: ['calculation', 'noise', 'p5.Vector', 'random', 'trigonometry'],
+  math: ['calculation', 'noise', 'p5sound.Vector', 'random', 'trigonometry'],
   utilities: ['conversion']
 };
 Object.keys(spec).map(function(folder) {

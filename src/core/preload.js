@@ -1,11 +1,11 @@
-import p5 from './main';
+import p5sound from './main';
 
-p5.prototype._promisePreloads = [
+p5sound.prototype._promisePreloads = [
   /* Example object
   {
-    target: p5.prototype, // The target object to have the method modified
+    target: p5sound.prototype, // The target object to have the method modified
     method: 'loadXAsync', // The name of the preload function to wrap
-    addCallbacks: true,   // Whether to automatically handle the p5 callbacks
+    addCallbacks: true,   // Whether to automatically handle the p5sound callbacks
     legacyPreloadSetup: { // Optional object to generate a legacy-style preload
       method: 'loadX',    // The name of the legacy preload function to generate
       createBaseObject: function() {
@@ -16,13 +16,13 @@ p5.prototype._promisePreloads = [
   */
 ];
 
-p5.prototype.registerPromisePreload = function(setup) {
-  p5.prototype._promisePreloads.push(setup);
+p5sound.prototype.registerPromisePreload = function(setup) {
+  p5sound.prototype._promisePreloads.push(setup);
 };
 
 let initialSetupRan = false;
 
-p5.prototype._setupPromisePreloads = function() {
+p5sound.prototype._setupPromisePreloads = function() {
   for (const preloadSetup of this._promisePreloads) {
     let thisValue = this;
     let { method, addCallbacks, legacyPreloadSetup } = preloadSetup;
@@ -30,8 +30,8 @@ p5.prototype._setupPromisePreloads = function() {
     // that is the current object.
     let target = preloadSetup.target || this;
     let sourceFunction = target[method].bind(target);
-    // If the target is the p5 prototype, then only set it up on the first run per page
-    if (target === p5.prototype) {
+    // If the target is the p5sound prototype, then only set it up on the first run per page
+    if (target === p5sound.prototype) {
       if (initialSetupRan) {
         continue;
       }
@@ -60,7 +60,7 @@ p5.prototype._setupPromisePreloads = function() {
   initialSetupRan = true;
 };
 
-p5.prototype._wrapPromisePreload = function(thisValue, fn, addCallbacks) {
+p5sound.prototype._wrapPromisePreload = function(thisValue, fn, addCallbacks) {
   let replacementFunction = function(...args) {
     // Uses the current preload counting mechanism for now.
     this._incrementPreload();
@@ -105,7 +105,7 @@ const objectCreator = function() {
   return {};
 };
 
-p5.prototype._legacyPreloadGenerator = function(
+p5sound.prototype._legacyPreloadGenerator = function(
   thisValue,
   legacyPreloadSetup,
   fn

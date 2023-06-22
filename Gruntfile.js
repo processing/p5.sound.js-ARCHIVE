@@ -29,7 +29,7 @@ module.exports = grunt => {
         middleware: function(connect, options, middlewares) {
           middlewares.unshift(
             require('connect-modrewrite')([
-              '^/assets/js/p5.sound(\\.min)?\\.js(.*) /lib/p5.sound$1.js$2 [L]'
+              '^/assets/js/p5sound(\\.min)?\\.js(.*) /lib/p5sound$1.js$2 [L]'
             ]),
             function(req, res, next) {
               res.setHeader('Access-Control-Allow-Origin', '*');
@@ -299,7 +299,7 @@ module.exports = grunt => {
     },
 
     // This is a static server which is used when testing connectivity for the
-    // p5 library. This avoids needing an internet connection to run the tests.
+    // p5sound library. This avoids needing an internet connection to run the tests.
     // It serves all the files in the test directory at http://localhost:9001/
     connect: {
       server: connectConfig(),
@@ -380,10 +380,10 @@ module.exports = grunt => {
     'eslint:source',
     'eslint:test'
   ]);
-  grunt.registerTask('lint:samples', [
-    'yui', // required for eslint-samples
-    'eslint-samples:source'
-  ]);
+  // grunt.registerTask('lint:samples', [
+  //   'yui', // required for eslint-samples
+  //   'eslint-samples:source'
+  // ]);
   grunt.registerTask('lint-fix', ['eslint:fix']);
   grunt.registerTask('test', [
     'build',

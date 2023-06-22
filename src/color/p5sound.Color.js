@@ -6,7 +6,7 @@
  * @requires constants
  */
 
-import p5 from '../core/main';
+import p5sound from '../core/main';
 import * as constants from '../core/constants';
 
 /**
@@ -212,15 +212,15 @@ const colorPatterns = {
  * of this class. However, one can also create a color instace from the constructor
  * using the parameters below.
  *
- * @class p5.Color
+ * @class p5sound.Color
  * @constructor
- * @param {p5} [pInst]                      pointer to p5 instance.
+ * @param {p5sound} [pInst]                      pointer to p5sound instance.
  *
  * @param {Number[]|String} vals            an array containing the color values
  *                                          for red, green, blue and alpha channel
  *                                          or CSS color.
  */
-p5.Color = class Color {
+p5sound.Color = class Color {
   constructor(pInst, vals) {
     // Record color mode and maxes at time of construction.
     this._storeModeAndMaxes(pInst._colorMode, pInst._colorMaxes);
@@ -368,4 +368,4 @@ p5.Color = class Color {
   }
 };
 
-export default p5.Color;
+export default p5sound.Color;

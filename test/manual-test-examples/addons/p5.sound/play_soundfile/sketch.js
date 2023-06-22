@@ -1,32 +1,32 @@
-// ====================
-// DEMO: play a sound when the user presses a key
-// ====================
+// // ====================
+// // DEMO: play a sound when the user presses a key
+// // ====================
 
-// create a variable for the sound file
-var soundFile;
+// // create a variable for the sound file
+// var soundFile;
 
-function preload() {
-  // create a SoundFile
-  soundFile = loadSound(['../_files/beatbox.ogg', '../_files/beatbox.mp3']);
-}
+// function preload() {
+//   // create a SoundFile
+//   soundFile = loadSound(['../_files/beatbox.ogg', '../_files/beatbox.mp3']);
+// }
 
-function setup() {
-  createCanvas(400, 400);
-  background(0);
+// function setup() {
+//   createCanvas(400, 400);
+//   background(0);
 
-  createP('Press any key to play the sound');
-}
+//   createP('Press any key to play the sound');
+// }
 
-// when a key is pressed...
-function keyPressed() {
-  // play the sound file
-  soundFile.play();
+// // when a key is pressed...
+// function keyPressed() {
+//   // play the sound file
+//   soundFile.play();
 
-  // also make the background yellow
-  background(255, 255, 0);
-}
+//   // also make the background yellow
+//   background(255, 255, 0);
+// }
 
-function keyReleased() {
-  // make the background black again when the key is released
-  background(0);
-}
+// function keyReleased() {
+//   // make the background black again when the key is released
+//   background(0);
+// }

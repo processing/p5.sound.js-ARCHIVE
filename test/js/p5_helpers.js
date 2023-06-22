@@ -3,7 +3,7 @@
 function promisedSketch(sketch_fn) {
   var myInstance;
   var promise = new Promise(function(resolve, reject) {
-    myInstance = new p5(function(sketch) {
+    myInstance = new p5sound(function(sketch) {
       return sketch_fn(sketch, resolve, reject);
     });
   });
@@ -27,7 +27,7 @@ function testSketchWithPromise(name, sketch_fn) {
 function testWithDownload(name, fn, asyncFn = false) {
   var test_fn = function(done) {
     // description of this is also on
-    // https://github.com/processing/p5.js/pull/4418/
+    // https://github.com/processing/p5sound.js/pull/4418/
 
     let blobContainer = {};
 
@@ -111,7 +111,7 @@ function parallelSketches(sketch_fns) {
   };
 }
 
-var P5_SCRIPT_URL = '../../lib/p5.js';
+var P5_SCRIPT_URL = '../../lib/p5sound.js';
 var P5_SCRIPT_TAG = '<script src="' + P5_SCRIPT_URL + '"></script>';
 
 function createP5Iframe(html) {

@@ -6,7 +6,7 @@
  * @requires constants
  */
 
-import p5 from '../main';
+import p5sound from '../main';
 
 /**
  * Draws an ellipse (oval) to the canvas. An ellipse with equal width and height
@@ -42,19 +42,19 @@ import p5 from '../main';
  * @param  {Number} w
  * @param  {Number} h
  */
-p5.prototype.ellipse = function(x, y, w, h) {
+p5sound.prototype.ellipse = function(x, y, w, h) {
   return this._renderEllipse(...arguments);
 };
 
 // internal method for drawing ellipses (without parameter validation)
-p5.prototype._renderEllipse = function(x, y, w, h) {
+p5sound.prototype._renderEllipse = function(x, y, w, h) {
   // if the current stroke and fill settings wouldn't result in something
   // visible, exit immediately
   if (!this._renderer._doStroke && !this._renderer._doFill) {
     return this;
   }
 
-  // p5 supports negative width and heights for rects
+  // p5sound supports negative width and heights for rects
   if (w < 0) {
     w = Math.abs(w);
   }
@@ -68,4 +68,4 @@ p5.prototype._renderEllipse = function(x, y, w, h) {
   return this;
 };
 
-export default p5;
+export default p5sound;

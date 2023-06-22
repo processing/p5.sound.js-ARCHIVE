@@ -1,11 +1,11 @@
 // core
-import p5 from './core/main';
+import p5sound from './core/main';
 import './core/constants';
 import './core/environment';
 import './core/preload';
-import './core/p5.Element';
-import './core/p5.Renderer';
-import './core/p5.Renderer2D';
+import './core/p5sound.Element';
+import './core/p5sound.Renderer';
+import './core/p5sound.Renderer2D';
 import './core/rendering';
 import './core/structure';
 import './core/shape/2d_primitives';
@@ -13,20 +13,20 @@ import './core/shape/attributes';
 
 // color
 import './color/creating_reading';
-import './color/p5.Color';
+import './color/p5sound.Color';
 import './color/setting';
 
 // sound
 import { getAudioContext } from './sound/audioContext';
-p5.prototype.getAudioContext = getAudioContext;
+p5sound.prototype.getAudioContext = getAudioContext;
 import './sound/main';
-import Oscillator from './sound/p5.Oscillator';
-p5.prototype.Oscillator  = Oscillator;
-import './sound/p5.SoundFile';
+import Oscillator from './sound/p5sound.Oscillator';
+p5sound.prototype.Oscillator  = Oscillator;
+import './sound/p5sound.SoundFile';
 
 // utilities
 import './utilities/conversion';
 
 import './core/init';
 
-module.exports = p5;
+module.exports = p5sound;

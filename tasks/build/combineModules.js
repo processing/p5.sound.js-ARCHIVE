@@ -16,7 +16,7 @@ module.exports = function(grunt) {
       // Reading and writing files is asynchronous
       const done = this.async();
 
-      // Modules is an array of p5 modules to be bundled.
+      // Modules is an array of p5sound modules to be bundled.
       const modules = ['core'];
       for (const arg of arguments) {
         if (arg !== 'min') {
@@ -26,7 +26,7 @@ module.exports = function(grunt) {
       const modulesList = modules.join(', ');
 
       // Render the banner for the top of the file. Includes the Module name.
-      const bannerTemplate = `/*! Custom p5.js v<%= pkg.version %> <%= grunt.template.today("mmmm dd, yyyy") %>
+      const bannerTemplate = `/*! Custom p5sound.js v<%= pkg.version %> <%= grunt.template.today("mmmm dd, yyyy") %>
         Contains the following modules : ${modulesList}*/`;
       const banner = grunt.template.process(bannerTemplate);
 
@@ -40,7 +40,7 @@ module.exports = function(grunt) {
           sources.push(match.input);
         }
       });
-      sources.push('module.exports = p5;');
+      sources.push('module.exports = p5sound;');
 
       // Create a temp file with this data and feed it to browserify
       fs.writeFileSync(tempFilePath, sources.join('\n'), 'utf8');
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
 
       // Invoke Browserify programatically to bundle the code
       let browseified = browserify(tempFilePath, {
-        standalone: 'p5'
+        standalone: 'p5sound'
       });
 
       if (isMin) {

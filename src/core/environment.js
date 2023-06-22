@@ -6,14 +6,14 @@
  * @requires constants
  */
 
-import p5 from './main';
+import p5sound from './main';
 import * as C from './constants';
 
 const standardCursors = [C.ARROW, C.CROSS, C.HAND, C.MOVE, C.TEXT, C.WAIT];
 
-p5.prototype._frameRate = 0;
-p5.prototype._lastFrameTime = window.performance.now();
-p5.prototype._targetFrameRate = 60;
+p5sound.prototype._frameRate = 0;
+p5sound.prototype._lastFrameTime = window.performance.now();
+p5sound.prototype._targetFrameRate = 60;
 
 /**
  * The system variable <a href="#/p5/frameCount">frameCount</a> contains the
@@ -40,7 +40,7 @@ p5.prototype._targetFrameRate = 60;
  * @alt
  * numbers rapidly counting upward with frame count set to 30.
  */
-p5.prototype.frameCount = 0;
+p5sound.prototype.frameCount = 0;
 
 /**
  * The system variable <a href="#/p5/deltaTime">deltaTime</a> contains the time
@@ -90,10 +90,10 @@ p5.prototype.frameCount = 0;
  * red rect moves left to right, followed by blue rect moving at the same speed
  * with a lower frame rate. Loops.
  */
-p5.prototype.deltaTime = 0;
+p5sound.prototype.deltaTime = 0;
 
 /**
- * Confirms if the window a p5.js program is in is "focused," meaning that
+ * Confirms if the window a p5sound.js program is in is "focused," meaning that
  * the sketch will accept mouse or keyboard input. This variable is
  * "true" if the window is focused and "false" if not.
  *
@@ -102,7 +102,7 @@ p5.prototype.deltaTime = 0;
  * @example
  * <div><code>
  * // To demonstrate, put two windows side by side.
- * // Click on the window that the p5 sketch isn't in!
+ * // Click on the window that the p5sound sketch isn't in!
  * function draw() {
  *   background(200);
  *   noStroke();
@@ -121,7 +121,7 @@ p5.prototype.deltaTime = 0;
  * @alt
  * green 50×50 ellipse at top left. Red X covers canvas when page focus changes
  */
-p5.prototype.focused = document.hasFocus();
+p5sound.prototype.focused = document.hasFocus();
 
 /**
  * Sets the cursor to a predefined symbol or an image, or makes it visible
@@ -161,7 +161,7 @@ p5.prototype.focused = document.hasFocus();
  * canvas is divided into four quadrants. cursor on first is a cross, second is a progress,
  * third is a custom cursor using path to the cursor and fourth is a grab.
  */
-p5.prototype.cursor = function(type, x, y) {
+p5sound.prototype.cursor = function(type, x, y) {
   let cursor = 'auto';
   const canvas = this._curElement.elt;
   if (standardCursors.includes(type)) {
@@ -255,7 +255,7 @@ p5.prototype.cursor = function(type, x, y) {
  * @method frameRate
  * @return {Number}       current frameRate
  */
-p5.prototype.frameRate = function(fps) {
+p5sound.prototype.frameRate = function(fps) {
   if (typeof fps !== 'number' || fps < 0) {
     return this._frameRate;
   } else {
@@ -273,7 +273,7 @@ p5.prototype.frameRate = function(fps) {
  * @private
  * @return {Number} current frameRate
  */
-p5.prototype.getFrameRate = function() {
+p5sound.prototype.getFrameRate = function() {
   return this.frameRate();
 };
 
@@ -289,7 +289,7 @@ p5.prototype.getFrameRate = function() {
  * @private
  * @param {Number} [fps] number of frames to be displayed every second
  */
-p5.prototype.setFrameRate = function(fps) {
+p5sound.prototype.setFrameRate = function(fps) {
   return this.frameRate(fps);
 };
 
@@ -307,7 +307,7 @@ p5.prototype.setFrameRate = function(fps) {
  * }
  * </code></div>
  */
-p5.prototype.getTargetFrameRate = function() {
+p5sound.prototype.getTargetFrameRate = function() {
   return this._targetFrameRate;
 };
 
@@ -328,7 +328,7 @@ p5.prototype.getTargetFrameRate = function() {
  * @alt
  * This example does not render anything.
  */
-p5.prototype.displayWidth = screen.width;
+p5sound.prototype.displayWidth = screen.width;
 
 /**
  * System variable that stores the height of the screen display according to The
@@ -346,7 +346,7 @@ p5.prototype.displayWidth = screen.width;
  * @alt
  * This example does not render anything.
  */
-p5.prototype.displayHeight = screen.height;
+p5sound.prototype.displayHeight = screen.height;
 
 /**
  * System variable that stores the width of the inner window, it maps to
@@ -362,7 +362,7 @@ p5.prototype.displayHeight = screen.height;
  * @alt
  * This example does not render anything.
  */
-p5.prototype.windowWidth = getWindowWidth();
+p5sound.prototype.windowWidth = getWindowWidth();
 /**
  * System variable that stores the height of the inner window, it maps to
  * window.innerHeight.
@@ -377,7 +377,7 @@ p5.prototype.windowWidth = getWindowWidth();
  * @alt
  * This example does not render anything.
  */
-p5.prototype.windowHeight = getWindowHeight();
+p5sound.prototype.windowHeight = getWindowHeight();
 
 
 function getWindowWidth() {
@@ -408,7 +408,7 @@ function getWindowHeight() {
  * @property {Number} width
  * @readOnly
  */
-p5.prototype.width = 0;
+p5sound.prototype.width = 0;
 
 /**
  * System variable that stores the height of the drawing canvas. This value
@@ -420,7 +420,7 @@ p5.prototype.width = 0;
  * @property {Number} height
  * @readOnly
  */
-p5.prototype.height = 0;
+p5sound.prototype.height = 0;
 
 
-export default p5;
+export default p5sound;

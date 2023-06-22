@@ -5,7 +5,7 @@
  * @requires core
  */
 /**
- * Creates a  new <a href="#/p5.Oscillator">p5.Oscillator</a>
+ * Creates a  new <a href="#/p5sound.Oscillator">p5sound.Oscillator</a>
  *
  * Example coming soon...
  */
@@ -23,7 +23,7 @@ import audioContext from './audioContext';
  */
 /**
 *
-* @class p5.Oscillator
+* @class p5sound.Oscillator
 * @constructor
 * @param {Number} type
 */

@@ -5,7 +5,7 @@
  */
 
 /**
- * Version of this p5.js.
+ * Version of this p5sound.js.
  * @property {String} VERSION
  * @final
  */

@@ -52,7 +52,7 @@ const p5sound = new Main();
  * @return {Number} Output volume for sound in this sketch.
  *                  Should be between 0.0 (silence) and 1.0.
  */
-// p5.prototype.getOutputVolume = function () {
+// p5sound.prototype.getOutputVolume = function () {
 //   return p5sound.output.gain.value;
 // };
 
@@ -82,7 +82,7 @@ const p5sound = new Main();
  *  @param {Number} [timeFromNow]  Schedule this event to happen at
  *                                 t seconds in the future
  */
-// p5.prototype.outputVolume = function (vol, rampTime = 0, tFromNow = 0) {
+// p5sound.prototype.outputVolume = function (vol, rampTime = 0, tFromNow = 0) {
 //   if (typeof vol === 'number') {
 //     var now = p5sound.audiocontext.currentTime;
 //     var currentVol = p5sound.output.gain.value;
@@ -99,20 +99,20 @@ const p5sound = new Main();
 // };
 
 /**
- *  `p5.soundOut` is the p5.sound final output bus. It sends output to
+ *  `p5sound.soundOut` is the p5sound.sound final output bus. It sends output to
  *  the destination of this window's web audio context. It contains
  *  Web Audio API nodes including a dyanmicsCompressor (<code>.limiter</code>),
  *  and Gain Nodes for <code>.input</code> and <code>.output</code>.
  *
  *  @property {Object} soundOut
  */
-// p5.prototype.soundOut = p5.soundOut = p5sound;
+// p5sound.prototype.soundOut = p5sound.soundOut = p5sound;
 
 // a silent connection to the DesinationNode
 // which will ensure that anything connected to it
 // will not be garbage collected
-// p5.soundOut._silentNode = p5sound.audiocontext.createGain();
-// p5.soundOut._silentNode.gain.value = 0;
-// p5.soundOut._silentNode.connect(p5sound.audiocontext.destination);
+// p5sound.soundOut._silentNode = p5sound.audiocontext.createGain();
+// p5sound.soundOut._silentNode.gain.value = 0;
+// p5sound.soundOut._silentNode.connect(p5sound.audiocontext.destination);
 
 export default p5sound;

@@ -11,7 +11,7 @@
     "lint:source": "grunt lint:source",
     "lint:samples": "grunt lint:samples",
     "lint:fix": "grunt lint-fix",
-    "release": "grunt release-p5",
+    "release": "grunt release-p5sound",
     "prepublishOnly": "grunt prerelease"
   },
   "lint-staged": {
@@ -79,18 +79,18 @@
     "whatwg-fetch": "^2.0.4"
   },
   "license": "LGPL-2.1",
-  "main": "./lib/p5.min.js",
+  "main": "./lib/p5.sound.min.js",
   "files": [
     "license.txt",
-    "lib/p5.min.js",
-    "lib/p5.js",
+    "lib/p5.sound.min.js",
+    "lib/p5.sound.js",
     "translations/**"
   ],
-  "description": "[![npm version](https://badge.fury.io/js/p5.svg)](https://www.npmjs.com/package/p5)",
+  "description": "[![npm version](https://badge.fury.io/js/p5sound.svg)](https://www.npmjs.com/package/p5)",
   "bugs": {
-    "url": "https://github.com/processing/p5.js/issues"
+    "url": "https://github.com/processing/p5sound.js/issues"
   },
-  "homepage": "https://github.com/processing/p5.js#readme",
+  "homepage": "https://github.com/processing/p5sound.js#readme",
   "directories": {
     "doc": "docs",
     "test": "test"

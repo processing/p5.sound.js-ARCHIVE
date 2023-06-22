@@ -28,7 +28,7 @@ const audioContext = new window.AudioContext();
  *    if (getAudioContext().state !== 'running') {
  *      getAudioContext().resume();
  *    }
- *    var synth = new p5.MonoSynth();
+ *    var synth = new p5sound.MonoSynth();
  *    synth.play('A4', 0.5, 0, 0.2);
  *  }
  *

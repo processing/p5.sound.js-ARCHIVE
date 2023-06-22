@@ -1,7 +1,7 @@
 /**
  * @module Structure
  * @submodule Structure
- * @for p5
+ * @for p5sound
  * @requires constants
  */
 
@@ -10,32 +10,32 @@
 import * as constants from './constants';
 
 /**
- * This is the p5 instance constructor.
+ * This is the p5sound instance constructor.
  *
- * A p5 instance holds all the properties and methods related to
- * a p5 sketch.  It expects an incoming sketch closure and it can also
- * take an optional node parameter for attaching the generated p5 canvas
- * to a node.  The sketch closure takes the newly created p5 instance as
+ * A p5sound instance holds all the properties and methods related to
+ * a p5sound sketch.  It expects an incoming sketch closure and it can also
+ * take an optional node parameter for attaching the generated p5sound canvas
+ * to a node.  The sketch closure takes the newly created p5sound instance as
  * its sole argument and may optionally set <a href="#/p5/preload">preload()</a>,
  * <a href="#/p5/setup">setup()</a>, and/or
  * <a href="#/p5/draw">draw()</a> properties on it for running a sketch.
  *
- * A p5 sketch can run in "global" or "instance" mode:
+ * A p5sound sketch can run in "global" or "instance" mode:
  * "global"   - all properties and methods are attached to the window
- * "instance" - all properties and methods are bound to this p5 object
+ * "instance" - all properties and methods are bound to this p5sound object
  *
- * @class p5
+ * @class p5sound
  * @constructor
  * @param  {function}           sketch a closure that can set optional <a href="#/p5/preload">preload()</a>,
  *                              <a href="#/p5/setup">setup()</a>, and/or <a href="#/p5/draw">draw()</a> properties on the
- *                              given p5 instance
+ *                              given p5sound instance
  * @param  {HTMLElement}        [node] element to attach canvas to
- * @return {p5}                 a p5 instance
+ * @return {p5sound}                 a p5sound instance
  */
-class p5 {
+class p5sound {
   constructor(sketch, node, sync) {
     //////////////////////////////////////////////
-    // PUBLIC p5 PROPERTIES AND METHODS
+    // PUBLIC p5sound PROPERTIES AND METHODS
     //////////////////////////////////////////////
 
     /**
@@ -162,7 +162,7 @@ class p5 {
      */
 
     //////////////////////////////////////////////
-    // PRIVATE p5 PROPERTIES AND METHODS
+    // PRIVATE p5sound PROPERTIES AND METHODS
     //////////////////////////////////////////////
 
     this._setupDone = false;
@@ -214,10 +214,11 @@ class p5 {
     // Allows methods to be registered on an instance that
     // are instance-specific.
     this._registeredMethods = {};
-    const methods = Object.getOwnPropertyNames(p5.prototype._registeredMethods);
+    const methods = Object.getOwnPropertyNames(
+      p5sound.prototype._registeredMethods);
 
     for (const prop of methods) {
-      this._registeredMethods[prop] = p5.prototype._registeredMethods[
+      this._registeredMethods[prop] = p5sound.prototype._registeredMethods[
         prop
       ].slice();
     }
@@ -253,11 +254,11 @@ class p5 {
         }
         const methods = this._preloadMethods;
         for (const method in methods) {
-          // default to p5 if no object defined
-          methods[method] = methods[method] || p5;
+          // default to p5sound if no object defined
+          methods[method] = methods[method] || p5sound;
           let obj = methods[method];
           //it's p5, check if it's global or instance
-          if (obj === p5.prototype || obj === p5) {
+          if (obj === p5sound.prototype || obj === p5sound) {
             if (this._isGlobal) {
               window[method] = this._wrapPreload(this, method);
             }
@@ -439,22 +440,22 @@ class p5 {
     // assume "global" mode and make everything global (i.e. on the window)
     if (!sketch) {
       this._isGlobal = true;
-      p5.instance = this;
+      p5sound.instance = this;
       // Loop through methods on the prototype and attach them to the window
-      for (const p in p5.prototype) {
-        if (typeof p5.prototype[p] === 'function') {
+      for (const p in p5sound.prototype) {
+        if (typeof p5sound.prototype[p] === 'function') {
           const ev = p.substring(2);
           if (!this._events.hasOwnProperty(ev)) {
-            if (Math.hasOwnProperty(p) && Math[p] === p5.prototype[p]) {
-              // Multiple p5 methods are just native Math functions. These can be
+            if (Math.hasOwnProperty(p) && Math[p] === p5sound.prototype[p]) {
+              // Multiple p5sound methods are just native Math functions. These can be
               // called without any binding.
-              friendlyBindGlobal(p, p5.prototype[p]);
+              friendlyBindGlobal(p, p5sound.prototype[p]);
             } else {
-              friendlyBindGlobal(p, p5.prototype[p].bind(this));
+              friendlyBindGlobal(p, p5sound.prototype[p].bind(this));
             }
           }
         } else {
-          friendlyBindGlobal(p, p5.prototype[p]);
+          friendlyBindGlobal(p, p5sound.prototype[p]);
         }
       }
       // Attach its properties to the window
@@ -470,7 +471,7 @@ class p5 {
 
       // Run a check to see if the user has misspelled 'setup', 'draw', etc
       // detects capitalization mistakes only ( Setup, SETUP, MouseClicked, etc)
-      p5._checkForUserDefinedFunctions(this);
+      p5sound._checkForUserDefinedFunctions(this);
     }
 
     // Bind events to window (not using container div bc key events don't work)
@@ -528,14 +529,14 @@ class p5 {
   }
 
   registerPreloadMethod(fnString, obj) {
-    // obj = obj || p5.prototype;
-    if (!p5.prototype._preloadMethods.hasOwnProperty(fnString)) {
-      p5.prototype._preloadMethods[fnString] = obj;
+    // obj = obj || p5sound.prototype;
+    if (!p5sound.prototype._preloadMethods.hasOwnProperty(fnString)) {
+      p5sound.prototype._preloadMethods[fnString] = obj;
     }
   }
 
   registerMethod(name, m) {
-    const target = this || p5.prototype;
+    const target = this || p5sound.prototype;
     if (!target._registeredMethods.hasOwnProperty(name)) {
       target._registeredMethods[name] = [];
     }
@@ -551,7 +552,7 @@ class p5 {
     const globalObject = options.globalObject || window;
     const log = options.log || console.log.bind(console);
     const propsToForciblyOverwrite = {
-      // p5.print actually always overwrites an existing global function,
+      // p5sound.print actually always overwrites an existing global function,
       // albeit one that is very unlikely to be used:
       //
       //   https://developer.mozilla.org/en-US/docs/Web/API/Window/print
@@ -560,20 +561,20 @@ class p5 {
 
     return (prop, value) => {
       if (
-        !p5.disableFriendlyErrors &&
+        !p5sound.disableFriendlyErrors &&
         typeof IS_MINIFIED === 'undefined' &&
         typeof value === 'function' &&
-        !(prop in p5.prototype._preloadMethods)
+        !(prop in p5sound.prototype._preloadMethods)
       ) {
         try {
-          // Because p5 has so many common function names, it's likely
-          // that users may accidentally overwrite global p5 functions with
+          // Because p5sound has so many common function names, it's likely
+          // that users may accidentally overwrite global p5sound functions with
           // their own variables. Let's allow this but log a warning to
           // help users who may be doing this unintentionally.
           //
           // For more information, see:
           //
-          //   https://github.com/processing/p5.js/issues/1317
+          //   https://github.com/processing/p5sound.js/issues/1317
 
           if (prop in globalObject && !(prop in propsToForciblyOverwrite)) {
             throw new Error(`global "${prop}" already exists`);
@@ -598,7 +599,7 @@ class p5 {
                 writable: true
               });
               log(
-                `You just changed the value of "${prop}", which was a p5 function. This could cause problems later if you're not careful.`
+                `You just changed the value of "${prop}", which was a p5sound function. This could cause problems later if you're not careful.`
               );
             }
           });
@@ -612,30 +613,32 @@ class p5 {
   }
 }
 
-// This is a pointer to our global mode p5 instance, if we're in
+// This is a pointer to our global mode p5sound instance, if we're in
 // global mode.
-p5.instance = null;
+p5sound.instance = null;
 
 
-// attach constants to p5 prototype
+// attach constants to p5sound prototype
 for (const k in constants) {
-  p5.prototype[k] = constants[k];
+  p5sound.prototype[k] = constants[k];
 }
 
-// makes the `VERSION` constant available on the p5 object
+// makes the `VERSION` constant available on the p5sound object
 // in instance mode, even if it hasn't been instatiated yet
-p5.VERSION = constants.VERSION;
+p5sound.VERSION = constants.VERSION;
 
 // functions that cause preload to wait
 // more can be added by using registerPreloadMethod(func)
-p5.prototype._preloadMethods = {
-  loadImage: p5.prototype,
-  loadBytes: p5.prototype,
-  loadShader: p5.prototype
+p5sound.prototype._preloadMethods = {
+  loadImage: p5sound.prototype,
+  loadBytes: p5sound.prototype,
+  loadShader: p5sound.prototype
 };
 
-p5.prototype._registeredMethods = { init: [], pre: [], post: [], remove: [] };
+p5sound.prototype._registeredMethods = {
+  init: [], pre: [], post: [], remove: []
+};
 
-p5.prototype._registeredPreloadMethods = {};
+p5sound.prototype._registeredPreloadMethods = {};
 
-export default p5;
+export default p5sound;

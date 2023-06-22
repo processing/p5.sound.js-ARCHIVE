@@ -4,9 +4,9 @@
  * @for p5
  */
 
-import p5 from './main';
+import p5sound from './main';
 import * as constants from './constants';
-import './p5.Renderer2D';
+import './p5sound.Renderer2D';
 let defaultId = 'defaultCanvas0'; // this gets set again in createCanvas
 const defaultClass = 'p5Canvas';
 
@@ -16,10 +16,10 @@ const defaultClass = 'p5Canvas';
  * Calling <a href="#/p5/createCanvas">createCanvas</a> more than once in a
  * sketch will result in very unpredictable behavior.
  *
- * Important note: in 2D mode (i.e. when `p5.Renderer` is not set) the origin (0,0)
- * is positioned at the top left of the screen. In 3D mode (i.e. when `p5.Renderer`
+ * Important note: in 2D mode (i.e. when `p5sound.Renderer` is not set) the origin (0,0)
+ * is positioned at the top left of the screen. In 3D mode (i.e. when `p5sound.Renderer`
  * is set to `WEBGL`), the origin is positioned at the center of the canvas.
- * See [this issue](https://github.com/processing/p5.js/issues/1545) for more information.
+ * See [this issue](https://github.com/processing/p5sound.js/issues/1545) for more information.
  *
  * A WebGL canvas will use a WebGL2 context if it is supported by the browser.
  * Check the <a href="#/p5/webglVersion">webglVersion</a> property to check what
@@ -31,14 +31,14 @@ const defaultClass = 'p5Canvas';
  * window will be given a default size of 100×100 pixels.
  *
  * For more ways to position the canvas, see the
- * <a href='https://github.com/processing/p5.js/wiki/Positioning-your-canvas'>
+ * <a href='https://github.com/processing/p5sound.js/wiki/Positioning-your-canvas'>
  * positioning the canvas</a> wiki page.
  *
  * @method createCanvas
  * @param  {Number} w width of the canvas
  * @param  {Number} h height of the canvas
  * @param  {Constant} [renderer] either P2D or WEBGL
- * @return {p5.Renderer} pointer to p5.Renderer holding canvas
+ * @return {p5sound.Renderer} pointer to p5sound.Renderer holding canvas
  * @example
  * <div>
  * <code>
@@ -53,7 +53,7 @@ const defaultClass = 'p5Canvas';
  * @alt
  * Black line extending from top-left of canvas to bottom right.
  */
-p5.prototype.createCanvas = function(w, h, renderer) {
+p5sound.prototype.createCanvas = function(w, h, renderer) {
   //optional: renderer, otherwise defaults to p2d
   const r = renderer || constants.P2D;
   let c;
@@ -107,7 +107,7 @@ p5.prototype.createCanvas = function(w, h, renderer) {
   // Init our renderer
   //P2D mode
   if (!this._defaultGraphicsCreated) {
-    this._setProperty('_renderer', new p5.Renderer2D(c, this, true));
+    this._setProperty('_renderer', new p5sound.Renderer2D(c, this, true));
     this._defaultGraphicsCreated = true;
     this._elements.push(this._renderer);
   }
@@ -116,4 +116,4 @@ p5.prototype.createCanvas = function(w, h, renderer) {
   return this._renderer;
 };
 
-export default p5;
+export default p5sound;

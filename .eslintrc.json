@@ -6,7 +6,7 @@
     "es6": true
   },
   "globals": {
-    "p5BLA": true
+    "p5": true
   },
   "root": true,
   "extends": ["eslint:recommended"],

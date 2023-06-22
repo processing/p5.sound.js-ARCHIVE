@@ -29,7 +29,7 @@ module.exports = grunt => {
         middleware: function(connect, options, middlewares) {
           middlewares.unshift(
             require('connect-modrewrite')([
-              '^/assets/js/p5sound(\\.min)?\\.js(.*) /lib/p5sound$1.js$2 [L]'
+              '^/assets/js/p5.sound(\\.min)?\\.js(.*) /lib/p5.sound$1.js$2 [L]'
             ]),
             function(req, res, next) {
               res.setHeader('Access-Control-Allow-Origin', '*');

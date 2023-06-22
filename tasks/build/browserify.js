@@ -7,7 +7,7 @@ import browserify from 'browserify';
 import derequire from 'derequire';
 
 const bannerTemplate =
-  '/*! p5sound.js v<%= pkg.version %> <%= grunt.template.today("mmmm dd, yyyy") %> */';
+  '/*! p5.sound.js v<%= pkg.version %> <%= grunt.template.today("mmmm dd, yyyy") %> */';
 
 module.exports = function(grunt) {
   const srcFilePath = require.resolve('../../src/app.js');
@@ -22,7 +22,7 @@ module.exports = function(grunt) {
 
       const filename = isMin
         ? 'p5.sound.pre-min.js'
-        : isTest ? 'p5.sound-test.js' : 'p5sound.js';
+        : isTest ? 'p5.sound-test.js' : 'p5.sound.js';
 
       // This file will not exist until it has been built
       const libFilePath = resolve('lib/' + filename);

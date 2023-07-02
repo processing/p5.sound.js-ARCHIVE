@@ -11,11 +11,6 @@ import './core/structure';
 import './core/shape/2d_primitives';
 import './core/shape/attributes';
 
-// color
-import './color/creating_reading';
-import './color/p5sound.Color';
-import './color/setting';
-
 // sound
 import { getAudioContext } from './sound/audioContext';
 p5sound.prototype.getAudioContext = getAudioContext;

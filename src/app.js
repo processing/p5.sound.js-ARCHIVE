@@ -1,7 +1,6 @@
 // core
 import p5sound from './core/main';
 import './core/constants';
-import './core/preload';
 import './core/p5sound.Element';
 import './core/structure';
 

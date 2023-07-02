@@ -1,7 +1,8 @@
 // let context;
 let osc;
+let soundFile;
 
-console.log(p5sound.VERSION);
+// console.log(p5sound.VERSION);
 
 let button = document.getElementById('startAudioButton');
 
@@ -12,12 +13,16 @@ button.addEventListener('click', function () {
   console.log('hey');
 });
 
+function preload() {
+  soundFile = new SoundFile('./doorbell.mp3');
+}
+
 function setup() {
   createCanvas(400, 400);
   background(255, 0, 0);
-  console.log(p5sound.VERSION);
+  // console.log(p5sound.VERSION);
   osc = new Oscillator('sine', 400);
-  osc.start()
+  osc.start();
   // context = getAudioContext();
   // console.log(context);
   // console.log(context.state);
@@ -28,6 +33,7 @@ function draw() {
   //   fill(255, 255, 0);
     ellipse(width * Math.random(), height - i, 10, 10);
   }
+  console.log(soundFile.isLoaded());
   // console.log(context.state);
   // osc.helloworld();
   // console.log(frameCount);

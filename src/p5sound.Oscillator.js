@@ -55,7 +55,7 @@ import audioContext from './audioContext';
  */
 /**
 *
-* @class p5sound.Oscillator
+* @class Oscillator
 * @constructor
 * @param {Number} type
 */

@@ -1,16 +1,16 @@
 // core
-import p5sound from './core/main';
-import './core/constants';
+// import p5sound from './core/main';
+import './constants';
 
 // sound
-import { getAudioContext } from './sound/audioContext';
+import { getAudioContext } from './audioContext';
 p5.prototype.getAudioContext = getAudioContext;
-import './sound/main';
-import Oscillator from './sound/p5sound.Oscillator';
+import './main';
+import Oscillator from './p5sound.Oscillator';
 p5.prototype.Oscillator  = Oscillator;
-// import './sound/p5sound.SoundFile';
+// import './p5sound.SoundFile';
 // p5.prototype.SoundFile = SoundFile;
 
-import './core/init';
+// import './init';
 
-module.exports = p5sound;
+// module.exports = p5sound;

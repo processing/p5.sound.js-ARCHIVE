@@ -11,9 +11,6 @@ import Oscillator from './sound/p5sound.Oscillator';
 p5sound.prototype.Oscillator  = Oscillator;
 import './sound/p5sound.SoundFile';
 
-// utilities
-import './utilities/conversion';
-
 import './core/init';
 
 module.exports = p5sound;

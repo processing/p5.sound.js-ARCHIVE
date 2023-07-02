@@ -1,7 +1,7 @@
-// import p5sound from '../src/core/main';
-
 // let context;
 let osc;
+
+console.log(p5sound.VERSION);
 
 let button = document.getElementById('startAudioButton');
 
@@ -13,9 +13,9 @@ button.addEventListener('click', function () {
 });
 
 function setup() {
-  // createCanvas(400, 400);
-  // background(255, 0, 0);
-  // console.log(p5sound.ound.ound.VERSION);
+  createCanvas(400, 400);
+  background(255, 0, 0);
+  // console.log(p5sound.VERSION);
   // osc = new Oscillator('sine', 400);
   // context = getAudioContext();
   // console.log(context);
@@ -23,10 +23,10 @@ function setup() {
 }
 
 function draw() {
-  // for (let i = 0; i < width; i++) {
+  for (let i = 0; i < width; i++) {
   //   fill(255, 255, 0);
-  //   ellipse(width * Math.random(), height - i, 10, 10);
-  // }
+    ellipse(width * Math.random(), height - i, 10, 10);
+  }
   // console.log(context.state);
   // osc.helloworld();
   // console.log(frameCount);

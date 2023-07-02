@@ -38,62 +38,18 @@ class p5sound {
     // PUBLIC p5sound PROPERTIES AND METHODS
     //////////////////////////////////////////////
 
-    /**
-     * Called directly before <a href="#/p5/setup">setup()</a>, the <a href="#/p5/preload">preload()</a> function is used to handle
-     * asynchronous loading of external files in a blocking way. If a preload
-     * function is defined, <a href="#/p5/setup">setup()</a> will wait until any load calls within have
-     * finished. Nothing besides load calls (<a href="#/p5/loadImage">loadImage</a>, <a href="#/p5/loadJSON">loadJSON</a>, <a href="#/p5/loadFont">loadFont</a>,
-     * <a href="#/p5/loadStrings">loadStrings</a>, etc.) should be inside the preload function. If asynchronous
-     * loading is preferred, the load methods can instead be called in <a href="#/p5/setup">setup()</a>
-     * or anywhere else with the use of a callback parameter.
-     *
-     * By default the text "loading..." will be displayed. To make your own
-     * loading page, include an HTML element with id "p5_loading" in your
-     * page. More information <a href="http://bit.ly/2kQ6Nio">here</a>.
-     *
-     * @method preload
-     * @example
-     * <div><code>
-     * let img;
-     * let c;
-     * function preload() {
-     *   // preload() runs once
-     *   img = loadImage('assets/laDefense.jpg');
-     * }
-     *
-     * function setup() {
-     *   // setup() waits until preload() is done
-     *   img.loadPixels();
-     *   // get color of middle pixel
-     *   c = img.get(img.width / 2, img.height / 2);
-     * }
-     *
-     * function draw() {
-     *   background(c);
-     *   image(img, 25, 25, 50, 50);
-     * }
-     * </code></div>
-     *
-     * @alt
-     * nothing displayed
-     *
-     */
-
     //////////////////////////////////////////////
     // PRIVATE p5sound PROPERTIES AND METHODS
     //////////////////////////////////////////////
 
     this._setupDone = false;
     this._preloadDone = false;
-    // for handling hidpi
-    this._pixelDensity = Math.ceil(window.devicePixelRatio) || 1;
     this._userNode = node;
     this._curElement = null;
     this._elements = [];
     this._requestAnimId = 0;
     this._preloadCount = 0;
     this._isGlobal = false;
-    this._loop = true;
     this._initializeInstanceVariables();
     this._defaultCanvasSize = {
       width: 100,
@@ -122,10 +78,6 @@ class p5sound {
     this._millisStart = -1;
     this._recording = false;
 
-    // States used in the custom random generators
-    this._lcg_random_state = null;
-    this._gaussian_previous = false;
-
     this._events.wheel = null;
     this._loadingScreenId = 'p5_loading';
 
@@ -141,88 +93,55 @@ class p5sound {
       ].slice();
     }
 
-    if (window.DeviceOrientationEvent) {
-      this._events.deviceorientation = null;
-    }
-    if (window.DeviceMotionEvent && !window._isNodeWebkit) {
-      this._events.devicemotion = null;
-    }
+    // this._start = () => {
+    //   // Find node if id given
+    //   if (this._userNode) {
+    //     if (typeof this._userNode === 'string') {
+    //       this._userNode = document.getElementById(this._userNode);
+    //     }
+    //   }
 
-    this._start = () => {
-      // Find node if id given
-      if (this._userNode) {
-        if (typeof this._userNode === 'string') {
-          this._userNode = document.getElementById(this._userNode);
-        }
-      }
+    //   const context = this._isGlobal ? window : this;
+    //   if (context.preload) {
+    //     // Setup loading screen
+    //     // Set loading screen into dom if not present
+    //     // Otherwise displays and removes user provided loading screen
+    //     const methods = this._preloadMethods;
+    //     for (const method in methods) {
+    //       // default to p5sound if no object defined
+    //       methods[method] = methods[method] || p5sound;
+    //       let obj = methods[method];
+    //       //it's p5, check if it's global or instance
+    //       if (obj === p5sound.prototype || obj === p5sound) {
+    //         if (this._isGlobal) {
+    //           // window[method] = this._wrapPreload(this, method);
+    //         }
+    //         obj = this;
+    //       }
+    //       this._registeredPreloadMethods[method] = obj[method];
+    //       // obj[method] = this._wrapPreload(obj, method);
+    //     }
 
-      const context = this._isGlobal ? window : this;
-      if (context.preload) {
-        // Setup loading screen
-        // Set loading screen into dom if not present
-        // Otherwise displays and removes user provided loading screen
-        let loadingScreen = document.getElementById(this._loadingScreenId);
-        if (!loadingScreen) {
-          loadingScreen = document.createElement('div');
-          loadingScreen.innerHTML = 'Loading...';
-          loadingScreen.style.position = 'absolute';
-          loadingScreen.id = this._loadingScreenId;
-          const node = this._userNode || document.body;
-          node.appendChild(loadingScreen);
-        }
-        const methods = this._preloadMethods;
-        for (const method in methods) {
-          // default to p5sound if no object defined
-          methods[method] = methods[method] || p5sound;
-          let obj = methods[method];
-          //it's p5, check if it's global or instance
-          if (obj === p5sound.prototype || obj === p5sound) {
-            if (this._isGlobal) {
-              window[method] = this._wrapPreload(this, method);
-            }
-            obj = this;
-          }
-          this._registeredPreloadMethods[method] = obj[method];
-          obj[method] = this._wrapPreload(obj, method);
-        }
+    //     context.preload();
+    //     this._runIfPreloadsAreDone();
+    //   }
+    // };
 
-        context.preload();
-        this._runIfPreloadsAreDone();
-      }
-    };
+    // this._wrapPreload = function(obj, fnName) {
+    //   return (...args) => {
+    //     //increment counter
+    //     this._incrementPreload();
+    //     //call original function
+    //     return this._registeredPreloadMethods[fnName].apply(obj, args);
+    //   };
+    // };
 
-
-
-    this._decrementPreload = function() {
-      const context = this._isGlobal ? window : this;
-      if (!context._preloadDone && typeof context.preload === 'function') {
-        context._setProperty('_preloadCount', context._preloadCount - 1);
-        context._runIfPreloadsAreDone();
-      }
-    };
-
-    this._wrapPreload = function(obj, fnName) {
-      return (...args) => {
-        //increment counter
-        this._incrementPreload();
-        //call original function
-        return this._registeredPreloadMethods[fnName].apply(obj, args);
-      };
-    };
-
-    this._incrementPreload = function() {
-      const context = this._isGlobal ? window : this;
-      // Do nothing if we tried to increment preloads outside of `preload`
-      if (context._preloadDone) return;
-      context._setProperty('_preloadCount', context._preloadCount + 1);
-    };
-
-    this._setProperty = (prop, value) => {
-      this[prop] = value;
-      if (this._isGlobal) {
-        window[prop] = value;
-      }
-    };
+    // this._setProperty = (prop, value) => {
+    //   this[prop] = value;
+    //   if (this._isGlobal) {
+    //     window[prop] = value;
+    //   }
+    // };
 
     // call any registered init functions
     this._registeredMethods.init.forEach(function(f) {
@@ -268,7 +187,6 @@ class p5sound {
 
       // Run a check to see if the user has misspelled 'setup', 'draw', etc
       // detects capitalization mistakes only ( Setup, SETUP, MouseClicked, etc)
-      p5sound._checkForUserDefinedFunctions(this);
     }
 
     // Bind events to window (not using container div bc key events don't work)
@@ -283,22 +201,20 @@ class p5sound {
     }
 
     const focusHandler = () => {
-      this._setProperty('focused', true);
+      // this._setProperty('focused', true);
     };
     const blurHandler = () => {
-      this._setProperty('focused', false);
+      // this._setProperty('focused', false);
     };
-    window.addEventListener('focus', focusHandler);
-    window.addEventListener('blur', blurHandler);
     this.registerMethod('remove', () => {
       window.removeEventListener('focus', focusHandler);
       window.removeEventListener('blur', blurHandler);
     });
 
     if (document.readyState === 'complete') {
-      this._start();
+      // this._start();
     } else {
-      window.addEventListener('load', this._start.bind(this), false);
+      // window.addEventListener('load', this._start.bind(this), false);
     }
   }
 
@@ -309,9 +225,6 @@ class p5sound {
       textLabel: false,
       gridLabel: false
     };
-
-
-
   }
 
   registerPreloadMethod(fnString, obj) {
@@ -403,7 +316,6 @@ class p5sound {
 // global mode.
 p5sound.instance = null;
 
-
 // attach constants to p5sound prototype
 for (const k in constants) {
   p5sound.prototype[k] = constants[k];
@@ -416,9 +328,7 @@ p5sound.VERSION = constants.VERSION;
 // functions that cause preload to wait
 // more can be added by using registerPreloadMethod(func)
 p5sound.prototype._preloadMethods = {
-  loadImage: p5sound.prototype,
-  loadBytes: p5sound.prototype,
-  loadShader: p5sound.prototype
+  // loadImage: p5sound.prototype
 };
 
 p5sound.prototype._registeredMethods = {

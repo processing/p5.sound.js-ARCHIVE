@@ -321,14 +321,6 @@ class p5sound {
     };
 
     this._setup = () => {
-      // Always create a default canvas.
-      // Later on if the user calls createCanvas, this default one
-      // will be replaced
-      this.createCanvas(
-        this._defaultCanvasSize.width,
-        this._defaultCanvasSize.height,
-        'p2d'
-      );
 
       // return preload functions to their normal vals if switched by preload
       const context = this._isGlobal ? window : this;

@@ -22,10 +22,10 @@ function setup() {
 }
 
 function draw() {
-  for (let i = 0; i < width; i++) {
-    // fill(255, 255, 0);
-    ellipse(width * Math.random(), height - i, 10, 10);
-  }
+  // for (let i = 0; i < width; i++) {
+  //   fill(255, 255, 0);
+  //   ellipse(width * Math.random(), height - i, 10, 10);
+  // }
   // console.log(context.state);
   // osc.helloworld();
   // console.log(frameCount);

@@ -12,7 +12,7 @@ class Main {
     // this.limiter.ratio.value = 20;
     // this.limiter.knee.value = 1;
 
-    this.audiocontext = audioContext;
+    this.audioContext = audioContext;
 
     //   this.output.disconnect();
 
@@ -23,13 +23,13 @@ class Main {
     //   this.limiter.connect(this.output);
 
     //   // meter is just for global Amplitude / FFT analysis
-    //   this.meter = audiocontext.createGain();
-    //   this.fftMeter = audiocontext.createGain();
+    //   this.meter = audioContext.createGain();
+    //   this.fftMeter = audioContext.createGain();
     //   this.output.connect(this.meter);
     //   this.output.connect(this.fftMeter);
 
     //   // connect output to destination
-    //   this.output.connect(this.audiocontext.destination);
+    //   this.output.connect(this.audioContext.destination);
 
     //   // an array of all sounds in the sketch
     //   this.soundArray = [];
@@ -84,7 +84,7 @@ const p5sound = new Main();
  */
 // p5sound.prototype.outputVolume = function (vol, rampTime = 0, tFromNow = 0) {
 //   if (typeof vol === 'number') {
-//     var now = p5sound.audiocontext.currentTime;
+//     var now = p5sound.audioContext.currentTime;
 //     var currentVol = p5sound.output.gain.value;
 //     p5sound.output.gain.cancelScheduledValues(now + tFromNow);
 //     if (rampTime !== 0)
@@ -111,8 +111,8 @@ const p5sound = new Main();
 // a silent connection to the DesinationNode
 // which will ensure that anything connected to it
 // will not be garbage collected
-// p5sound.soundOut._silentNode = p5sound.audiocontext.createGain();
+// p5sound.soundOut._silentNode = p5sound.audioContext.createGain();
 // p5sound.soundOut._silentNode.gain.value = 0;
-// p5sound.soundOut._silentNode.connect(p5sound.audiocontext.destination);
+// p5sound.soundOut._silentNode.connect(p5sound.audioContext.destination);
 
 export default p5sound;

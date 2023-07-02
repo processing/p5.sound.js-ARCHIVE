@@ -130,17 +130,6 @@ class Oscillator {
       this.started = false;
     }
   }
-
-
-  /**
-  * Dummy method
-  *
-  * @method helloworld
-  *
-  */
-  helloworld(){
-    console.log(this.typeName);
-  }
 }
 
 export default Oscillator;

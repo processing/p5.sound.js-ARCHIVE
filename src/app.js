@@ -1,7 +1,6 @@
 // core
 import p5sound from './core/main';
 import './core/constants';
-import './core/structure';
 
 // sound
 import { getAudioContext } from './sound/audioContext';

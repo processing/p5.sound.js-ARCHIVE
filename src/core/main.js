@@ -56,24 +56,7 @@ class p5sound {
       height: 100
     };
     this._events = {
-      // keep track of user-events for unregistering later
-      mousemove: null,
-      mousedown: null,
-      mouseup: null,
-      dragend: null,
-      dragover: null,
-      click: null,
-      dblclick: null,
-      mouseover: null,
-      mouseout: null,
-      keydown: null,
-      keyup: null,
-      keypress: null,
-      touchstart: null,
-      touchmove: null,
-      touchend: null,
-      resize: null,
-      blur: null
+
     };
     this._millisStart = -1;
     this._recording = false;
@@ -92,56 +75,6 @@ class p5sound {
         prop
       ].slice();
     }
-
-    // this._start = () => {
-    //   // Find node if id given
-    //   if (this._userNode) {
-    //     if (typeof this._userNode === 'string') {
-    //       this._userNode = document.getElementById(this._userNode);
-    //     }
-    //   }
-
-    //   const context = this._isGlobal ? window : this;
-    //   if (context.preload) {
-    //     // Setup loading screen
-    //     // Set loading screen into dom if not present
-    //     // Otherwise displays and removes user provided loading screen
-    //     const methods = this._preloadMethods;
-    //     for (const method in methods) {
-    //       // default to p5sound if no object defined
-    //       methods[method] = methods[method] || p5sound;
-    //       let obj = methods[method];
-    //       //it's p5, check if it's global or instance
-    //       if (obj === p5sound.prototype || obj === p5sound) {
-    //         if (this._isGlobal) {
-    //           // window[method] = this._wrapPreload(this, method);
-    //         }
-    //         obj = this;
-    //       }
-    //       this._registeredPreloadMethods[method] = obj[method];
-    //       // obj[method] = this._wrapPreload(obj, method);
-    //     }
-
-    //     context.preload();
-    //     this._runIfPreloadsAreDone();
-    //   }
-    // };
-
-    // this._wrapPreload = function(obj, fnName) {
-    //   return (...args) => {
-    //     //increment counter
-    //     this._incrementPreload();
-    //     //call original function
-    //     return this._registeredPreloadMethods[fnName].apply(obj, args);
-    //   };
-    // };
-
-    // this._setProperty = (prop, value) => {
-    //   this[prop] = value;
-    //   if (this._isGlobal) {
-    //     window[prop] = value;
-    //   }
-    // };
 
     // call any registered init functions
     this._registeredMethods.init.forEach(function(f) {
@@ -272,8 +205,6 @@ class p5sound {
           // help users who may be doing this unintentionally.
           //
           // For more information, see:
-          //
-          //   https://github.com/processing/p5sound.js/issues/1317
 
           if (prop in globalObject && !(prop in propsToForciblyOverwrite)) {
             throw new Error(`global "${prop}" already exists`);

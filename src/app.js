@@ -4,11 +4,12 @@ import './core/constants';
 
 // sound
 import { getAudioContext } from './sound/audioContext';
-p5sound.prototype.getAudioContext = getAudioContext;
+p5.prototype.getAudioContext = getAudioContext;
 import './sound/main';
 import Oscillator from './sound/p5sound.Oscillator';
-p5sound.prototype.Oscillator  = Oscillator;
-import './sound/p5sound.SoundFile';
+p5.prototype.Oscillator  = Oscillator;
+// import './sound/p5sound.SoundFile';
+// p5.prototype.SoundFile = SoundFile;
 
 import './core/init';
 

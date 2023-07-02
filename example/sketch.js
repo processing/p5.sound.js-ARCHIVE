@@ -15,7 +15,7 @@ button.addEventListener('click', function () {
 function setup() {
   createCanvas(400, 400);
   background(255, 0, 0);
-  // console.log(p5sound.VERSION);
+  console.log(p5sound.VERSION);
   // osc = new Oscillator('sine', 400);
   // context = getAudioContext();
   // console.log(context);

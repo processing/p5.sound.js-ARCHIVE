@@ -8,7 +8,7 @@
  * @requires core
  */
 
-import p5sound from '../core/main';
+// import p5sound from '../core/main';
 
 /*
 * @class p5sound.Oscillator
@@ -16,7 +16,7 @@ import p5sound from '../core/main';
 * @param {String|Array} path to a sound file (String). Optionally, you may include multiple file formats in an array. Alternately, accepts an object from the HTML5 File API, or a p5sound.File.
 * @param {Function} [successCallback] Name of a function to call once file loads.
 */
-p5sound.SoundFile = class {
+SoundFile = class {
   constructor(path) {
     this.path = path;
   }
@@ -33,6 +33,6 @@ p5sound.SoundFile = class {
     console.log('pause');
   }
 };
-export default p5sound.SoundFile;
+export default SoundFile;
 
 

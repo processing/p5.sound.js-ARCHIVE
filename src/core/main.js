@@ -79,88 +79,6 @@ class p5sound {
      *
      */
 
-    /**
-     * The <a href="#/p5/setup">setup()</a> function is called once when the program starts. It's used to
-     * define initial environment properties such as screen size and background
-     * color and to load media such as images and fonts as the program starts.
-     * There can only be one <a href="#/p5/setup">setup()</a> function for each program and it shouldn't
-     * be called again after its initial execution.
-     *
-     * Note: Variables declared within <a href="#/p5/setup">setup()</a> are not accessible within other
-     * functions, including <a href="#/p5/draw">draw()</a>.
-     *
-     * @method setup
-     * @example
-     * <div><code>
-     * let a = 0;
-     *
-     * function setup() {
-     *   background(0);
-     *   noStroke();
-     *   fill(102);
-     * }
-     *
-     * function draw() {
-     *   rect(a++ % width, 10, 2, 80);
-     * }
-     * </code></div>
-     *
-     * @alt
-     * nothing displayed
-     *
-     */
-
-    /**
-     * Called directly after <a href="#/p5/setup">setup()</a>, the <a href="#/p5/draw">draw()</a> function continuously executes
-     * the lines of code contained inside its block until the program is stopped
-     * or <a href="#/p5/noLoop">noLoop()</a> is called. Note if <a href="#/p5/noLoop">noLoop()</a> is called in <a href="#/p5/setup">setup()</a>, <a href="#/p5/draw">draw()</a> will
-     * still be executed once before stopping. <a href="#/p5/draw">draw()</a> is called automatically and
-     * should never be called explicitly.
-     *
-     * It should always be controlled with <a href="#/p5/noLoop">noLoop()</a>, <a href="#/p5/redraw">redraw()</a> and <a href="#/p5/loop">loop()</a>. After
-     * <a href="#/p5/noLoop">noLoop()</a> stops the code in <a href="#/p5/draw">draw()</a> from executing, <a href="#/p5/redraw">redraw()</a> causes the
-     * code inside <a href="#/p5/draw">draw()</a> to execute once, and <a href="#/p5/loop">loop()</a> will cause the code
-     * inside <a href="#/p5/draw">draw()</a> to resume executing continuously.
-     *
-     * The number of times <a href="#/p5/draw">draw()</a> executes in each second may be controlled with
-     * the <a href="#/p5/frameRate">frameRate()</a> function.
-     *
-     * There can only be one <a href="#/p5/draw">draw()</a> function for each sketch, and <a href="#/p5/draw">draw()</a> must
-     * exist if you want the code to run continuously, or to process events such
-     * as <a href="#/p5/mousePressed">mousePressed()</a>. Sometimes, you might have an empty call to <a href="#/p5/draw">draw()</a> in
-     * your program, as shown in the above example.
-     *
-     * It is important to note that the drawing coordinate system will be reset
-     * at the beginning of each <a href="#/p5/draw">draw()</a> call. If any transformations are performed
-     * within <a href="#/p5/draw">draw()</a> (ex: scale, rotate, translate), their effects will be
-     * undone at the beginning of <a href="#/p5/draw">draw()</a>, so transformations will not accumulate
-     * over time. On the other hand, styling applied (ex: fill, stroke, etc) will
-     * remain in effect.
-     *
-     * @method draw
-     * @example
-     * <div><code>
-     * let yPos = 0;
-     * function setup() {
-     *   // setup() runs once
-     *   frameRate(30);
-     * }
-     * function draw() {
-     *   // draw() loops forever, until stopped
-     *   background(204);
-     *   yPos = yPos - 1;
-     *   if (yPos < 0) {
-     *     yPos = height;
-     *   }
-     *   line(0, yPos, width, yPos);
-     * }
-     * </code></div>
-     *
-     * @alt
-     * nothing displayed
-     *
-     */
-
     //////////////////////////////////////////////
     // PRIVATE p5sound PROPERTIES AND METHODS
     //////////////////////////////////////////////
@@ -270,31 +188,10 @@ class p5sound {
 
         context.preload();
         this._runIfPreloadsAreDone();
-      } else {
-        this._setup();
-        if (!this._recording) {
-          this._draw();
-        }
       }
     };
 
-    this._runIfPreloadsAreDone = function() {
-      const context = this._isGlobal ? window : this;
-      if (context._preloadCount === 0) {
-        const loadingScreen = document.getElementById(context._loadingScreenId);
-        if (loadingScreen) {
-          loadingScreen.parentNode.removeChild(loadingScreen);
-        }
-        if (!this._setupDone) {
-          this._lastTargetFrameTime = window.performance.now();
-          this._lastRealFrameTime = window.performance.now();
-          context._setup();
-          if (!this._recording) {
-            context._draw();
-          }
-        }
-      }
-    };
+
 
     this._decrementPreload = function() {
       const context = this._isGlobal ? window : this;
@@ -318,96 +215,6 @@ class p5sound {
       // Do nothing if we tried to increment preloads outside of `preload`
       if (context._preloadDone) return;
       context._setProperty('_preloadCount', context._preloadCount + 1);
-    };
-
-    this._setup = () => {
-
-      // return preload functions to their normal vals if switched by preload
-      const context = this._isGlobal ? window : this;
-      if (typeof context.preload === 'function') {
-        for (const f in this._preloadMethods) {
-          context[f] = this._preloadMethods[f][f];
-          if (context[f] && this) {
-            context[f] = context[f].bind(this);
-          }
-        }
-      }
-
-      // Record the time when sketch starts
-      this._millisStart = window.performance.now();
-
-      context._preloadDone = true;
-
-      // Short-circuit on this, in case someone used the library in "global"
-      // mode earlier
-      if (typeof context.setup === 'function') {
-        context.setup();
-      }
-
-      // unhide any hidden canvases that were created
-      const canvases = document.getElementsByTagName('canvas');
-
-      for (const k of canvases) {
-        if (k.dataset.hidden === 'true') {
-          k.style.visibility = '';
-          delete k.dataset.hidden;
-        }
-      }
-
-      this._lastTargetFrameTime = window.performance.now();
-      this._lastRealFrameTime = window.performance.now();
-      this._setupDone = true;
-      if (this._accessibleOutputs.grid || this._accessibleOutputs.text) {
-        this._updateAccsOutput();
-      }
-    };
-
-    this._draw = () => {
-      const now = window.performance.now();
-      const time_since_last = now - this._lastTargetFrameTime;
-      const target_time_between_frames = 1000 / this._targetFrameRate;
-
-      // only draw if we really need to; don't overextend the browser.
-      // draw if we're within 5ms of when our next frame should paint
-      // (this will prevent us from giving up opportunities to draw
-      // again when it's really about time for us to do so). fixes an
-      // issue where the frameRate is too low if our refresh loop isn't
-      // in sync with the browser. note that we have to draw once even
-      // if looping is off, so we bypass the time delay if that
-      // is the case.
-      const epsilon = 5;
-      if (
-        !this._loop ||
-        time_since_last >= target_time_between_frames - epsilon
-      ) {
-        //mandatory update values(matrixes and stack)
-        this.deltaTime = now - this._lastRealFrameTime;
-        this._setProperty('deltaTime', this.deltaTime);
-        this._frameRate = 1000.0 / this.deltaTime;
-        this.redraw();
-        this._lastTargetFrameTime = Math.max(this._lastTargetFrameTime
-          + target_time_between_frames, now);
-        this._lastRealFrameTime = now;
-
-        // If the user is actually using mouse module, then update
-        // coordinates, otherwise skip. We can test this by simply
-        // checking if any of the mouse functions are available or not.
-        // NOTE : This reflects only in complete build or modular build.
-        if (typeof this._updateMouseCoords !== 'undefined') {
-          this._updateMouseCoords();
-
-          //reset delta values so they reset even if there is no mouse event to set them
-          // for example if the mouse is outside the screen
-          this._setProperty('movedX', 0);
-          this._setProperty('movedY', 0);
-        }
-      }
-
-      // get notified the next time the browser gives us
-      // an opportunity to draw.
-      if (this._loop) {
-        this._requestAnimId = window.requestAnimationFrame(this._draw);
-      }
     };
 
     this._setProperty = (prop, value) => {
@@ -503,19 +310,8 @@ class p5sound {
       gridLabel: false
     };
 
-    this._styles = [];
 
-    this._bezierDetail = 20;
-    this._curveDetail = 20;
 
-    this._colorMode = constants.RGB;
-    this._colorMaxes = {
-      rgb: [255, 255, 255, 255],
-      hsb: [360, 100, 100, 1],
-      hsl: [360, 100, 100, 1]
-    };
-
-    this._downKeys = {}; //Holds the key codes of currently pressed keys
   }
 
   registerPreloadMethod(fnString, obj) {

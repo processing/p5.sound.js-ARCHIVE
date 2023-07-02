@@ -7,6 +7,7 @@ let button = document.getElementById('startAudioButton');
 
 button.addEventListener('click', function () {
   getAudioContext().resume();
+  osc = new Oscillator('sine', 400);
   osc.start();
   console.log('hey');
 });
@@ -15,7 +16,7 @@ function setup() {
   // createCanvas(400, 400);
   // background(255, 0, 0);
   // console.log(p5sound.ound.ound.VERSION);
-  osc = new Oscillator('sine', 400);
+  // osc = new Oscillator('sine', 400);
   // context = getAudioContext();
   // console.log(context);
   // console.log(context.state);

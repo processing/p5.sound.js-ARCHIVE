@@ -4,13 +4,22 @@ let soundFile;
 
 // console.log(p5sound.VERSION);
 
-let button = document.getElementById('startAudioButton');
+let startOscButton = document.getElementById('startAudioButton');
+let stopOscButton  = document.getElementById('stopAudioButton');
 
-button.addEventListener('click', function () {
+startOscButton.addEventListener('click', function () {
   getAudioContext().resume();
   // osc = new Oscillator('sine', 400);
   // osc.start();
-  console.log('hey');
+  //console.log('hey');
+  startOscillator();
+});
+stopOscButton.addEventListener('click', function () {
+  //getAudioContext().resume();
+  // osc = new Oscillator('sine', 400);
+  // osc.start();
+  //console.log('hey');
+  stopOscillator();
 });
 
 function preload() {
@@ -18,8 +27,23 @@ function preload() {
 }
 
 function setup() {
+  console.log('is loaded?'+soundFile.isLoaded());
   createCanvas(400, 400);
-  background(255, 0, 0);
+  background(196);
+
+}
+
+function draw() {
+  for (let i = 0; i < width; i++) {
+    noFill(); stroke(255*Math.random(), 16);
+    ellipse(width * Math.random(), height - i, 10, 10);
+  }
+  //console.log(soundFile);
+  // console.log(context.state);
+  // osc.helloworld();
+  // console.log(frameCount);
+}
+function startOscillator(){
   // console.log(p5sound.VERSION);
   osc = new Oscillator('sine', 400);
   osc.start();
@@ -27,14 +51,6 @@ function setup() {
   // console.log(context);
   // console.log(context.state);
 }
-
-function draw() {
-  for (let i = 0; i < width; i++) {
-  //   fill(255, 255, 0);
-    ellipse(width * Math.random(), height - i, 10, 10);
-  }
-  console.log(soundFile.isLoaded());
-  // console.log(context.state);
-  // osc.helloworld();
-  // console.log(frameCount);
+function stopOscillator(){
+  osc.stop();
 }

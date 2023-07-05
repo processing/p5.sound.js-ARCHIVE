@@ -23,7 +23,12 @@ stopOscButton.addEventListener('click', function () {
 });
 
 function preload() {
-  soundFile = new SoundFile('./doorbell.mp3');
+  self._incrementPreload();
+  soundFile = new SoundFile('./doorbell.mp3', function () {
+    console.log('sound file loaded');
+    self._decrementPreload();
+  });
+  console.log("here");
 }
 
 function setup() {

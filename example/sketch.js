@@ -2,7 +2,7 @@
 let osc;
 let soundFile;
 
-// console.log(p5sound.VERSION);
+console.log(p5sound.VERSION);
 
 let startOscButton = document.getElementById('startAudioButton');
 let stopOscButton  = document.getElementById('stopAudioButton');

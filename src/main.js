@@ -1,4 +1,5 @@
 import audioContext from './audioContext.js';
+import { VERSION } from './constants.js';
 
 // P5Sound contains the final sound output bus.
 class Main {
@@ -38,11 +39,19 @@ class Main {
 
     // file extensions to search for
     this.extensions = [];
+
+    this.VERSION = VERSION;
+    // get VERSION() {
+    //   return VERSION;
+    // }
   }
+
 }
 
 // create a single instance of the p5Sound main output for use within this sketch
 const p5sound = new Main();
+
+// p5sound.VERSION;
 
 /**
  * Returns a number representing the output volume for sound

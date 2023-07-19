@@ -1,4 +1,4 @@
-import Effect from './effect';
+import Effect from './p5sound.Effect';
 
 /**
  * Delay is an echo effect. it processes an existing sound source,
@@ -57,6 +57,12 @@ class Delay extends Effect {
 
     this.leftDelay = this.audioContext.createDelay();
     this.rightDelay = this.audioContext.createDelay();
+
+    // graph routing
+    this.input.connect(this._split);
+    this.leftDelay.connect(this._lefttGain);
+    this.rightDelay.connect(this._rightGain);
+    this._leftGain.connect(this._merge, 0, 0);
   }
 
   dipose() {

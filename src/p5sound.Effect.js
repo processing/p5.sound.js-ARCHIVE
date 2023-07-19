@@ -87,6 +87,17 @@ class Effect {
   }
 
   dispose() {
+
+    if (this.input) {
+      this.input.disconnect();
+      delete this.input;
+    }
+
+    if (this.output) {
+      this.output.disconnect();
+      delete this.output;
+    }
+
     // remove reference from soundArray
     this.audioContext = undefined;
   }

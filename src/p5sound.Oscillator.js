@@ -108,7 +108,7 @@ class Oscillator {
     // everything we are doing here its compatible
 
     // add to the soundArray so we can dispose of the osc later
-    // p5sound.soundArray.push(this);
+    p5sound.soundArray.push(this);
 
     // TODO: try a different approach
     // not create references to the audio nodes
@@ -116,9 +116,6 @@ class Oscillator {
 
     // array of math operation signal chaining
     this.mathOps = [];
-
-    // add to the soundArray so we can dispose of the osc later
-    //p5.soundArray.push(this);
 
     // these methods are now the same thing
     //this.fade = this.amp;
@@ -268,6 +265,116 @@ class Oscillator {
   getFreq() {
     return this.oscillator.frequency.value;
   }
+
+  /**
+   *  Set type to 'sine', 'triangle', 'sawtooth' or 'square'.
+   *
+   *  @method  setType
+   *  @for p5.Oscillator
+   *  @param {String} type 'sine', 'triangle', 'sawtooth' or 'square'.
+   */
+  setType(type) {
+    this.oscillator.type = type;
+  }
+  /**
+     *  Returns  current type of oscillator eg. 'sine', 'triangle', 'sawtooth' or 'square'.
+     *
+     *  @method  getType
+     *  @for p5.Oscillator
+     *  @returns {String} type of oscillator  eg . 'sine', 'triangle', 'sawtooth' or 'square'.
+     */
+
+  getType() {
+    return this.oscillator.type;
+  }
+
+  /**
+   *  Connect to a p5.sound / Web Audio object.
+   *
+   *  @method  connect
+   *  @for p5.Oscillator
+   *  @param  {Object} unit A p5.sound or Web Audio object
+   */
+  connect(unit) {
+    if (!unit) {
+      this.panner.connect(p5sound.input);
+    } else if (unit.hasOwnProperty('input')) {
+      this.panner.connect(unit.input);
+      this.connection = unit.input;
+    } else {
+      this.panner.connect(unit);
+      this.connection = unit;
+    }
+    if (unit && unit._onNewInput) {
+      unit._onNewInput(this);
+    }
+  }
+
+  /**
+   *  Disconnect all outputs
+   *
+   *  @method  disconnect
+   *  @for p5.Oscillator
+   */
+  disconnect() {
+    if (this.output) {
+      this.output.disconnect();
+    }
+    if (this.panner) {
+      this.panner.disconnect();
+      if (this.output) {
+        this.output.connect(this.panner);
+      }
+    }
+
+  }
+  // get rid of the oscillator
+  dispose() {
+    // remove reference from soundArray
+    let index = p5sound.soundArray.indexOf(this);
+    p5sound.soundArray.splice(index, 1);
+
+    if (this.oscillator) {
+      let now = this.audiocontext.currentTime;
+      this.stop(now);
+      this.disconnect();
+      // this.panner.dispose();
+      // this.panner = null;
+      this.oscillator = null;
+    }
+    // if it is a Pulse
+    // if (this.osc2) {
+    // this.osc2.dispose();
+    // }
+  }
+
+  /**
+   *  Set the phase of an oscillator between 0.0 and 1.0.
+   *  In this implementation, phase is a delay time
+   *  based on the oscillator's current frequency.
+   *
+   *  @method  phase
+   *  @for p5.Oscillator
+   *  @param  {Number} phase float between 0.0 and 1.0
+   */
+  // phase(p) {
+  //   let delayAmt = p5.prototype.map(p, 0, 1.0, 0, 1 / this.f);
+  //   let now = this.audioContext.currentTime;
+
+  //   this.phaseAmount = p;
+
+  //   if (!this.dNode) {
+  //     // create a delay node
+  //     this.dNode = p5sound.audiocontext.createDelay();
+  //     // put the delay node in between output and panner
+  //     this.oscillator.disconnect();
+  //     this.oscillator.connect(this.dNode);
+  //     this.dNode.connect(this.output);
+  //   }
+
+  //   // set delay time to match phase:
+  //   this.dNode.delayTime.setValueAtTime(delayAmt, now);
+  // }
 }
 
 

@@ -1,5 +1,4 @@
 // core
-// import p5sound from './core/main';
 import './constants';
 
 // sound

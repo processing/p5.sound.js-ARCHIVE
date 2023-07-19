@@ -1,15 +1,15 @@
 function _checkFileFormats(paths) {
-  var path;
+  let path;
   // if path is a single string, check to see if extension is provided
   if (typeof paths === 'string') {
     path = paths;
     // see if extension is provided
-    var extTest = path.split('.').pop();
+    let extTest = path.split('.').pop();
     // if an extension is provided...
     if (['mp3', 'wav', 'ogg', 'm4a', 'aac'].indexOf(extTest) > -1) {
       if (!p5.prototype.isFileSupported(extTest)) {
-        var pathSplit = path.split('.');
-        var pathCore = pathSplit[pathSplit.length - 1];
+        let pathSplit = path.split('.');
+        let pathCore = pathSplit[pathSplit.length - 1];
         for (let i = 0; i < p5sound.extensions.length; i++) {
           const extension = p5sound.extensions[i];
           const supported = p5.prototype.isFileSupported(extension);
@@ -44,9 +44,9 @@ function _checkFileFormats(paths) {
 
   // path can either be a single string, or an array
   else if (typeof paths === 'object') {
-    for (var i = 0; i < paths.length; i++) {
-      var extension = paths[i].split('.').pop();
-      var supported = p5.prototype.isFileSupported(extension);
+    for (let i = 0; i < paths.length; i++) {
+      let extension = paths[i].split('.').pop();
+      let supported = p5.prototype.isFileSupported(extension);
       if (supported) {
         // console.log('.'+extension + ' is ' + supported +
         //  ' supported by your browser.');

@@ -1,22 +1,30 @@
-// let context;
-let osc;
-
+// print the current p5sound version
 console.log(p5sound.VERSION);
 
-let startOscButton = document.getElementById('startAudioButton');
-let stopOscButton  = document.getElementById('stopAudioButton');
+// declare variable for oscillator
+let osc;
 
-startOscButton.addEventListener('click', function () {
+// retrieve the buttons from the DOM
+let startAudioButton = document.getElementById('startAudioButton');
+let stopAudioButton = document.getElementById('stopAudioButton');
+let startOscillatorButton = document.getElementById('startOscillatorButton');
+
+startAudioButton.addEventListener('click', function () {
   getAudioContext().resume();
-  startOscillator();
 });
-stopOscButton.addEventListener('click', function () {
-  stopOscillator();
+
+stopAudioButton.addEventListener('click', function () {
+  getAudioContext().suspend();
+});
+
+startOscillatorButton.addEventListener('click', function () {
+  osc.start();
 });
 
 function setup() {
   createCanvas(400, 400);
   background(196);
+  osc = new Oscillator('sine', 400);
 }
 
 function draw() {
@@ -24,11 +32,10 @@ function draw() {
     noFill(); stroke(255*Math.random(), 16);
     ellipse(width * Math.random(), height - i, 10, 10);
   }
+  let newFreq = map(mouseX, 0, width, 100, 1000);
+  osc.freq(newFreq);
 }
-function startOscillator(){
-  osc = new Oscillator('sine', 400);
-  osc.start();
-}
+
 function stopOscillator(){
   osc.stop();
 }

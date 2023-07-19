@@ -39,14 +39,3 @@ function draw() {
   // osc.helloworld();
   // console.log(frameCount);
 }
-function startOscillator(){
-  // console.log(p5sound.VERSION);
-  osc = new Oscillator('sine', 400);
-  osc.start();
-  // context = getAudioContext();
-  // console.log(context);
-  // console.log(context.state);
-}
-function stopOscillator(){
-  osc.stop();
-}

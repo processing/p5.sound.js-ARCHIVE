@@ -180,7 +180,97 @@ class Oscillator {
       this.started = false;
     }
   }
+  /**
+   *  Set frequency of an oscillator to a value. Or, pass in an object
+   *  such as an oscillator to modulate the frequency with an audio signal.
+   *
+   *  @method  freq
+   *  @for p5.Oscillator
+   *  @param  {Number|Object} Frequency Frequency in Hz
+   *                                        or modulating signal/oscillator
+   *  @param  {Number} [rampTime] Ramp time (in seconds)
+   *  @param  {Number} [timeFromNow] Schedule this event to happen
+   *                                   at x seconds from now
+   *  @return  {AudioParam} Frequency If no value is provided,
+   *                                  returns the Web Audio API
+   *                                  AudioParam that controls
+   *                                  this oscillator's frequency
+   *  @example
+   *  <div><code>
+   *  let osc;
+   *
+   *  function setup() {
+   *    let cnv = createCanvas(100, 100);
+   *    cnv.mousePressed(playOscillator);
+   *    osc = new p5.Oscillator(300);
+   *    background(220);
+   *    text('tap to play', 20, 20);
+   *  }
+   *
+   *  function playOscillator() {
+   *    osc.start();
+   *    osc.amp(0.5);
+   *    // start at 700Hz
+   *    osc.freq(700);
+   *    // ramp to 60Hz over 0.7 seconds
+   *    osc.freq(60, 0.7);
+   *    osc.amp(0, 0.1, 0.7);
+   *  }
+   *  </code></div>
+   */
+  freq(val, rampTime = 0, tFromNow = 0) {
+    if (typeof val === 'number' && !isNaN(val)) {
+      this.f = val;
+      let now = audioContext.currentTime;
+
+      if (rampTime === 0) {
+        this.oscillator.frequency.setValueAtTime(val, tFromNow + now);
+      } else {
+        if (val > 0) {
+          this.oscillator.frequency.exponentialRampToValueAtTime(
+            val,
+            tFromNow + rampTime + now
+          );
+        } else {
+          this.oscillator.frequency.linearRampToValueAtTime(
+            val,
+            tFromNow + rampTime + now
+          );
+        }
+      }
+
+      // reset phase if oscillator has a phase
+      if (this.phaseAmount) {
+        this.phase(this.phaseAmount);
+      }
+    } else if (val) {
+      if (val.output) {
+        val = val.output;
+      }
+      val.connect(this.oscillator.frequency);
+
+      // keep track of what is modulating this param
+      // so it can be re-connected if
+      this._freqMods.push(val);
+    } else {
+      // return the Frequency Node
+      return this.oscillator.frequency;
+    }
+  }
+  /**
+   * Returns the value of frequency of oscillator
+   *
+   *  @method  getFreq
+   *  @for p5.Oscillator
+   *  @returns {number} Frequency of oscillator in Hertz
+   */
+
+  getFreq() {
+    return this.oscillator.frequency.value;
+  }
 }
+
+
 
 class SinOsc extends Oscillator {
   constructor(freq) {

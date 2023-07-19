@@ -4,8 +4,8 @@ import { VERSION } from './constants.js';
 // P5Sound contains the final sound output bus.
 class Main {
   constructor() {
-    // this.input = audioContext.createGain();
-    // this.output = audioContext.createGain();
+    this.input = audioContext.createGain();
+    this.output = audioContext.createGain();
 
     // //put a hard limiter on the output
     this.limiter = audioContext.createDynamicsCompressor();
@@ -15,13 +15,13 @@ class Main {
 
     this.audioContext = audioContext;
 
-    //   this.output.disconnect();
+    this.output.disconnect();
 
-    //   // connect input to limiter
-    //   this.input.connect(this.limiter);
+    // connect input to limiter
+    this.input.connect(this.limiter);
 
-    //   // connect limiter to output
-    //   this.limiter.connect(this.output);
+    // connect limiter to output
+    this.limiter.connect(this.output);
 
     //   // meter is just for global Amplitude / FFT analysis
     //   this.meter = audioContext.createGain();
@@ -29,11 +29,11 @@ class Main {
     //   this.output.connect(this.meter);
     //   this.output.connect(this.fftMeter);
 
-    //   // connect output to destination
-    //   this.output.connect(this.audioContext.destination);
+    // connect output to destination
+    this.output.connect(this.audioContext.destination);
 
-    //   // an array of all sounds in the sketch
-    //   this.soundArray = [];
+    // an array of all sounds in the sketch
+    this.soundArray = [];
     //   // an array of all musical parts in the sketch
     //   this.parts = [];
 
@@ -41,9 +41,7 @@ class Main {
     this.extensions = [];
 
     this.VERSION = VERSION;
-    // get VERSION() {
-    //   return VERSION;
-    // }
+
   }
 
 }

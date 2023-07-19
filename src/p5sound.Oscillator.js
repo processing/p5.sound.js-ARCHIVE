@@ -62,7 +62,8 @@ import audioContext from './audioContext';
 
 class Oscillator {
   constructor(freq, type) {
-    this.type = type;//sine, triangle, square, saw, pulse
+    //sine, triangle, square, saw, pulse
+    this.type = type;
 
     if (typeof freq === 'string') {
       let f = type;

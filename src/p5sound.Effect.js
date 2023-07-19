@@ -1,4 +1,5 @@
 import audioContext from './audioContext';
+// import p5sound from './main';
 
 /**
  * Effect is a base class for audio effects in p5sound.
@@ -25,6 +26,8 @@ class Effect {
     this.output = this.audioContext.createGain();
 
     this.connect();
+
+    p5sound.soundArray.push(this);
   }
 
   /**
@@ -46,7 +49,7 @@ class Effect {
   }
 
   /**
-   * link effetcs together in a chain
+   * link effects together in a chain
    * example usage: filter.chain(reverb, delay, panner)
    * may be used with an open-ended number of arguments
    */
@@ -87,6 +90,9 @@ class Effect {
   }
 
   dispose() {
+    // remove refernce form soundArray
+    let index = p5sound.soundArray.indexOf(this);
+    p5sound.soundArray.splice(index, 1);
 
     if (this.input) {
       this.input.disconnect();

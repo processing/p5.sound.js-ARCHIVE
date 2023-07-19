@@ -45,12 +45,6 @@ oscSawButton.addEventListener('click', function () {
   osc.setType('sawtooth');
 });
 
-
-
-
-
-
-
 function setup() {
   createCanvas(400, 400);
   background(196);

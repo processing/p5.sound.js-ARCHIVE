@@ -1,11 +1,12 @@
+import audioContext from './audioContext';
 import Effect from './p5sound.Effect';
 
-class Filter extends Effect {
+class BiquadFilter extends Effect {
   constructor(type) {
     super();
-    this.biquad = this.audioContext.createBiquadFilter();
+    this.biquad = audioContext.createBiquadFilter();
     this.input.connect(this.biquad);
-    this.biquad.connect(this.wet);
+    // this.biquad.connect(this.wet);
     if (type) {
       this.setType(type);
     }
@@ -41,10 +42,11 @@ class Filter extends Effect {
     let t = time || 0;
     if (typeof res === 'number') {
       this.biquad.Q.value = res;
-      this.biquad.Q.cancelScheduledValues(this.ac.currentTime + 0.01 + t);
+      this.biquad.Q.cancelScheduledValues(
+        this.audioContext.currentTime + 0.01 + t);
       this.biquad.Q.linearRampToValueAtTime(
         res,
-        this.ac.currentTime + 0.02 + t
+        this.audioContext.currentTime + 0.02 + t
       );
     } else if (res) {
       res.connect(this.biquad.Q);
@@ -56,10 +58,11 @@ class Filter extends Effect {
     let t = time || 0;
     if (typeof gain === 'number') {
       this.biquad.gain.value = gain;
-      this.biquad.gain.cancelScheduledValues(this.ac.currentTime + 0.01 + t);
+      this.biquad.gain.cancelScheduledValues(
+        this.audioContext.currentTime + 0.01 + t);
       this.biquad.gain.linearRampToValueAtTime(
         gain,
-        this.ac.currentTime + 0.02 + t
+        this.audioContext.currentTime + 0.02 + t
       );
     } else if (gain) {
       gain.connect(this.biquad.gain);
@@ -94,52 +97,52 @@ class Filter extends Effect {
 }
 
 /**
- *  Constructor: <code>new p5.LowPass()</code> Filter.
- *  This is the same as creating a p5.Filter and then calling
+ *  Constructor: <code>new p5.LowPass()</code> BiquadFilter.
+ *  This is the same as creating a p5.BiquadFilter and then calling
  *  its method <code>setType('lowpass')</code>.
- *  See p5.Filter for methods.
+ *  See p5.BiquadFilter for methods.
  *
  *  @class p5.LowPass
  *  @constructor
- *  @extends p5.Filter
+ *  @extends p5.BiquadFilter
  */
-class LowPass extends Filter {
+class LowPass extends BiquadFilter {
   constructor() {
     super('lowpass');
   }
 }
 
 /**
-*  Constructor: <code>new p5.HighPass()</code> Filter.
-*  This is the same as creating a p5.Filter and then calling
+*  Constructor: <code>new p5.HighPass()</code> BiquadFilter.
+*  This is the same as creating a p5.BiquadFilter and then calling
 *  its method <code>setType('highpass')</code>.
-*  See p5.Filter for methods.
+*  See p5.BiquadFilter for methods.
 *
 *  @class p5.HighPass
 *  @constructor
-*  @extends p5.Filter
+*  @extends p5.BiquadFilter
 */
-class HighPass extends Filter {
+class HighPass extends BiquadFilter {
   constructor() {
     super('highpass');
   }
 }
 
 /**
-*  Constructor: <code>new p5.BandPass()</code> Filter.
-*  This is the same as creating a p5.Filter and then calling
+*  Constructor: <code>new p5.BandPass()</code> BiquadFilter.
+*  This is the same as creating a p5.BiquadFilter and then calling
 *  its method <code>setType('bandpass')</code>.
-*  See p5.Filter for methods.
+*  See p5.BiquadFilter for methods.
 *
 *  @class p5.BandPass
 *  @constructor
-*  @extends p5.Filter
+*  @extends p5.BiquadFilter
 */
-class BandPass extends Filter {
+class BandPass extends BiquadFilter {
   constructor() {
     super('bandpass');
   }
 }
 
-export default Filter;
+export default BiquadFilter;
 export { LowPass, HighPass, BandPass };

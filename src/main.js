@@ -1,7 +1,7 @@
 import audioContext from './audioContext.js';
 import { VERSION } from './constants.js';
 
-// P5Sound contains the final sound output bus.
+// p5sound contains the final sound output bus.
 class Main {
   constructor() {
     this.input = audioContext.createGain();
@@ -111,13 +111,13 @@ const p5sound = new Main();
  *
  *  @property {Object} soundOut
  */
-// p5sound.prototype.soundOut = p5sound.soundOut = p5sound;
+p5.prototype.soundOut = p5.soundOut = p5sound;
 
-// a silent connection to the DesinationNode
-// which will ensure that anything connected to it
-// will not be garbage collected
-// p5sound.soundOut._silentNode = p5sound.audioContext.createGain();
-// p5sound.soundOut._silentNode.gain.value = 0;
-// p5sound.soundOut._silentNode.connect(p5sound.audioContext.destination);
+// // a silent connection to the DesinationNode
+// // which will ensure that anything connected to it
+// // will not be garbage collected
+p5.soundOut._silentNode = audioContext.createGain();
+p5.soundOut._silentNode.gain.value = 0;
+p5.soundOut._silentNode.connect(audioContext.destination);
 
 export default p5sound;

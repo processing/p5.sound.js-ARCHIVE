@@ -1,3 +1,5 @@
+import audioContext from './audioContext';
+
 /**
  * @module Sound
  * @submodule Oscillator
@@ -9,7 +11,7 @@
  *
  * Example coming soon...
  */
-import audioContext from './audioContext';
+
 
 // ========================== //
 // SIGNAL MATH FOR MODULATION //
@@ -297,12 +299,12 @@ class Oscillator {
    */
   connect(unit) {
     if (!unit) {
-      this.panner.connect(p5sound.input);
+      // this.panner.connect(p5sound.input);
     } else if (unit.hasOwnProperty('input')) {
-      this.panner.connect(unit.input);
+      // this.panner.connect(unit.input);
       this.connection = unit.input;
     } else {
-      this.panner.connect(unit);
+      // this.panner.connect(unit);
       this.connection = unit;
     }
     if (unit && unit._onNewInput) {
@@ -320,12 +322,12 @@ class Oscillator {
     if (this.output) {
       this.output.disconnect();
     }
-    if (this.panner) {
-      this.panner.disconnect();
-      if (this.output) {
-        this.output.connect(this.panner);
-      }
-    }
+    // if (this.panner) {
+    //   this.panner.disconnect();
+    //   if (this.output) {
+    //     this.output.connect(this.panner);
+    //   }
+    // }
 
   }
   // get rid of the oscillator

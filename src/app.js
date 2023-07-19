@@ -6,6 +6,9 @@ import './shims';
 import { getAudioContext } from './audioContext';
 p5.prototype.getAudioContext = getAudioContext;
 import p5sound from './main';
+
+// import './main';
+
 import Oscillator from './p5sound.Oscillator';
 p5.prototype.Oscillator = Oscillator;
 import { SinOsc, TriOsc, SawOsc, SqrOsc } from './p5sound.Oscillator';
@@ -18,9 +21,9 @@ import SoundFile from './p5sound.SoundFile';
 p5.prototype.SoundFile = SoundFile;
 import Effect from './p5sound.Effect';
 p5.prototype.Effect = Effect;
-import Filter from './p5sound.Filter';
-p5.prototype.Filter = Filter;
-import { LowPass, HighPass, BandPass } from './p5sound.Filter';
+import BiquadFilter from './p5sound.BiquadFilter';
+p5.prototype.BiquadFilter = BiquadFilter;
+import { LowPass, HighPass, BandPass } from './p5sound.BiquadFilter';
 p5.prototype.LowPass = LowPass;
 p5.prototype.HighPass = HighPass;
 p5.prototype.BandPass = BandPass;

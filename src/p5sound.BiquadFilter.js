@@ -6,7 +6,7 @@ class BiquadFilter extends Effect {
     super();
     this.biquad = audioContext.createBiquadFilter();
     this.input.connect(this.biquad);
-    // this.biquad.connect(this.wet);
+    this.biquad.connect(this.effectGain);
     if (type) {
       this.setType(type);
     }

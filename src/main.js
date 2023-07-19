@@ -8,10 +8,10 @@ class Main {
     // this.output = audioContext.createGain();
 
     // //put a hard limiter on the output
-    // this.limiter = audioContext.createDynamicsCompressor();
-    // this.limiter.threshold.value = -3;
-    // this.limiter.ratio.value = 20;
-    // this.limiter.knee.value = 1;
+    this.limiter = audioContext.createDynamicsCompressor();
+    this.limiter.threshold.value = -3;
+    this.limiter.ratio.value = 20;
+    this.limiter.knee.value = 1;
 
     this.audioContext = audioContext;
 
@@ -50,8 +50,6 @@ class Main {
 
 // create a single instance of the p5Sound main output for use within this sketch
 const p5sound = new Main();
-
-// p5sound.VERSION;
 
 /**
  * Returns a number representing the output volume for sound

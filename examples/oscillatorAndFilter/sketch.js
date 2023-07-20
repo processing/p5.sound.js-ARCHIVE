@@ -52,10 +52,10 @@ function setup() {
   createCanvas(400, 400);
   background(196);
   osc = new Oscillator('sine', 400);
-  // lowpass = new LowPass();
+  lowpass = new LowPass();
   // lowpass = new BiquadFilter('lowpass', 200);
-  // osc.disconnect();
-  // osc.connect(lowpass);
+  osc.disconnect();
+  osc.connect(lowpass);
 }
 
 function draw() {
@@ -65,7 +65,6 @@ function draw() {
   }
   let newFreq = map(mouseX, 0, width, 100, 1000);
   osc.freq(newFreq);
-  // lowpass.freq(400);
-  // lowpass.res(50);
-
+  lowpass.freq(400, 0);
+  lowpass.res(50);
 }

@@ -303,21 +303,16 @@ class Oscillator {
    *  @param  {Object} unit A p5.sound or Web Audio object
    */
   connect(unit) {
-    if (!unit) {
+    if(!unit) {
       this.output.connect(p5sound.input);
-      // this.panner.connect(p5sound.input);
-    } else if (unit.hasOwnProperty('input')) {
-      // this.panner.connect(unit.input);
-      // this.connection = unit.input;
+    }
+    else if (unit.hasOwnProperty('input')) {
       this.output.connect(unit.input);
     } else {
-      // this.panner.connect(unit);
-      // this.connection = unit;
       this.output.connect(unit);
     }
     if (unit && unit._onNewInput) {
-      // unit._onNewInput(this);
-      console.log('onNewInput');
+      unit._onNewInput(this);
     }
   }
 

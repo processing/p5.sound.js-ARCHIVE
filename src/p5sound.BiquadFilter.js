@@ -6,7 +6,7 @@ class BiquadFilter extends Effect {
     super();
     this.biquad = audioContext.createBiquadFilter();
     this.input.connect(this.biquad);
-    this.biquad.connect(this.effectGain);
+    this.biquad.connect(this.output);
     if (type) {
       this.setType(type);
     }
@@ -28,10 +28,10 @@ class BiquadFilter extends Effect {
     }
     if (typeof freq === 'number') {
       this.biquad.frequency.cancelScheduledValues(
-        this.audioContext.currentTime + 0.01 + t);
+        audioContext.currentTime + 0.01 + t);
       this.biquad.frequency.exponentialRampToValueAtTime(
         freq,
-        this.audioContext.currentTime + 0.02 + t);
+        audioContext.currentTime + 0.02 + t);
     } else if(freq) {
       freq.connect(this.biquad.frequency);
     }
@@ -43,10 +43,10 @@ class BiquadFilter extends Effect {
     if (typeof res === 'number') {
       this.biquad.Q.value = res;
       this.biquad.Q.cancelScheduledValues(
-        this.audioContext.currentTime + 0.01 + t);
+        audioContext.currentTime + 0.01 + t);
       this.biquad.Q.linearRampToValueAtTime(
         res,
-        this.audioContext.currentTime + 0.02 + t
+        audioContext.currentTime + 0.02 + t
       );
     } else if (res) {
       res.connect(this.biquad.Q);
@@ -59,10 +59,10 @@ class BiquadFilter extends Effect {
     if (typeof gain === 'number') {
       this.biquad.gain.value = gain;
       this.biquad.gain.cancelScheduledValues(
-        this.audioContext.currentTime + 0.01 + t);
+        audioContext.currentTime + 0.01 + t);
       this.biquad.gain.linearRampToValueAtTime(
         gain,
-        this.audioContext.currentTime + 0.02 + t
+        audioContext.currentTime + 0.02 + t
       );
     } else if (gain) {
       gain.connect(this.biquad.gain);

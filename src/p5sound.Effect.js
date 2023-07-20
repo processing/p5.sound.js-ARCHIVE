@@ -1,5 +1,5 @@
 import audioContext from './audioContext';
-// import p5sound from './main';
+import p5sound from './main';
 
 /**
  * Effect is a base class for audio effects in p5sound.
@@ -20,31 +20,24 @@ import audioContext from './audioContext';
 
 class Effect {
   constructor() {
-    this.audioContext = audioContext;
+    // this.audioContext = audioContext;
 
-    this.input = this.audioContext.createGain();
+    this.input = audioContext.createGain();
 
     this.input.gain.value = 0.5;
-    this.input.gain.setValueAtTime(0.5, audioContext.currentTime);
 
-    this.output = this.audioContext.createGain();
+    this.output = audioContext.createGain();
 
     this.output.gain.value = 0.5;
-    this.output.gain.setValueAtTime(0.5, audioContext.currentTime);
 
     // this._drywet = new CrossFade(1);
-
-    this.effectGain = this.audioContext.createGain();
-
-    this.effectGain.gain.value = 0.5;
-    this.effectGain.gain.setValueAtTime(0.5, audioContext.currentTime);
 
     // this.input.connect(this.effectGain);
     // this.effectGain.connect(this.output);
     this.input.connect(this.output);
     // this.output.connect(audioContext.destination);
 
-    this.connect();
+    this.output.connect(p5sound.input);
 
     p5sound.soundArray.push(this);
   }
@@ -76,7 +69,7 @@ class Effect {
     if (arguments.length > 0) {
       this.connect(arguments[0]);
       for (let i = 0; i < arguments.length; i+=1) {
-        arguments[ii - 1].connect(arguments[i]);
+        arguments[i - 1].connect(arguments[i]);
       }
     }
     return this;
@@ -98,14 +91,13 @@ class Effect {
   // }
 
   connect(unit) {
-    if (!unit) {
-      // this.panner.connect(p5sound.input);
-    } else if (unit.hasOwnProperty('input')) {
-      // this.panner.connect(unit.input);
-      this.connection = unit.input;
+    if(!unit) {
+      this.output.connect(p5sound.input);
+    }
+    else if (unit.hasOwnProperty('input')) {
+      this.output.connect(unit.input);
     } else {
-      // this.panner.connect(unit);
-      this.connection = unit;
+      this.output.connect(unit);
     }
     if (unit && unit._onNewInput) {
       unit._onNewInput(this);
@@ -138,8 +130,6 @@ class Effect {
       delete this.output;
     }
 
-    // remove reference from soundArray
-    this.audioContext = undefined;
   }
 }
 

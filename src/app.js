@@ -5,7 +5,7 @@ import './constants';
 import './shims';
 import { getAudioContext } from './audioContext';
 p5.prototype.getAudioContext = getAudioContext;
-import p5sound from './main';
+// import p5sound from './main';
 
 // import './main';
 
@@ -45,4 +45,4 @@ p5.prototype._checkFileFormats = _checkFileFormats;
 
 // import './init';
 
-module.exports = p5sound;
+// module.exports = p5sound;

@@ -1,4 +1,5 @@
 import audioContext from './audioContext';
+import p5sound from './main';
 
 /**
  * @module Sound
@@ -64,9 +65,8 @@ import audioContext from './audioContext';
 
 class Oscillator {
   constructor(freq, type) {
-    //sine, triangle, square, saw, pulse
-    this.type = type;
 
+    // proofing the constructor
     if (typeof freq === 'string') {
       let f = type;
       type = freq;
@@ -77,7 +77,11 @@ class Oscillator {
       type = freq;
       freq = f;
     }
+
+    // sine, triangle, square, saw, pulse
+    this.type = type;
     this.started = false;
+
     // components
     //this.phaseAmount = undefined;
     this.oscillator = audioContext.createOscillator();
@@ -95,7 +99,7 @@ class Oscillator {
     // TODO: maybe think of a constant that people can tweak
     // for max volume
     this.output.gain.value = 0.5;
-    this.output.gain.setValueAtTime(0.5, audioContext.currentTime);
+    // this.output.gain.setValueAtTime(0.5, audioContext.currentTime);
 
     this.oscillator.connect(this.output);
     // stereo panning
@@ -103,7 +107,8 @@ class Oscillator {
 
     //this.panner = new Panner();
     //this.output.connect(this.panner);
-    this.output.connect(audioContext.destination);
+    // this.output.connect(audioContext.destination);
+    this.output.connect(p5sound.input);
 
     // if you wanna do 3D node panners
     // please do it with web audio api,
@@ -299,16 +304,20 @@ class Oscillator {
    */
   connect(unit) {
     if (!unit) {
+      this.output.connect(p5sound.input);
       // this.panner.connect(p5sound.input);
     } else if (unit.hasOwnProperty('input')) {
       // this.panner.connect(unit.input);
-      this.connection = unit.input;
+      // this.connection = unit.input;
+      this.output.connect(unit.input);
     } else {
       // this.panner.connect(unit);
-      this.connection = unit;
+      // this.connection = unit;
+      this.output.connect(unit);
     }
     if (unit && unit._onNewInput) {
-      unit._onNewInput(this);
+      // unit._onNewInput(this);
+      console.log('onNewInput');
     }
   }
 

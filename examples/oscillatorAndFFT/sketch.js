@@ -52,11 +52,30 @@ function setup() {
 }
 
 function draw() {
-  for (let i = 0; i < width; i++) {
-    noFill(); stroke(255*Math.random(), 16);
-    ellipse(width * Math.random(), height - i, 10, 10);
-  }
+
+  background(196);
+
   let newFreq = map(mouseX, 0, width, 100, 1000);
   osc.freq(newFreq);
-  // console.log(osc.getFreq());
+
+  let spectrum = analyzer.analyze();
+  noStroke();
+  fill(255, 0, 255);
+  for (let i = 0; i< spectrum.length; i++){
+    let x = map(i, 0, spectrum.length, 0, width);
+    let h = -height + map(spectrum[i], 0, 255, height, 0);
+    rect(x, height, width / spectrum.length, h);
+  }
+
+ let waveform = analyzer.waveform();
+  noFill();
+  beginShape();
+  stroke(20);
+  for (let i = 0; i < waveform.length; i++){
+    let x = map(i, 0, waveform.length, 0, width);
+    let y = map( waveform[i], -1, 1, 0, height);
+    vertex(x,y);
+  }
+  endShape();
+
 }

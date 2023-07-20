@@ -1,5 +1,6 @@
 import Oscillator from './p5sound.Oscillator';
 import audioContext from './audioContext';
+import p5sound from './main';
 
 // generate noise buffers
 const _whiteNoiseBuffer = (function () {

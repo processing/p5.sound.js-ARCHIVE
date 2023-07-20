@@ -67,7 +67,7 @@ function draw() {
     rect(x, height, width / spectrum.length, h);
   }
 
- let waveform = analyzer.waveform();
+  let waveform = analyzer.waveform();
   noFill();
   beginShape();
   stroke(20);

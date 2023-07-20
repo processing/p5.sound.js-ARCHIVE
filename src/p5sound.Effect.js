@@ -20,7 +20,6 @@ import p5sound from './main';
 
 class Effect {
   constructor() {
-    // this.audioContext = audioContext;
 
     this.input = audioContext.createGain();
 

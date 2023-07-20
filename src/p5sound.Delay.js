@@ -1,3 +1,4 @@
+import audioContext from './audioContext';
 import Effect from './p5sound.Effect';
 
 /**
@@ -11,7 +12,7 @@ import Effect from './p5sound.Effect';
  * original source.
  *
  *
- * This class extends p5.Effect.
+ * This class extends p5sound.Effect
  *
  * @class p5.Delay
  * @extends p5.Effect
@@ -49,38 +50,102 @@ class Delay extends Effect {
   constructor() {
     super();
 
-    this._split = this.audioContext.createChannelSplitter(2);
-    this._merge = this.audioContext.createChannelMerger(2);
+    this.gain = audioContext.createGain();
+    this.delay = audioContext.createDelay();
 
-    this._leftGain = this.audioContext.createGain();
-    this._rightGain = this.audioContext.createGain();
+    this.input.connect(this.gain);
+    this.gain.connect(this.delay);
+    this.delay.connect(this.output);
 
-    this.leftDelay = this.audioContext.createDelay();
-    this.rightDelay = this.audioContext.createDelay();
+    // this._split = audioContext.createChannelSplitter(2);
+    // this._merge = audioContext.createChannelMerger(2);
+
+
+    // this._leftGain = audioContext.createGain();
+    // this._rightGain = audioContext.createGain();
+
+    // this.leftDelay = audioContext.createDelay();
+    // this.rightDelay = audioContext.createDelay();
 
     // graph routing
-    this.input.connect(this._split);
-    this.leftDelay.connect(this._lefttGain);
-    this.rightDelay.connect(this._rightGain);
-    this._leftGain.connect(this._merge, 0, 0);
+    // this.input.connect(this._split);
+    // this.leftDelay.connect(this._lefttGain);
+    // this.rightDelay.connect(this._rightGain);
+    // this._leftGain.connect(this._merge, 0, 0);
+
+    this._maxDelay = this.delay.delayTime.maxValue;
+    this.feedback(0.5);
   }
 
-  dipose() {
+  process(src, _delayTime, _feedback) {
+    let feedback = _feedback || 0;
+    let delayTime = _delayTime || 0;
+    if (feedback >= 1) {
+      throw new Error('Feedback value will force a positive feedback loop.');
+    }
+    if (delayTime >= this._maxDelay) {
+      throw new Error('Delay Time exceeds maximum delay time of ' + this._maxDelay + ' second.');
+    }
+
+    src.connect(this.input);
+    this.delay.delayTime.value = delayTime;
+    this.gain.gain.value = feedback;
+  }
+
+  delayTime(t) {
+    // if t is an audio node...
+    if (typeof t !== 'number') {
+      t.connect(this.delay.delayTime);
+    } else {
+      this.delay.delayTime.cancelScheduledValues(audioContext.currentTime);
+      this.delay.delayTime.value = t;
+    }
+  }
+
+  feedback(f) {
+    // if f is an audio node...
+    if (f && typeof f !== 'number') {
+      f.connect(this.gain.gain);
+    } else if (f >= 1.0) {
+      throw new Error('Feedback value will force a positive feedback loop.');
+    } else if (typeof f === 'number') {
+      this.gain.gain.value = f;
+    }
+    // return value of feedback
+    return this.gain.gain.value;
+  }
+
+  // setType(t) {
+  //   this._split.disconnect();
+  //   this._split.connect(this.leftDelay, 0);
+  //   this._split.connect(this.rightDelay, 1);
+  //   if (t === 0) {
+  //     this._merge.output.connect(this.leftDelay, 0, 0);
+  //     this._merge.output.connect(this.rightDelay, 0, 1);
+  //   }
+  // }
+
+  dispose() {
     super.dispose();
 
-    this._split.disconnect();
-    this._merge.disconnect();
-    this._leftGain.disconnect();
-    this._rightGain.disconnect();
-    this.leftDelay.disconnect();
-    this.rightDelay.disconnect();
+    if (this.delay) {
+      this.delay.disconnect();
+      delete this.delay;
+    }
 
-    this._split = undefined;
-    this._merge = undefined;
-    this._leftGain = undefined;
-    this._rightGain = undefined;
-    this.leftDelay = undefined;
-    this.rightDelay = undefined;
+    // this._split.disconnect();
+    // this._merge.disconnect();
+    // this._leftGain.disconnect();
+    // this._rightGain.disconnect();
+    // this.leftDelay.disconnect();
+    // this.rightDelay.disconnect();
+
+    // this._split = undefined;
+    // this._merge = undefined;
+    // this._leftGain = undefined;
+    // this._rightGain = undefined;
+    // this.leftDelay = undefined;
+    // this.rightDelay = undefined;
   }
 }
 

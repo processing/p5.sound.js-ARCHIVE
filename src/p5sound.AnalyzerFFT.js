@@ -28,7 +28,7 @@ import audioContext from './audioContext';
  *  2048/44100 seconds long.</p>
  *
  *
- *  @class p5sound.FFT
+ *  @class p5sound.AnalyzerFFT
  *  @constructor
  *  @param {Number} [smoothing]   Smooth results of Freq Spectrum.
  *                                0.0 < smoothing < 1.0.
@@ -84,7 +84,7 @@ import audioContext from './audioContext';
  *  }
  *  </code></div>
  */
-class FFT {
+class AnalyzerFFT {
   constructor(smoothing, bins) {
     this.input = this.analyser = audioContext.createAnalyser();
 
@@ -643,4 +643,4 @@ function timeToInt(fft) {
   }
 }
 
-export default FFT;
+export default AnalyzerFFT;

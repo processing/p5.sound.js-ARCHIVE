@@ -23,11 +23,11 @@ class Main {
     // connect limiter to output
     this.limiter.connect(this.output);
 
-    //   // meter is just for global Amplitude / FFT analysis
-    //   this.meter = audioContext.createGain();
-    //   this.fftMeter = audioContext.createGain();
-    //   this.output.connect(this.meter);
-    //   this.output.connect(this.fftMeter);
+    // meter is just for global Amplitude / FFT analysis
+    this.meter = audioContext.createGain();
+    this.fftMeter = audioContext.createGain();
+    this.output.connect(this.meter);
+    this.output.connect(this.fftMeter);
 
     // connect output to destination
     this.output.connect(this.audioContext.destination);
@@ -57,9 +57,9 @@ const p5sound = new Main();
  * @return {Number} Output volume for sound in this sketch.
  *                  Should be between 0.0 (silence) and 1.0.
  */
-// p5sound.prototype.getOutputVolume = function () {
-//   return p5sound.output.gain.value;
-// };
+p5sound.prototype.getOutputVolume = function () {
+  return p5sound.output.gain.value;
+};
 
 /**
  *  <p>Scale the output of all sound in this sketch</p>

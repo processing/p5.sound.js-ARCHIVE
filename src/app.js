@@ -36,6 +36,8 @@ p5.prototype.BandPass = BandPass;
 import Delay from './p5sound.Delay';
 p5.prototype.Delay = Delay;
 
+import FFT from './p5sound.FFT';
+p5.prototype.FFT = FFT;
 
 // helpers
 import { _checkFileFormats } from './helpers';

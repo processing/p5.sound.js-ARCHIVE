@@ -1,17 +1,16 @@
 // print the current p5sound version
 console.log(p5sound.VERSION);
 
-// declare variable for oscillator
-let osc;
+// declare variable for noise
+let noise;
 
 // retrieve the buttons from the DOM
 let startAudioButton = document.getElementById('startAudioButton');
 let stopAudioButton = document.getElementById('stopAudioButton');
-let startOscillatorButton = document.getElementById('startOscillatorButton');
-let oscSineButton = document.getElementById('oscSineButton');
-let oscTriButton = document.getElementById('oscTriButton');
-let oscSquareButton = document.getElementById('oscSquareButton');
-let oscSawButton = document.getElementById('oscSawButton');
+let startNoiseButton = document.getElementById('startNoiseButton');
+let noiseWhiteButton = document.getElementById('noiseWhiteButton');
+let noisePinkButton = document.getElementById('noisePinkButton');
+let noiseBrownButton = document.getElementById('noiseBrownButton');
 
 startAudioButton.addEventListener('click', function () {
   getAudioContext().resume();
@@ -21,34 +20,26 @@ stopAudioButton.addEventListener('click', function () {
   getAudioContext().suspend();
 });
 
-startOscillatorButton.addEventListener('click', function () {
-  osc.start();
+startNoiseButton.addEventListener('click', function () {
+  noise.start();
 });
 
-oscSineButton.addEventListener('click', function () {
-  // osc = new SinOsc(440);
-  osc.setType('sine');
+noiseWhiteButton.addEventListener('click', function () {
+  noise.setType('white');
 });
 
-oscTriButton.addEventListener('click', function () {
-  // osc = new TriOsc(440);
-  osc.setType('triangle');
+noisePinkButton.addEventListener('click', function () {
+  noise.setType('pink');
 });
 
-oscSquareButton.addEventListener('click', function () {
-  // osc = new SqrOsc(440);
-  osc.setType('square');
-});
-
-oscSawButton.addEventListener('click', function () {
-  // osc = new SawOsc(440);
-  osc.setType('sawtooth');
+noiseBrownButton.addEventListener('click', function () {
+  noise.setType('brown');
 });
 
 function setup() {
   createCanvas(400, 400);
   background(196);
-  osc = new Oscillator('sine', 400);
+  noise = new Noise('white');
 }
 
 function draw() {
@@ -56,7 +47,4 @@ function draw() {
     noFill(); stroke(255*Math.random(), 16);
     ellipse(width * Math.random(), height - i, 10, 10);
   }
-  let newFreq = map(mouseX, 0, width, 100, 1000);
-  osc.freq(newFreq);
-  // console.log(osc.getFreq());
 }

@@ -1,4 +1,5 @@
 import audioContext from './audioContext';
+import p5sound from './main';
 
 /**
  *  <p>FFT (Fast Fourier Transform) is an analysis algorithm that
@@ -373,13 +374,6 @@ class AnalyzerFFT {
     // divide by total number of frequencies
     let toReturn = total / numFrequencies;
     return toReturn;
-  }
-
-  // compatability with v.012, changed to getEnergy in v.0121. Will be deprecated...
-  getFreq(freq1, freq2) {
-    console.log('getFreq() is deprecated. Please use getEnergy() instead.');
-    let x = this.getEnergy(freq1, freq2);
-    return x;
   }
 
   /**

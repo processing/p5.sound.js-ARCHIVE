@@ -39,6 +39,9 @@ p5.prototype.Delay = Delay;
 import AnalyzerFFT from './p5sound.AnalyzerFFT';
 p5.prototype.AnalyzerFFT = AnalyzerFFT;
 
+import Envelope from './p5sound.Envelope';
+p5.prototype.Envelope = Envelope;
+
 // helpers
 import { _checkFileFormats } from './helpers';
 p5.prototype._checkFileFormats = _checkFileFormats;

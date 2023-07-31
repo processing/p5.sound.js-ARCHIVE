@@ -302,9 +302,9 @@ class SoundFile {
       return;
     }
 
-    var now = audioContext.currentTime;
-    var cueStart, cueEnd;
-    var time = startTime || 0;
+    let now = audioContext.currentTime;
+    let cueStart, cueEnd;
+    let time = startTime || 0;
     if (time < 0) {
       time = 0;
     }
@@ -402,6 +402,83 @@ class SoundFile {
     console.log('pause');
   }
 
+  // initialize counterNode, set its initial buffer and playbackRate
+  _initCounterNode() {
+    let self = this;
+    let now = audioContext.currentTime;
+    let cNode = audioContext.createBufferSource();
+
+    // Reuse the worklet node rather than creating a new one. Even if we
+    // disconnect it, it seems to leak and cause choppy audio after a
+    // while.
+    if (!self._workletNode) {
+      const workletBufferSize = safeBufferSize(256);
+      self._workletNode = new AudioWorkletNode(
+        ac,
+        processorNames.soundFileProcessor,
+        {
+          processorOptions: { bufferSize: workletBufferSize },
+        }
+      );
+      self._workletNode.port.onmessage = (event) => {
+        if (event.data.name === 'position') {
+          // event.data.position should only be 0 when paused
+          if (event.data.position === 0) {
+            return;
+          }
+          this._lastPos = event.data.position;
+
+          // do any callbacks that have been scheduled
+          this._onTimeUpdate(self._lastPos);
+        }
+      };
+      self._workletNode.connect(p5.soundOut._silentNode);
+    }
+
+    // create counter buffer of the same length as self.buffer
+    cNode.buffer = _createCounterBuffer(self.buffer);
+
+    cNode.playbackRate.setValueAtTime(self.playbackRate, now);
+
+    cNode.connect(self._workletNode);
+
+    return cNode;
+  }
+  
+    // initialize sourceNode, set its initial buffer and playbackRate
+    _initSourceNode() {
+      let bufferSourceNode = audioContext.createBufferSource();
+      bufferSourceNode.buffer = this.buffer;
+      bufferSourceNode.playbackRate.value = this.playbackRate;
+      bufferSourceNode.connect(this.output);
+      return bufferSourceNode;
+    }
+
+
+  /**
+   *  Returns true if a p5.SoundFile is playing, false if not (i.e.
+   *  paused or stopped).
+   *
+   *  @method isPlaying
+   *  @for p5.SoundFile
+   *  @return {Boolean}
+   */
+  isPlaying() {
+    return this._playing;
+  }
+
+  /**
+   *  Returns true if a p5.SoundFile is paused, false if not (i.e.
+   *  playing or stopped).
+   *
+   *  @method  isPaused
+   *  @for p5.SoundFile
+   *  @return {Boolean}
+   */
+  isPaused() {
+    return this._paused;
+  }
+
   // TO DO: use this method to create a loading bar that shows progress during file upload/decode.
   _updateProgress(evt) {
     if (evt.lengthComputable) {
@@ -485,7 +562,7 @@ function loadSound(path, callback, onerror, whileLoading) {
       }
     },
     onerror,
-    whileLoading 
+    whileLoading
   );
 
   return s;
@@ -493,5 +570,3 @@ function loadSound(path, callback, onerror, whileLoading) {
 
 export default SoundFile;
 export { loadSound };
-
-

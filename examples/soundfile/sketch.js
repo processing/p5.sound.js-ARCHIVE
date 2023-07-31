@@ -1,41 +1,41 @@
-let soundFile;
+// console.log(p5sound.VERSION);
 
-console.log(p5sound.VERSION);
+let startAudioButton = document.getElementById('startAudioButton');
+let stopAudioButton = document.getElementById('stopAudioButton');
 
-let startOscButton = document.getElementById('startAudioButton');
-let stopOscButton  = document.getElementById('stopAudioButton');
-
-startOscButton.addEventListener('click', function () {
+startAudioButton.addEventListener('click', function () {
   getAudioContext().resume();
-  startOscillator();
-});
-stopOscButton.addEventListener('click', function () {
-  stopOscillator();
 });
 
-function preload() {
-  self._incrementPreload();
-  soundFile = new SoundFile('./../assets/doorbell.mp3', function () {
-    console.log('sound file loaded');
-    self._decrementPreload();
-  });
-  console.log("here");
-}
+stopAudioButton.addEventListener('click', function () {
+  getAudioContext().suspend();
+});
+
+let song;
+
+// function preload() {
+//   self._incrementPreload();
+//   soundFile = new SoundFile('./../assets/doorbell.mp3', function () {
+//     console.log('sound file loaded');
+//     self._decrementPreload();
+//   });
+//   console.log("here");
+// }
 
 function setup() {
-  console.log('is loaded?'+soundFile.isLoaded());
-  createCanvas(400, 400);
-  background(196);
-
+  song = loadSound('./../assets/doorbell.mp3');
+  createCanvas(720, 200);
+  background(255, 0, 0);
+  // console.log('is loaded?'+ song.isLoaded());
 }
 
-function draw() {
-  for (let i = 0; i < width; i++) {
-    noFill(); stroke(255*Math.random(), 16);
-    ellipse(width * Math.random(), height - i, 10, 10);
+function mousePressed() {
+  if (song.isPlaying()) {
+    // .isPlaying() returns a boolean
+    song.stop();
+    background(255, 0, 0);
+  } else {
+    song.play();
+    background(0, 255, 0);
   }
-  //console.log(soundFile);
-  // console.log(context.state);
-  // osc.helloworld();
-  // console.log(frameCount);
 }

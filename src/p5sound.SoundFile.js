@@ -51,7 +51,6 @@ function _clearOnEnd(e) {
   }
 }
 
-
 class SoundFile {
   constructor(paths, onload, onerror, whileLoading) {
     if (typeof paths !== 'undefined') {

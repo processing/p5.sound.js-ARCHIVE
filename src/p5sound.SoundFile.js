@@ -415,6 +415,83 @@ class SoundFile {
   }
 }
 
+
+/**
+ *  loadSound() returns a new p5.SoundFile from a specified
+ *  path. If called during preload(), the p5.SoundFile will be ready
+ *  to play in time for setup() and draw(). If called outside of
+ *  preload, the p5.SoundFile will not be ready immediately, so
+ *  loadSound accepts a callback as the second parameter. Using a
+ *  <a href="https://github.com/processing/p5.js/wiki/Local-server">
+ *  local server</a> is recommended when loading external files.
+ *
+ *  @method loadSound
+ *  @for p5
+ *  @param  {String|Array}   path     Path to the sound file, or an array with
+ *                                    paths to soundfiles in multiple formats
+ *                                    i.e. ['sound.ogg', 'sound.mp3'].
+ *                                    Alternately, accepts an object: either
+ *                                    from the HTML5 File API, or a p5.File.
+ *  @param {Function} [successCallback]   Name of a function to call once file loads
+ *  @param {Function} [errorCallback]   Name of a function to call if there is
+ *                                      an error loading the file.
+ *  @param {Function} [whileLoading] Name of a function to call while file is loading.
+ *                                 This function will receive the percentage loaded
+ *                                 so far, from 0.0 to 1.0.
+ *  @return {SoundFile}            Returns a p5.SoundFile
+ *  @example
+ *  <div><code>
+ *  let mySound;
+ *  function preload() {
+ *    soundFormats('mp3', 'ogg');
+ *    mySound = loadSound('assets/doorbell');
+ *  }
+ *
+ *  function setup() {
+ *    let cnv = createCanvas(100, 100);
+ *    cnv.mousePressed(canvasPressed);
+ *    background(220);
+ *    text('tap here to play', 10, 20);
+ *  }
+ *
+ *  function canvasPressed() {
+ *    // playing a sound file on a user gesture
+ *    // is equivalent to `userStartAudio()`
+ *    mySound.play();
+ *  }
+ *  </code></div>
+ */
+function loadSound(path, callback, onerror, whileLoading) {
+  // if loading locally without a server
+  if (
+    window.location.origin.indexOf('file://') > -1 &&
+    window.cordova === 'undefined'
+  ) {
+    window.alert(
+      'This sketch may require a server to load external files. Please see http://bit.ly/1qcInwS'
+    );
+  }
+
+  let self = this;
+  let s = new SoundFile(
+    path,
+    function () {
+      if (typeof callback === 'function') {
+        callback.apply(self, arguments);
+      }
+
+      if (typeof self._decrementPreload === 'function') {
+        self._decrementPreload();
+      }
+    },
+    onerror,
+    whileLoading 
+  );
+
+  return s;
+}
+
 export default SoundFile;
+export { loadSound };
 
 

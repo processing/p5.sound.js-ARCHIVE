@@ -17,8 +17,13 @@ p5.prototype.SqrOsc = SqrOsc;
 import Noise from './p5sound.Noise';
 p5.prototype.Noise = Noise;
 
-import SoundFile from './p5sound.SoundFile';
-p5.prototype.SoundFile = SoundFile;
+import SoundFile, { loadSound } from './p5sound.SoundFile';
+// p5.prototype.SoundFile = SoundFile;
+p5.SoundFile = SoundFile;
+
+p5.prototype.loadSound = loadSound;
+// register preload handling of loadSound
+p5.prototype.registerPreloadMethod('loadSound', p5.prototype);
 
 import Effect from './p5sound.Effect';
 p5.prototype.Effect = Effect;

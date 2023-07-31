@@ -12,6 +12,7 @@ let noiseWhiteButton = document.getElementById('noiseWhiteButton');
 let noisePinkButton = document.getElementById('noisePinkButton');
 let noiseBrownButton = document.getElementById('noiseBrownButton');
 
+// add event listeners
 startAudioButton.addEventListener('click', function () {
   getAudioContext().resume();
 });

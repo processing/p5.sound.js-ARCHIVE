@@ -16,6 +16,7 @@ let oscTriButton = document.getElementById('oscTriButton');
 let oscSquareButton = document.getElementById('oscSquareButton');
 let oscSawButton = document.getElementById('oscSawButton');
 
+// add event listeners
 startAudioButton.addEventListener('click', function () {
   getAudioContext().resume();
 });
@@ -44,10 +45,13 @@ oscSawButton.addEventListener('click', function () {
   osc.setType('sawtooth');
 });
 
+
 function setup() {
   createCanvas(400, 400);
   background(196);
-  osc = new Oscillator('sine', 400);
+  // create new sine oscillator
+  osc = new Oscillator('sine', 440);
+  // create new analyzer
   analyzer = new AnalyzerFFT();
 }
 

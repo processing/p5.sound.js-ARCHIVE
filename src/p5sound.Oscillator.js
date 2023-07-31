@@ -184,6 +184,36 @@ class Oscillator {
       this.started = false;
     }
   }
+
+  /**
+   *  Set the amplitude between 0 and 1.0. Or, pass in an object
+   *  such as an oscillator to modulate amplitude with an audio signal.
+   *
+   *  @method  amp
+   *  @for p5.Oscillator
+   *  @param  {Number|Object} vol between 0 and 1.0
+   *                              or a modulating signal/oscillator
+   *  @param {Number} [rampTime] create a fade that lasts rampTime
+   *  @param {Number} [timeFromNow] schedule this event to happen
+   *                                seconds from now
+   *  @return  {AudioParam} gain  If no value is provided,
+   *                              returns the Web Audio API
+   *                              AudioParam that controls
+   *                              this oscillator's
+   *                              gain/amplitude/volume)
+   */
+  amp(vol, rampTime = 0, tFromNow = 0) {
+    if (typeof vol === 'number') {
+      let now = audioContext.currentTime;
+      this.output.gain.linearRampToValueAtTime(vol, now + tFromNow + rampTime);
+    } else if (vol) {
+      vol.connect(this.output.gain);
+    } else {
+      // return the Gain Node
+      return this.output.gain;
+    }
+  }
+
   /**
    *  Set frequency of an oscillator to a value. Or, pass in an object
    *  such as an oscillator to modulate the frequency with an audio signal.
@@ -382,8 +412,6 @@ class Oscillator {
   //   this.dNode.delayTime.setValueAtTime(delayAmt, now);
   // }
 }
-
-
 
 class SinOsc extends Oscillator {
   constructor(freq) {

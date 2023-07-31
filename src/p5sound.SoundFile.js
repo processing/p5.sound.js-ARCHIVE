@@ -417,10 +417,10 @@ class SoundFile {
         ac,
         processorNames.soundFileProcessor,
         {
-          processorOptions: { bufferSize: workletBufferSize },
+          processorOptions: { bufferSize: workletBufferSize }
         }
       );
-      self._workletNode.port.onmessage = (event) => {
+      self._workletNode.port.onmessage = event => {
         if (event.data.name === 'position') {
           // event.data.position should only be 0 when paused
           if (event.data.position === 0) {
@@ -444,15 +444,15 @@ class SoundFile {
 
     return cNode;
   }
-  
-    // initialize sourceNode, set its initial buffer and playbackRate
-    _initSourceNode() {
-      let bufferSourceNode = audioContext.createBufferSource();
-      bufferSourceNode.buffer = this.buffer;
-      bufferSourceNode.playbackRate.value = this.playbackRate;
-      bufferSourceNode.connect(this.output);
-      return bufferSourceNode;
-    }
+
+  // initialize sourceNode, set its initial buffer and playbackRate
+  _initSourceNode() {
+    let bufferSourceNode = audioContext.createBufferSource();
+    bufferSourceNode.buffer = this.buffer;
+    bufferSourceNode.playbackRate.value = this.playbackRate;
+    bufferSourceNode.connect(this.output);
+    return bufferSourceNode;
+  }
 
 
   /**

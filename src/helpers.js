@@ -1,5 +1,25 @@
 import p5sound from './main';
 
+function safeBufferSize(idealBufferSize) {
+  let bufferSize = idealBufferSize;
+
+  // if the AudioWorkletNode is actually a ScriptProcessorNode created via polyfill,
+  // make sure that our chosen buffer size isn't smaller than the buffer size automatically
+  // selected by the polyfill
+  // reference: https://github.com/GoogleChromeLabs/audioworklet-polyfill/issues/13#issuecomment-425014930
+  // let tempAudioWorkletNode = new AudioWorkletNode(
+  //   audioContext,
+  //   processorNames.soundFileProcessor
+  // );
+  // if (tempAudioWorkletNode instanceof ScriptProcessorNode) {
+  //   bufferSize = tempAudioWorkletNode.bufferSize;
+  // }
+  // tempAudioWorkletNode.disconnect();
+  // tempAudioWorkletNode = null;
+
+  return bufferSize;
+}
+
 /**
  *  List the SoundFile formats that you will include. LoadSound
  *  will search your directory for these extensions, and will pick
@@ -106,5 +126,6 @@ function _checkFileFormats(paths) {
 
 export {
   _checkFileFormats,
-  soundFormats
+  soundFormats,
+  safeBufferSize
 };

@@ -10,6 +10,7 @@
 
 import audioContext from './audioContext';
 
+import processorNames from './audioWorklet/processorNames';
 
 // let _createCounterBuffer = function (buffer) {
 //   const len = buffer.length;
@@ -402,24 +403,28 @@ class SoundFile {
     console.log('pause');
   }
 
-  // initialize counterNode, set its initial buffer and playbackRate
-  _initCounterNode() {
+  async _initCounterNode() {
     let self = this;
-    let now = audioContext.currentTime;
-    let cNode = audioContext.createBufferSource();
+    console.log('this ', JSON.stringify(self));
+    // let now = audioContext.currentTime;
+    // let cNode = audioContext.createBufferSource();
 
     // Reuse the worklet node rather than creating a new one. Even if we
     // disconnect it, it seems to leak and cause choppy audio after a
     // while.
     if (!self._workletNode) {
-      const workletBufferSize = safeBufferSize(256);
+      const workletBufferSize = 256;//safeBufferSize(256);
       self._workletNode = new AudioWorkletNode(
-        ac,
+        audioContext,
         processorNames.soundFileProcessor,
         {
           processorOptions: { bufferSize: workletBufferSize }
         }
       );
+      console.log('self._workletNode', JSON.stringify(self._workletNode, null, 2));
+      await self._workletNode.addModule('recorderProcessor.js');
+      await self._workletNode.addModule('amplitudeProcessor.js');
+      await self._workletNode.addModule('soundfileProcessor.js');
       self._workletNode.port.onmessage = event => {
         if (event.data.name === 'position') {
           // event.data.position should only be 0 when paused
@@ -434,15 +439,6 @@ class SoundFile {
       };
       self._workletNode.connect(p5.soundOut._silentNode);
     }
-
-    // create counter buffer of the same length as self.buffer
-    cNode.buffer = _createCounterBuffer(self.buffer);
-
-    cNode.playbackRate.setValueAtTime(self.playbackRate, now);
-
-    cNode.connect(self._workletNode);
-
-    return cNode;
   }
 
   // initialize sourceNode, set its initial buffer and playbackRate

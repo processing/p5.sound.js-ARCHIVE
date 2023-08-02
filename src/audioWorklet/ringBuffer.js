@@ -122,5 +122,5 @@ class RingBuffer {
 
 // export an object for compatibility with preval.require()
 module.exports = {
-  default: RingBuffer,
+  default: RingBuffer
 };

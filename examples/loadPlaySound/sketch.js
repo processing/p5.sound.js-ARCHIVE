@@ -14,13 +14,12 @@ stopAudioButton.addEventListener('click', function () {
 let song;
 
 function preload() {
-  song = loadSound('./../assets/doorbell.mp3');
+  song = loadSound('./../assets/lucky_dragons_-_power_melody.mp3');
 }
 
 function setup() {
   createCanvas(720, 200);
   background(255, 0, 0);
-  // console.log('is loaded?'+ song.isLoaded());
 }
 
 function mousePressed() {

@@ -32,7 +32,7 @@ class AmplitudeProcessor extends AudioWorkletProcessor {
 
     this.volMax = 0.001;
 
-    this.port.onmessage = (event) => {
+    this.port.onmessage = event => {
       const data = event.data;
       if (data.name === 'toggleNormalize') {
         this.normalize = data.normalize;
@@ -100,7 +100,7 @@ class AmplitudeProcessor extends AudioWorkletProcessor {
         volume: volume,
         volNorm: volNorm,
         stereoVol: this.stereoVol,
-        stereoVolNorm: this.stereoVolNorm,
+        stereoVolNorm: this.stereoVolNorm
       });
 
       // pass input through to output

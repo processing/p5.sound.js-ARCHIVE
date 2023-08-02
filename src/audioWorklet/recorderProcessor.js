@@ -16,7 +16,7 @@ class RecorderProcessor extends AudioWorkletProcessor {
 
     this.clear();
 
-    this.port.onmessage = (event) => {
+    this.port.onmessage = event => {
       const data = event.data;
       if (data.name === 'start') {
         this.record(data.duration);

@@ -44,5 +44,9 @@ import Envelope from './p5sound.Envelope';
 p5.prototype.Envelope = Envelope;
 
 // helpers
-import { _checkFileFormats } from './helpers';
+import {
+  _checkFileFormats,
+  soundFormats
+} from './helpers';
 p5.prototype._checkFileFormats = _checkFileFormats;
+p5.prototype.soundFormats = soundFormats;

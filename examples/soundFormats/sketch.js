@@ -20,7 +20,7 @@ function preload() {
   // if mp3 is not supported by this browser,
   // loadSound will load the ogg file
   // we have included with our sketch
-  song = loadSound('assets/lucky_dragons_-_power_melody.mp3');
+  song = loadSound('./../assets/lucky_dragons_-_power_melody.mp3');
 }
 
 function setup() {

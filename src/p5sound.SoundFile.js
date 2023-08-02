@@ -1,3 +1,8 @@
+import audioContext from './audioContext';
+import processorNames from './audioWorklet/processorNames';
+import CustomError from './errorHandler';
+
+
 /**
  * SoundFile object with a path to a file.
  * The p5sound.SoundFile may not be available immediately because it loads the file information asynchronously.
@@ -8,15 +13,13 @@
  * @requires core
  */
 
-import audioContext from './audioContext';
 
-import processorNames from './audioWorklet/processorNames';
 
 // let _createCounterBuffer = function (buffer) {
 //   const len = buffer.length;
 //   const audioBuf = ac.createBuffer(1, buffer.length, ac.sampleRate);
 //   const arrayBuffer = audioBuf.getChannelData(0);
-//   for (var index = 0; index < len; index++) {
+//   for (let index = 0; index < len; index++) {
 //     arrayBuffer[index] = index;
 //   }
 //   return audioBuf;
@@ -156,11 +159,11 @@ class SoundFile {
    * @param {Function} [errorCallback]   Name of a function to call if there is an error
    */
   load(callback, errorCallback) {
-    var self = this;
-    var errorTrace = new Error().stack;
+    let self = this;
+    let errorTrace = new Error().stack;
 
     if (this.url !== undefined && this.url !== '') {
-      var request = new XMLHttpRequest();
+      let request = new XMLHttpRequest();
       request.addEventListener(
         'progress',
         function (evt) {
@@ -188,12 +191,12 @@ class SoundFile {
             // error decoding buffer. "e" is undefined in Chrome 11/22/2015
             function () {
               // if (!self.panner) return;
-              var err = new CustomError(
+              let err = new CustomError(
                 'decodeAudioData',
                 errorTrace,
                 self.url
               );
-              var msg = 'AudioContext error at decodeAudioData for ' + self.url;
+              let msg = 'AudioContext error at decodeAudioData for ' + self.url;
               if (errorCallback) {
                 err.msg = msg;
                 errorCallback(err);
@@ -208,8 +211,8 @@ class SoundFile {
         // if request status != 200, it failed
         else {
           // if (!self.panner) return;
-          var err = new CustomError('loadSound', errorTrace, self.url);
-          var msg =
+          let err = new CustomError('loadSound', errorTrace, self.url);
+          let msg =
             'Unable to load ' +
             self.url +
             '. The request status was: ' +
@@ -231,8 +234,8 @@ class SoundFile {
 
       // if there is another error, aside from 404...
       request.onerror = function () {
-        var err = new CustomError('loadSound', errorTrace, self.url);
-        var msg =
+        let err = new CustomError('loadSound', errorTrace, self.url);
+        let msg =
           'There was no response from the server at ' +
           self.url +
           '. Check the url and internet connectivity.';
@@ -249,7 +252,7 @@ class SoundFile {
 
       request.send();
     } else if (this.file !== undefined) {
-      var reader = new FileReader();
+      let reader = new FileReader();
       reader.onload = function () {
         // if (!self.panner) return;
         audioContext.decodeAudioData(reader.result, function (buff) {
@@ -403,6 +406,74 @@ class SoundFile {
     console.log('pause');
   }
 
+  /**
+     *  Connect to a p5.sound / Web Audio object.
+     *
+     *  @method  connect
+     *  @for p5.Oscillator
+     *  @param  {Object} unit A p5.sound or Web Audio object
+     */
+  connect(unit) {
+    if(!unit) {
+      this.output.connect(p5sound.input);
+    }
+    else if (unit.hasOwnProperty('input')) {
+      this.output.connect(unit.input);
+    } else {
+      this.output.connect(unit);
+    }
+    if (unit && unit._onNewInput) {
+      unit._onNewInput(this);
+    }
+  }
+
+  disconnect() {
+    console.log('disconnect');
+  }
+
+  /**
+   * Loop the p5.SoundFile. Accepts optional parameters to set the
+   * playback rate, playback volume, loopStart, loopEnd.
+   *
+   * @method loop
+   * @for p5.SoundFile
+   * @param {Number} [startTime] (optional) schedule event to occur
+   *                             seconds from now
+   * @param {Number} [rate]        (optional) playback rate
+   * @param {Number} [amp]         (optional) playback volume
+   * @param {Number} [cueLoopStart] (optional) startTime in seconds
+   * @param {Number} [duration]  (optional) loop duration in seconds
+   * @example
+   *  <div><code>
+   *  let soundFile;
+   *  let loopStart = 0.5;
+   *  let loopDuration = 0.2;
+   *  function preload() {
+   *    soundFormats('ogg', 'mp3');
+   *    soundFile = loadSound('assets/Damscray_-_Dancing_Tiger_02.mp3');
+   *  }
+   *  function setup() {
+   *    let cnv = createCanvas(100, 100);
+   *    cnv.mousePressed(canvasPressed);
+   *    background(220);
+   *    text('tap to play, release to pause', 10, 20, width - 20);
+   *  }
+   *  function canvasPressed() {
+   *    soundFile.loop();
+   *    background(0, 200, 50);
+   *  }
+   *  function mouseReleased() {
+   *    soundFile.pause();
+   *    background(220);
+   *  }
+   *  </code>
+   *  </div>
+   */
+  loop(startTime, rate, amp, loopStart, duration) {
+    this._looping = true;
+    this.play(startTime, rate, amp, loopStart, duration);
+  }
+
   async _initCounterNode() {
     let self = this;
     console.log('this ', JSON.stringify(self));
@@ -478,7 +549,7 @@ class SoundFile {
   // TO DO: use this method to create a loading bar that shows progress during file upload/decode.
   _updateProgress(evt) {
     if (evt.lengthComputable) {
-      var percentComplete = (evt.loaded / evt.total) * 0.99;
+      let percentComplete = (evt.loaded / evt.total) * 0.99;
       this._whileLoading(percentComplete, evt);
       // ...
     } else {

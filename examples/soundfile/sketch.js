@@ -13,17 +13,11 @@ stopAudioButton.addEventListener('click', function () {
 
 let song;
 
-// function preload() {
-//   self._incrementPreload();
-//   soundFile = new SoundFile('./../assets/doorbell.mp3', function () {
-//     console.log('sound file loaded');
-//     self._decrementPreload();
-//   });
-//   console.log("here");
-// }
+function preload() {
+  song = loadSound('./../assets/doorbell.mp3');
+}
 
 function setup() {
-  song = loadSound('./../assets/doorbell.mp3');
   createCanvas(720, 200);
   background(255, 0, 0);
   // console.log('is loaded?'+ song.isLoaded());

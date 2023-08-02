@@ -1,8 +1,11 @@
 import p5sound from '../main.js';
 const moduleSources = [
-  require('raw-loader!./recorderProcessor').default,
-  require('raw-loader!./soundFileProcessor').default,
-  require('raw-loader!./amplitudeProcessor').default
+  // require('raw-loader!./recorderProcessor').default,
+  // require('raw-loader!./soundFileProcessor').default,
+  // require('raw-loader!./amplitudeProcessor').default
+  require('./recorderProcessor').default,
+  require('./soundFileProcessor').default,
+  require('./amplitudeProcessor').default
 ];
 const ac = p5sound.audiocontext;
 let initializedAudioWorklets = false;

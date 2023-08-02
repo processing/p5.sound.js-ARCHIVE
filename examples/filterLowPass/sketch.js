@@ -21,7 +21,7 @@ let filter, filterFreq, filterRes;
 
 function preload() {
   soundFormats('mp3', 'ogg');
-  soundFile = loadSound('assets/beat');
+  soundFile = loadSound('./../assets/beat');
 }
 
 function setup() {
@@ -29,7 +29,7 @@ function setup() {
   fill(255, 40, 255);
 
   // loop the sound file
-  soundFile.loop();
+  // soundFile.loop();
 
   filter = new LowPass();
 

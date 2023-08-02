@@ -1,4 +1,4 @@
-// console.log(p5sound.VERSION);
+console.log(p5sound.VERSION);
 
 let startAudioButton = document.getElementById('startAudioButton');
 let stopAudioButton = document.getElementById('stopAudioButton');

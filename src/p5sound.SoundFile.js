@@ -273,7 +273,6 @@ class SoundFile {
     }
   }
 
-
   /**
    *  Returns true if the sound file finished loading successfully.
    *

@@ -17,7 +17,7 @@ stopAudioButton.addEventListener('click', function () {
 let soundFile;
 let fft;
 
-let filter, filterFreq, filterRes;
+let biquadFilter, biquadFilterFreq, biquadFilterRes;
 
 function preload() {
   soundFormats('mp3', 'ogg');
@@ -31,12 +31,12 @@ function setup() {
   // loop the sound file
   // soundFile.loop();
 
-  filter = new LowPass();
+  biquadFilter = new LowPass();
 
   // Disconnect soundfile from output.
   // Then, connect it to the filter, so that we only hear the filtered sound
   soundFile.disconnect();
-  soundFile.connect(filter);
+  soundFile.connect(biquadFilter);
 
   fft = new AnalyzerFFT();
 }
@@ -46,13 +46,13 @@ function draw() {
 
   // Map mouseX to a the cutoff frequency from the lowest
   // frequency (10Hz) to the highest (22050Hz) that humans can hear
-  filterFreq = map(mouseX, 0, width, 10, 22050);
+  biquadFilterFreq = map(mouseX, 0, width, 10, 22050);
 
   // Map mouseY to resonance (volume boost) at the cutoff frequency
-  filterRes = map(mouseY, 0, height, 15, 5);
+  biquadFilterRes = map(mouseY, 0, height, 15, 5);
 
   // set filter parameters
-  filter.set(filterFreq, filterRes);
+  biquadFilter.set(biquadFilterFreq, biquadFilterRes);
 
   // Draw every value in the FFT spectrum analysis where
   // x = lowest (10Hz) to highest (22050Hz) frequencies,

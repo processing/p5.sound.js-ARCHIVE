@@ -1,6 +1,7 @@
 import audioContext from './audioContext';
 import processorNames from './audioWorklet/processorNames';
 import CustomError from './errorHandler';
+import p5sound from './main';
 
 
 /**
@@ -12,8 +13,6 @@ import CustomError from './errorHandler';
  * @for p5
  * @requires core
  */
-
-
 
 // let _createCounterBuffer = function (buffer) {
 //   const len = buffer.length;
@@ -123,7 +122,8 @@ class SoundFile {
     // stereo panning
     // this.panner = new Panner();
     // this.output.connect(this.panner);
-    this.output.connect(audioContext.destination);
+    // this.output.connect(audioContext.destination);
+    this.output.connect(p5sound.input);
 
     // it is possible to instantiate a soundfile with no path
     if (this.url || this.file) {
@@ -131,7 +131,7 @@ class SoundFile {
     }
 
     // add this p5.SoundFile to the soundArray
-    // p5sound.soundArray.push(this);
+    p5sound.soundArray.push(this);
 
     if (typeof whileLoading === 'function') {
       this._whileLoading = whileLoading;
@@ -475,7 +475,9 @@ class SoundFile {
   }
 
   disconnect() {
-    // console.log('disconnect');
+    if (this.output) {
+      this.output.disconnect();
+    }
   }
 
   /**

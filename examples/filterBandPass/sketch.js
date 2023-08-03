@@ -14,29 +14,21 @@ stopAudioButton.addEventListener('click', function () {
   getAudioContext().suspend();
 });
 
-let soundFile;
+let noise;
 let fft;
-
-let biquadFilter, biquadFilterFreq, biquadFilterRes;
-
-function preload() {
-  soundFormats('mp3', 'ogg');
-  soundFile = loadSound('./../assets/beat');
-}
+let bandPassFilter, bandPassFilterFreq, bandPassFilterWidth;
 
 function setup() {
   createCanvas(710, 256);
   fill(255, 40, 255);
 
-  // soundFile.loop();
-  soundFile.play();
+  bandPassFilter = new BandPass();
 
-  biquadFilter = new LowPass();
+  noise = new Noise();
 
-  // Disconnect soundfile from output.
-  // Then, connect it to the filter, so that we only hear the filtered sound
-  soundFile.disconnect();
-  soundFile.connect(biquadFilter);
+  noise.disconnect(); // Disconnect soundfile from master output...
+  bandPassFilter.process(noise); // ...and connect to filter so we'll only hear BandPass.
+  noise.start();
 
   fft = new AnalyzerFFT();
 }
@@ -44,19 +36,16 @@ function setup() {
 function draw() {
   background(30);
 
-  // Map mouseX to a the cutoff frequency from the lowest
-  // frequency (10Hz) to the highest (22050Hz) that humans can hear
-  biquadFilterFreq = map(mouseX, 0, width, 10, 22050);
-
-  // Map mouseY to resonance (volume boost) at the cutoff frequency
-  biquadFilterRes = map(mouseY, 0, height, 15, 5);
-
+  // Map mouseX to a bandpass freq from the FFT spectrum range: 10Hz - 22050Hz
+  bandPassFilterFreq = map(mouseX, 0, width, 10, 22050);
+  // Map mouseY to resonance/width
+  bandPassFilterWidth = map(mouseY, 0, height, 0, 90);
   // set filter parameters
-  biquadFilter.set(biquadFilterFreq, biquadFilterRes);
+  bandPassFilter.set(bandPassFilterFreq, bandPassFilterWidth);
 
   // Draw every value in the FFT spectrum analysis where
   // x = lowest (10Hz) to highest (22050Hz) frequencies,
-  // h = energy (amplitude / volume) at that frequency
+  // h = energy / amplitude at that frequency
   let spectrum = fft.analyze();
   noStroke();
   for (let i = 0; i < spectrum.length; i++) {

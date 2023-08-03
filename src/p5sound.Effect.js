@@ -22,11 +22,9 @@ class Effect {
   constructor() {
 
     this.input = audioContext.createGain();
-
-    this.input.gain.value = 0.5;
-
     this.output = audioContext.createGain();
 
+    this.input.gain.value = 0.5;
     this.output.gain.value = 0.5;
 
     // this._drywet = new CrossFade(1);

@@ -5,21 +5,16 @@ body:
 - type: checkboxes
   id: sub-area
   attributes:
-    label: Most appropriate sub-area of p5.js?
+    label: Most appropriate sub-area of p5.sound.js?
     description: You may select more than one.
     options:
         - label: Accessibility
-        - label: Color
         - label: Core/Environment/Rendering
         - label: Data
-        - label: DOM
         - label: Events
-        - label: Image
         - label: IO
         - label: Math
-        - label: Typography
         - label: Utilities
-        - label: WebGL
         - label: Build Process
         - label: Unit Testing
         - label: Internalization
@@ -27,8 +22,8 @@ body:
         - label: Other (specify if possible)
 - type: input
   attributes:
-    label: p5.js version 
-    description: You can find this in the first line of the p5.js file.
+    label: p5.sound.js version 
+    description: You can find this in the first line of the p5.sound.js file.
   validations:
     required: false
 - type: input

@@ -122,7 +122,8 @@ define(['Tone/core/Tone', 'Tone/signal/Signal', 'Tone/core/Timeline'], function 
 	 *  @param  {Time} endTime
 	 *  @returns {Tone.TimelineSignal} this
 	 */
-  Tone.TimelineSignal.prototype.exponentialRampToValueAtTime = function (value, endTime) {
+  Tone.TimelineSignal.prototype.exponentialRampToValueAtTime = function (
+    value, endTime) {
     //get the previous event and make sure it's not starting from 0
     endTime = this.toSeconds(endTime);
     var beforeEvent = this._searchBefore(endTime);
@@ -181,7 +182,8 @@ define(['Tone/core/Tone', 'Tone/signal/Signal', 'Tone/core/Timeline'], function 
 	 *  @param {NormalRange} [scaling=1] If the values in the curve should be scaled by some value
 	 *  @returns {Tone.TimelineSignal} this
 	 */
-  Tone.TimelineSignal.prototype.setValueCurveAtTime = function (values, startTime, duration, scaling) {
+  Tone.TimelineSignal.prototype.setValueCurveAtTime = function (
+    values, startTime, duration, scaling) {
     scaling = this.defaultArg(scaling, 1);
     //copy the array
     var floats = new Array(values.length);
@@ -241,8 +243,8 @@ define(['Tone/core/Tone', 'Tone/signal/Signal', 'Tone/core/Timeline'], function 
       //remove everything after
       this.cancelScheduledValues(time + this.sampleTime);
     } else if (before &&
-				   before.type === Tone.TimelineSignal.Type.Curve &&
-				   before.time + before.duration > time){
+        before.type === Tone.TimelineSignal.Type.Curve &&
+		before.time + before.duration > time){
       //if the curve is still playing
       //cancel the curve
       this.cancelScheduledValues(time);
@@ -340,15 +342,23 @@ define(['Tone/core/Tone', 'Tone/signal/Signal', 'Tone/core/Timeline'], function 
       } else {
         previouVal = previous.value;
       }
-      value = this._exponentialApproach(before.time, previouVal, before.value, before.constant, time);
+      value = this._exponentialApproach(
+        before.time, previouVal, before.value, before.constant, time
+      );
     } else if (before.type === Tone.TimelineSignal.Type.Curve){
-      value = this._curveInterpolate(before.time, before.value, before.duration, time);
+      value = this._curveInterpolate(
+        before.time, before.value, before.duration, time
+      );
     } else if (after === null){
       value = before.value;
     } else if (after.type === Tone.TimelineSignal.Type.Linear){
-      value = this._linearInterpolate(before.time, before.value, after.time, after.value, time);
+      value = this._linearInterpolate(
+        before.time, before.value, after.time, after.value, time
+      );
     } else if (after.type === Tone.TimelineSignal.Type.Exponential){
-      value = this._exponentialInterpolate(before.time, before.value, after.time, after.value, time);
+      value = this._exponentialInterpolate(
+        before.time, before.value, after.time, after.value, time
+      );
     } else {
       value = before.value;
     }
@@ -379,7 +389,8 @@ define(['Tone/core/Tone', 'Tone/signal/Signal', 'Tone/core/Timeline'], function 
 	 *  Calculates the the value along the curve produced by setTargetAtTime
 	 *  @private
 	 */
-  Tone.TimelineSignal.prototype._exponentialApproach = function (t0, v0, v1, timeConstant, t) {
+  Tone.TimelineSignal.prototype._exponentialApproach = function (
+    t0, v0, v1, timeConstant, t) {
     return v1 + (v0 - v1) * Math.exp(-(t - t0) / timeConstant);
   };
 
@@ -387,7 +398,8 @@ define(['Tone/core/Tone', 'Tone/signal/Signal', 'Tone/core/Timeline'], function 
 	 *  Calculates the the value along the curve produced by linearRampToValueAtTime
 	 *  @private
 	 */
-  Tone.TimelineSignal.prototype._linearInterpolate = function (t0, v0, t1, v1, t) {
+  Tone.TimelineSignal.prototype._linearInterpolate = function (
+    t0, v0, t1, v1, t) {
     return v0 + (v1 - v0) * ((t - t0) / (t1 - t0));
   };
 
@@ -395,7 +407,8 @@ define(['Tone/core/Tone', 'Tone/signal/Signal', 'Tone/core/Timeline'], function 
 	 *  Calculates the the value along the curve produced by exponentialRampToValueAtTime
 	 *  @private
 	 */
-  Tone.TimelineSignal.prototype._exponentialInterpolate = function (t0, v0, t1, v1, t) {
+  Tone.TimelineSignal.prototype._exponentialInterpolate = function (
+    t0, v0, t1, v1, t) {
     v0 = Math.max(this._minOutput, v0);
     return v0 * Math.pow(v1 / v0, (t - t0) / (t1 - t0));
   };
@@ -404,7 +417,8 @@ define(['Tone/core/Tone', 'Tone/signal/Signal', 'Tone/core/Timeline'], function 
 	 *  Calculates the the value along the curve produced by setValueCurveAtTime
 	 *  @private
 	 */
-  Tone.TimelineSignal.prototype._curveInterpolate = function (start, curve, duration, time) {
+  Tone.TimelineSignal.prototype._curveInterpolate = function (
+    start, curve, duration, time) {
     var len = curve.length;
     // If time is after duration, return the last curve value
     if (time >= start + duration) {
@@ -420,7 +434,9 @@ define(['Tone/core/Tone', 'Tone/signal/Signal', 'Tone/core/Timeline'], function 
       if (upperIndex === lowerIndex){
         return lowerVal;
       } else {
-        return this._linearInterpolate(lowerIndex, lowerVal, upperIndex, upperVal, progress * (len - 1));
+        return this._linearInterpolate(
+          lowerIndex, lowerVal, upperIndex, upperVal, progress * (len - 1)
+        );
       }
     }
   };

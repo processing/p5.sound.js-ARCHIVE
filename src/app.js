@@ -6,7 +6,8 @@ import './shims';
 import { getAudioContext } from './audioContext';
 p5.prototype.getAudioContext = getAudioContext;
 
-import './main';
+import p5sound from './main';
+
 
 // helpers
 import {
@@ -62,3 +63,4 @@ p5.prototype.AnalyzerFFT = AnalyzerFFT;
 import Envelope from './p5sound.Envelope';
 p5.prototype.Envelope = Envelope;
 
+module.exports = p5sound;

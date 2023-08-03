@@ -29,7 +29,7 @@ function setup() {
   fill(255, 40, 255);
 
   // loop the sound file
-  // soundFile.loop();
+  soundFile.play();
 
   biquadFilter = new LowPass();
 

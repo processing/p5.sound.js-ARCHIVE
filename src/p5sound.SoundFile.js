@@ -427,7 +427,7 @@ class SoundFile {
   }
 
   disconnect() {
-    console.log('disconnect');
+    // console.log('disconnect');
   }
 
   /**

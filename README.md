@@ -19,11 +19,9 @@ To build the library, please run this command.
 npm run build
 ```
 
-To check if the library is building right, please run this command and then go to localhost:8000/example/index.html
+## Examples
 
-```bash
-python3 -m http.server
-```
+We are currently hosting some examples in the `examples` folder. To run them, please visit https://processing.github.io/p5.sound.js/examples/
 
 ## Versions
 

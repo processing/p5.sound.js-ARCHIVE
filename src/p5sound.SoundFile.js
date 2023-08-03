@@ -92,7 +92,7 @@ class SoundFile {
 
     //  position of the most recently played sample
     this._lastPos = 0;
-    this._counterNode = null;
+    // this._counterNode = null;
     this._workletNode = null;
 
     // array of sources so that they can all be stopped!
@@ -330,7 +330,7 @@ class SoundFile {
       // handle restart playmode
       if (this.mode === 'restart' && this.buffer && this.bufferSourceNode) {
         this.bufferSourceNode.stop(time);
-        this._counterNode.stop(time);
+        // this._counterNode.stop(time);
       }
 
       //dont create another instance if already playing
@@ -341,8 +341,8 @@ class SoundFile {
       this.bufferSourceNode = this._initSourceNode();
 
       // garbage collect counterNode and create a new one
-      delete this._counterNode;
-      this._counterNode = this._initCounterNode();
+      // delete this._counterNode;
+      // this._counterNode = this._initCounterNode();
 
       if (_cueStart) {
         if (_cueStart >= 0 && _cueStart < this.buffer.duration) {
@@ -366,10 +366,10 @@ class SoundFile {
       // if it was paused, play at the pause position
       if (this._paused) {
         this.bufferSourceNode.start(time, this.pauseTime, duration);
-        this._counterNode.start(time, this.pauseTime, duration);
+        // this._counterNode.start(time, this.pauseTime, duration);
       } else {
         this.bufferSourceNode.start(time, cueStart, duration);
-        this._counterNode.start(time, cueStart, duration);
+        // this._counterNode.start(time, cueStart, duration);
       }
 
       this._playing = true;
@@ -388,14 +388,14 @@ class SoundFile {
 
     // if looping, will restart at original time
     this.bufferSourceNode.loop = this._looping;
-    this._counterNode.loop = this._looping;
+    // this._counterNode.loop = this._looping;
 
     if (this._looping === true) {
       cueEnd = duration ? duration : cueStart - 0.000000000000001;
       this.bufferSourceNode.loopStart = cueStart;
       this.bufferSourceNode.loopEnd = cueEnd;
-      this._counterNode.loopStart = cueStart;
-      this._counterNode.loopEnd = cueEnd;
+      // this._counterNode.loopStart = cueStart;
+      // this._counterNode.loopEnd = cueEnd;
     }
   }
   playMode() {
@@ -403,6 +403,54 @@ class SoundFile {
   }
   pause() {
     console.log('pause');
+  }
+
+  /**
+   * Stop soundfile playback.
+   *
+   * @method stop
+   * @for p5.SoundFile
+   * @param {Number} [startTime] (optional) schedule event to occur
+   *                             in seconds from now
+   */
+  stop(timeFromNow) {
+    let time = timeFromNow || 0;
+
+    if (this.mode === 'sustain' || this.mode === 'untildone') {
+      this.stopAll(time);
+      this._playing = false;
+      this.pauseTime = 0;
+      this._paused = false;
+    } else if (this.buffer && this.bufferSourceNode) {
+      let now = audioContext.currentTime;
+      this.pauseTime = 0;
+      this.bufferSourceNode.stop(now + time);
+      // this._counterNode.stop(now + time);
+      this._playing = false;
+      this._paused = false;
+    }
+  }
+
+  /**
+   *  Stop playback on all of this soundfile's sources.
+   *  @private
+   */
+  stopAll(_time) {
+    let now = audioContext.currentTime;
+    let time = _time || 0;
+    if (this.buffer && this.bufferSourceNode) {
+      for (var i in this.bufferSourceNodes) {
+        const bufferSourceNode = this.bufferSourceNodes[i];
+        if (bufferSourceNode) {
+          try {
+            bufferSourceNode.stop(now + time);
+          } catch (e) {
+            // this was throwing errors only on Safari
+          }
+        }
+      }
+      // this._counterNode.stop(now + time);
+    }
   }
 
   /**

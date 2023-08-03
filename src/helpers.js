@@ -54,7 +54,7 @@ function soundFormats() {
   // reset extensions array
   p5sound.extensions = [];
   // add extensions
-  for (var i = 0; i < arguments.length; i++) {
+  for (let i = 0; i < arguments.length; i++) {
     arguments[i] = arguments[i].toLowerCase();
     if (['mp3', 'wav', 'ogg', 'm4a', 'aac'].indexOf(arguments[i]) > -1) {
       p5sound.extensions.push(arguments[i]);
@@ -85,7 +85,7 @@ function _checkFileFormats(paths) {
               pathCore += pathSplit[0];
             }
             for (let i = 1; i <= pathSplit.length - 2; i++) {
-              var p = pathSplit[i];
+              let p = pathSplit[i];
               pathCore += '.' + p;
             }
             path = pathCore += '.';

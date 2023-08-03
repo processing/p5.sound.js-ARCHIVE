@@ -12,11 +12,13 @@ import p5sound from './main';
 // helpers
 import {
   _checkFileFormats,
+  midiToFreq,
   soundFormats,
   safeBufferSize
 } from './helpers';
 
 p5.prototype._checkFileFormats = _checkFileFormats;
+p5.prototype.midiToFreq = midiToFreq;
 p5.prototype.soundFormats = soundFormats;
 p5.prototype.safeBufferSize = safeBufferSize;
 

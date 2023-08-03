@@ -124,8 +124,57 @@ function _checkFileFormats(paths) {
   return path;
 }
 
+/**
+ *  Returns the frequency value of a MIDI note value.
+ *  General MIDI treats notes as integers where middle C
+ *  is 60, C# is 61, D is 62 etc. Useful for generating
+ *  musical frequencies with oscillators.
+ *
+ *  @method  midiToFreq
+ *  @param  {Number} midiNote The number of a MIDI note
+ *  @return {Number} Frequency value of the given MIDI note
+ *  @example
+ *  <div><code>
+ *  let midiNotes = [60, 64, 67, 72];
+ *  let noteIndex = 0;
+ *  let midiVal, freq;
+ *
+ *  function setup() {
+ *    let cnv = createCanvas(100, 100);
+ *    cnv.mousePressed(startSound);
+ *    osc = new p5.TriOsc();
+ *    env = new p5.Envelope();
+ *  }
+ *
+ *  function draw() {
+ *    background(220);
+ *    text('tap to play', 10, 20);
+ *    if (midiVal) {
+ *      text('MIDI: ' + midiVal, 10, 40);
+ *      text('Freq: ' + freq, 10, 60);
+ *    }
+ *  }
+ *
+ *  function startSound() {
+ *    // see also: userStartAudio();
+ *    osc.start();
+ *
+ *    midiVal = midiNotes[noteIndex % midiNotes.length];
+ *    freq = midiToFreq(midiVal);
+ *    osc.freq(freq);
+ *    env.ramp(osc, 0, 1.0, 0);
+ *
+ *    noteIndex++;
+ *  }
+ *  </code></div>
+ */
+function midiToFreq(m) {
+  return 440 * Math.pow(2, (m - 69) / 12.0);
+}
+
 export {
   _checkFileFormats,
+  midiToFreq,
   soundFormats,
   safeBufferSize
 };

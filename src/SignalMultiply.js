@@ -1,5 +1,13 @@
 // https://github.com/Tonejs/Tone.js/blob/r10/Tone/signal/Multiply.js
 
+class SignalMultiply {
+  constructor() {
+
+  }
+}
+
+export default SignalMultiply;
+
 // define(["Tone/core/Tone", "Tone/signal/Signal", "Tone/core/Gain"], function(Tone){
 
 // 	"use strict";

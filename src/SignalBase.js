@@ -1,6 +1,14 @@
 // https://github.com/Tonejs/Tone.js/tree/r10
 // https://github.com/Tonejs/Tone.js/blob/r10/Tone/signal/SignalBase.js
 
+class SignalBase {
+  constructor() {
+
+  }
+}
+
+export default SignalBase;
+
 // define(['Tone/core/Tone'], function(Tone){
 
 //   'use strict';

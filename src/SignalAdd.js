@@ -1,5 +1,12 @@
 // https://github.com/Tonejs/Tone.js/blob/r10/Tone/signal/Add.js
 
+class SignalAdd {
+  constructor() {
+
+  }
+}
+
+export default SignalAdd;
 
 // define(['Tone/core/Tone', 'Tone/signal/Signal', 'Tone/core/Gain'], function (Tone) {
 

@@ -8,7 +8,6 @@ p5.prototype.getAudioContext = getAudioContext;
 
 import p5sound from './main';
 
-
 // helpers
 import {
   _checkFileFormats,
@@ -68,15 +67,27 @@ p5.prototype.Envelope = Envelope;
 // new modules adapted from Tone.js v0.10.0
 import CrossFade from './CrossFade';
 p5.prototype.CrossFade = CrossFade;
-import WaveShaper from './WaveShaper';
-p5.prototype.WaveShaper = WaveShaper;
+import EqualPowerGain from './EqualPowerGain';
+p5.prototype.EqualPowerGain = EqualPowerGain;
+import Gain from './Gain';
+p5.prototype.Gain = Gain;
+import Param from './Param';
+p5.prototype.Param = Param;
 import Signal from './Signal';
 p5.prototype.Signal = Signal;
 import SignalAdd from './SignalAdd';
 p5.prototype.SignalAdd = SignalAdd;
+import SignalBase from './SignalBase';
+p5.prototype.SignalBase = SignalBase;
 import SignalMultiply from './SignalMultiply';
 p5.prototype.SignalMultiply = SignalMultiply;
 import SignalScale from './SignalScale';
 p5.prototype.SignalScale = SignalScale;
+import TimeLineSignal from './TimelineSignal';
+p5.prototype.TimeLineSignal = TimeLineSignal;
+import Type from './Type';
+p5.prototype.Type = Type;
+import WaveShaper from './WaveShaper';
+p5.prototype.WaveShaper = WaveShaper;
 
 module.exports = p5sound;

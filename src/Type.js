@@ -1,5 +1,11 @@
 // https://raw.githubusercontent.com/Tonejs/Tone.js/r10/Tone/type/Type.js
 
+class Type {
+
+}
+
+export default Type;
+
 // define(['Tone/core/Tone', 'Tone/type/Time', 'Tone/type/Frequency', 'Tone/type/TransportTime', 'Tone/core/Context'],
 //   function (Tone) {
 

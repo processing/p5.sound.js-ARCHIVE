@@ -5,7 +5,6 @@ console.log(p5sound.VERSION);
 let startAudioButton = document.getElementById('startAudioButton');
 let stopAudioButton = document.getElementById('stopAudioButton');
 
-// add event listeners
 startAudioButton.addEventListener('click', function () {
   getAudioContext().resume();
 });
@@ -28,13 +27,13 @@ function setup() {
   createCanvas(710, 256);
   fill(255, 40, 255);
 
-  // soundFile.loop();
-  soundFile.play();
+  // loop the sound file
+  soundFile.loop();
 
   biquadFilter = new LowPass();
 
-  // Disconnect soundfile from output.
-  // Then, connect it to the filter, so that we only hear the filtered sound
+  // Disconnect soundfile from master output.
+  // Then, connect it to the biquadFilter, so that we only hear the biquadFiltered sound
   soundFile.disconnect();
   soundFile.connect(biquadFilter);
 
@@ -51,7 +50,7 @@ function draw() {
   // Map mouseY to resonance (volume boost) at the cutoff frequency
   biquadFilterRes = map(mouseY, 0, height, 15, 5);
 
-  // set filter parameters
+  // set biquadFilter parameters
   biquadFilter.set(biquadFilterFreq, biquadFilterRes);
 
   // Draw every value in the FFT spectrum analysis where

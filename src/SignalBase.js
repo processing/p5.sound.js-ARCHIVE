@@ -1,7 +1,7 @@
 // https://github.com/Tonejs/Tone.js/blob/r10/Tone/signal/SignalBase.js
 
 import Signal from './Signal';
-import TimelineSignal from './SignalTimeLineSignal';
+// import SignalTimelineSignal from './SignalTimeLineSignal';
 
 /**
 *  When signals connect to other signals or AudioParams,
@@ -9,7 +9,7 @@ import TimelineSignal from './SignalTimeLineSignal';
 *  For all other nodes, the behavior is the same as a default <code>connect</code>.
 *
 *  @override
-*  @param {AudioParam|AudioNode|Tone.Signal|Tone} node
+*  @param {AudioParam|AudioNode|Signal|Tone} node
 *  @param {number} [outputNumber=0] The output number to connect from.
 *  @param {number} [inputNumber=0] The input number to connect to.
 *  @returns {Tone.SignalBase} this

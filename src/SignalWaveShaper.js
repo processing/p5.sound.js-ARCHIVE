@@ -2,7 +2,7 @@
 
 import audioContext from './audioContext';
 
-class WaveShaper {
+class SignalWaveShaper {
   constructor(mapping, bufferLen) {
     this._shaper = this.input = this.output = audioContext.createWaveShaper();
     this._curve = null;
@@ -61,7 +61,7 @@ class WaveShaper {
 
 }
 
-export default WaveShaper;
+export default SignalWaveShaper;
 
 
 // original code

@@ -1,6 +1,6 @@
 // https://github.com/Tonejs/Tone.js/blob/r10/Tone/signal/Signal.js
 
-// import audioContext from './audioContext';
+import audioContext from './audioContext';
 // import Gain from './Gain';
 import Param from './Param';
 import SignalBase from './SignalBase';
@@ -8,25 +8,27 @@ import Type from './Type';
 // import SignalWaveShaper from './SignalWaveShaper';
 
 /**
-	 *  @class  A signal is an audio-rate value. Tone.Signal is a core component of the library.
-	 *          Unlike a number, Signals can be scheduled with sample-level accuracy. Tone.Signal
-	 *          has all of the methods available to native Web Audio
-	 *          [AudioParam](http://webaudio.github.io/web-audio-api/#the-audioparam-interface)
-	 *          as well as additional conveniences. Read more about working with signals
-	 *          [here](https://github.com/Tonejs/Tone.js/wiki/Signals).
-	 *
-	 *  @constructor
-	 *  @extends {Tone.Param}
-	 *  @param {Number|AudioParam} [value] Initial value of the signal. If an AudioParam
-	 *                                     is passed in, that parameter will be wrapped
-	 *                                     and controlled by the Signal.
-	 *  @param {string} [units=Number] unit The units the signal is in.
-	 *  @example
-	 * var signal = new Tone.Signal(10);
-	 */
+*  @class  A signal is an audio-rate value. Tone.Signal is a core component of the library.
+*          Unlike a number, Signals can be scheduled with sample-level accuracy. Tone.Signal
+*          has all of the methods available to native Web Audio
+*          [AudioParam](http://webaudio.github.io/web-audio-api/#the-audioparam-interface)
+*          as well as additional conveniences. Read more about working with signals
+*          [here](https://github.com/Tonejs/Tone.js/wiki/Signals).
+*
+*  @constructor
+*  @extends {Tone.Param}
+*  @param {Number|AudioParam} [value] Initial value of the signal. If an AudioParam
+*                                     is passed in, that parameter will be wrapped
+*                                     and controlled by the Signal.
+*  @param {string} [units=Number] unit The units the signal is in.
+*  @example
+* let signal = new Signal(10);
+*/
 
 class Signal {
   constructor() {
+
+    this.audioContext = audioContext;
 
     this.defaults = {
       'value': 0,
@@ -67,10 +69,10 @@ class Signal {
   	 *  For all other nodes, the behavior is the same as a default <code>connect</code>.
   	 *
   	 *  @override
-  	 *  @param {AudioParam|AudioNode|Tone.Signal|Tone} node
+  	 *  @param {AudioParam|AudioNode|Signal|Tone} node
   	 *  @param {number} [outputNumber=0] The output number to connect from.
   	 *  @param {number} [inputNumber=0] The input number to connect to.
-  	 *  @returns {Tone.SignalBase} this
+  	 *  @returns {SignalBase} this
   	 *  @method
   	 */
   connect() {

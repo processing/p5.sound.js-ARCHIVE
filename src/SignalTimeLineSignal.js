@@ -1,10 +1,10 @@
-// TimeLineSignal adapted from Tone.js v0.10.0
+// https://github.com/Tonejs/Tone.js/blob/r10/Tone/signal/TimelineSignal.js
 
-class TimeLineSignal {
+class SignalTimeLineSignal {
 
 }
 
-export default TimeLineSignal;
+export default SignalTimeLineSignal;
 
 // define(['Tone/core/Tone', 'Tone/signal/Signal', 'Tone/core/Timeline'], function (Tone) {
 

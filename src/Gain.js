@@ -1,5 +1,11 @@
 // https://github.com/Tonejs/Tone.js/blob/r10/Tone/core/Gain.js
 
+class Gain {
+
+}
+
+export default Gain;
+
 // define(["Tone/core/Tone", "Tone/core/Param", "Tone/type/Type"], function (Tone) {
 
 // 	"use strict";

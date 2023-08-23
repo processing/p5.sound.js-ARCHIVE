@@ -1,5 +1,10 @@
 // https://raw.githubusercontent.com/Tonejs/Tone.js/r10/Tone/core/Param.js
 
+class Param {
+}
+
+export default Param;
+
 // define(['Tone/core/Tone', 'Tone/type/Type'], function(Tone){
 
 //   'use strict';

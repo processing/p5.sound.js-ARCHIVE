@@ -108,7 +108,8 @@ class SignalExpr {
           method : applyBinary.bind(this, SignalAdd)
         },
         '-' : {
-          regexp : /^\-/,
+          // regexp: /^\-/,
+          regexp : /^-/,
           precedence : 1,
           method : function(args, self){
             //both unary and binary op
@@ -128,11 +129,13 @@ class SignalExpr {
       //unary expressions
       'unary' : {
         '-' : {
-          regexp : /^\-/,
+          // regexp: /^\-/,
+          regexp : /^-/,
           method : applyUnary.bind(this, SignalNegate)
         },
         '!' : {
-          regexp : /^\!/,
+          // regexp : /^\!/,
+          regexp : /^!/,
           method : applyUnary.bind(this, NOT)
         }
       }
@@ -221,7 +224,8 @@ class SignalExpr {
   _replacements(args){
     let expr = args.shift();
     for (let i = 0; i < args.length; i++){
-      expr = expr.replace(/\%/i, args[i]);
+      // expr = expr.replace(/\%/i, args[i]);
+      expr = expr.replace(/%/i, args[i]);
     }
     return expr;
   }
@@ -403,19 +407,19 @@ token.value === syn;
 
     function parseArgumentList() {
       let token, expr, args = [];
-      while (true) {
-        expr = parseExpression();
-        if (isUndef(expr)) {
-          // TODO maybe throw exception?
-          break;
-        }
-        args.push(expr);
-        token = lexer.peek();
-        if (!matchSyntax(token, ',')) {
-          break;
-        }
-        lexer.next();
+      // while (true) {
+      expr = parseExpression();
+      if (isUndef(expr)) {
+        // TODO maybe throw exception?
+        // break;
       }
+      args.push(expr);
+      token = lexer.peek();
+      if (!matchSyntax(token, ',')) {
+        // break;
+      }
+      lexer.next();
+      // }
       return args;
     }
 

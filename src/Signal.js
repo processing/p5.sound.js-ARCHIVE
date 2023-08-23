@@ -5,7 +5,7 @@
 import Param from './Param';
 import SignalBase from './SignalBase';
 import Type from './Type';
-// import WaveShaper from './WaveShaper';
+// import SignalWaveShaper from './SignalWaveShaper';
 
 /**
 	 *  @class  A signal is an audio-rate value. Tone.Signal is a core component of the library.

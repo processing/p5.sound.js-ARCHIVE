@@ -1,7 +1,7 @@
 // https://github.com/Tonejs/Tone.js/blob/r10/Tone/signal/SignalBase.js
 
 import Signal from './Signal';
-import TimelineSignal from './TimelineSignal';
+import TimelineSignal from './SignalTimeLineSignal';
 
 /**
 *  When signals connect to other signals or AudioParams,

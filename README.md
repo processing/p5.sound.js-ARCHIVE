@@ -61,18 +61,25 @@ In order to minimize the amount of external dependencies, and because Tone.js wa
 The modules we are adapting are these:
 
 - [CrossFade.js](./src/CrossFade.js)
-- [EqualPowerGain.js](./src/EqualPowerGain.js)
-- [Expr.js](./src/Expr.js)
 - [Gain.js](./src/Gain.js)
 - [Param.js](./src/Param.js)
 - [Signal.js](./src/Signal.js)
+- [SignalAbs.js](./src/SignalAbs.js)
 - [SignalAdd.js](./src/SignalAdd.js)
+- [SignalAudioToGain.js](./src/SignalAudioToGain.js)
 - [SignalBase.js](./src/SignalBase.js)
+- [SignalEqualPowerGain.js](./src//SignalEqualPowerGain.js)
+- [SignalExpr.js](./src/SignalExpr.js)
+- [SignalModulo.js](./src/SignalModulo.js)
 - [SignalMultiply.js](./src/SignalMultiply.js)
+- [SignalNegate.js](./src/SignalNegate.js)
+- [SignalPow.js](./src/SignalPow.js)
 - [SignalScale.js](./src/SignalScale.js)
-- [TimeLineSignal.js](./src/TimeLineSignal.js)
+- [SignalSubtract.js](./src/SignalSubtract.js)
+- [SignalWaveShaper.js](./src/SignalWaveShaper.js)
+- [SignalTimeLineSignal.js](./src/SignalTimeLineSignal.js)
 - [Type.js](./src/Type.js)
-- [WaveShaper.js](./src/WaveShaper.js)
+
 
 ## Help wanted
 

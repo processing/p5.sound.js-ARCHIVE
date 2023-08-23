@@ -3,8 +3,8 @@
 // import audioContext from './audioContext';
 
 import Signal from './Signal';
-import Expr from './Expr';
-import EqualPowerGain from './EqualPowerGain';
+import Expr from './SignalExpr';
+import EqualPowerGain from './SignalEqualPowerGain';
 import Gain from './Gain';
 
 /**

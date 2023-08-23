@@ -51,7 +51,23 @@ We are currently hosting some examples in the `examples` folder. To run them, pl
 - p5.SoundLoop, p5.Phrase, p5.Part and p5.Score
 - p5.Convolver
 
+## Modules adapted from Tone.js r10
+
+One of the big goals of this new version of the p5.sound.js library, we are trying to minimize the dependencies,
+and at the time the original library was built, Tone.js was imported.
+
+So we are adapting the original modules that are needed from Tone.js, and adding them here.
+
+- [Signal.js](./src/Signal.js)
+- [SignalAdd.js](./src/SignalAdd.js)
+- [SignalBase.js](./src/SignalBase.js)
+- [SignalMultiply.js](./src/SignalMultiply.js)
+- [SignalScale.js](./src/SignalScale.js)
+- [TimeLineSignal.js](./src/TimeLineSignal.js)
+- [WaveShaper.js](./src/WaveShaper.js)
+
 ## Help wanted
 
 - p5.SoundFile: please help us fix the AudioWorklet and build for this.
+
 

@@ -1,4 +1,4 @@
-// console.log(p5sound.VERSION);
+console.log(p5sound.VERSION);
 
 let startAudioButton = document.getElementById('startAudioButton');
 let stopAudioButton = document.getElementById('stopAudioButton');
@@ -24,20 +24,17 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(710, 200);
-
-  // song loaded during preload(), ready to play in setup()
-  song.play();
+  createCanvas(720, 200);
   background(0, 255, 0);
 }
 
 function mousePressed() {
   if (song.isPlaying()) {
     // .isPlaying() returns a boolean
-    song.pause();
+    song.stop();
     background(255, 0, 0);
   } else {
-    song.play(); // playback will resume from the pause position
+    song.play();
     background(0, 255, 0);
   }
 }

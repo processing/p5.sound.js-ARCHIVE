@@ -1,5 +1,7 @@
-// https://github.com/Tonejs/Tone.js/tree/r10
 // https://github.com/Tonejs/Tone.js/blob/r10/Tone/signal/SignalBase.js
+
+import Signal from './Signal';
+import TimelineSignal from './TimelineSignal';
 
 /**
 *  When signals connect to other signals or AudioParams,
@@ -17,28 +19,25 @@ class SignalBase {
   constructor() {
 
   }
+  connect(node, outputNumber, inputNumber) {
+    //zero it out so that the signal can have full control
+    if ((Signal && Signal === node.constructor) ||
+    //  (Tone.Param && Tone.Param === node.constructor) ||
+       (TimelineSignal && TimelineSignal === node.constructor)){
+      //cancel changes
+      node._param.cancelScheduledValues(0);
+      //reset the value
+      node._param.value = 0;
+      //mark the value as overridden
+      node.overridden = true;
+    } else if (node instanceof AudioParam){
+      node.cancelScheduledValues(0);
+      node.value = 0;
+    }
+    // Tone.prototype.connect.call(this, node, outputNumber, inputNumber);
+    connect.call(this, node, outputNumber, inputNumber);
+    return this;
+  }
 }
 
 export default SignalBase;
-
-//   Tone.SignalBase.prototype.connect = function(node, outputNumber, inputNumber){
-//     //zero it out so that the signal can have full control
-//     if ((Tone.Signal && Tone.Signal === node.constructor) ||
-// 				(Tone.Param && Tone.Param === node.constructor) ||
-// 				(Tone.TimelineSignal && Tone.TimelineSignal === node.constructor)){
-//       //cancel changes
-//       node._param.cancelScheduledValues(0);
-//       //reset the value
-//       node._param.value = 0;
-//       //mark the value as overridden
-//       node.overridden = true;
-//     } else if (node instanceof AudioParam){
-//       node.cancelScheduledValues(0);
-//       node.value = 0;
-//     }
-//     Tone.prototype.connect.call(this, node, outputNumber, inputNumber);
-//     return this;
-//   };
-
-//   return Tone.SignalBase;
-// });

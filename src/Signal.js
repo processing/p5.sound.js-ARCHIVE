@@ -1,5 +1,13 @@
 // https://github.com/Tonejs/Tone.js/blob/r10/Tone/signal/Signal.js
 
+class Signal {
+  constructor() {
+
+  }
+}
+
+export default Signal;
+
 // define(["Tone/core/Tone", "Tone/signal/WaveShaper", "Tone/type/Type", "Tone/core/Param", "Tone/core/Gain"], function(Tone){
 
 // 	"use strict";

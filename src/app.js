@@ -70,5 +70,13 @@ import CrossFade from './CrossFade';
 p5.prototype.CrossFade = CrossFade;
 import WaveShaper from './WaveShaper';
 p5.prototype.WaveShaper = WaveShaper;
+import Signal from './Signal';
+p5.prototype.Signal = Signal;
+import SignalAdd from './SignalAdd';
+p5.prototype.SignalAdd = SignalAdd;
+import SignalMultiply from './SignalMultiply';
+p5.prototype.SignalMultiply = SignalMultiply;
+import SignalScale from './SignalScale';
+p5.prototype.SignalScale = SignalScale;
 
 module.exports = p5sound;

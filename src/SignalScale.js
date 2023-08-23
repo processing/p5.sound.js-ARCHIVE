@@ -1,5 +1,13 @@
 // https://github.com/Tonejs/Tone.js/blob/r10/Tone/signal/Scale.js
 
+class SignalScale {
+  constructor() {
+
+  }
+}
+
+export default SignalScale;
+
 // define(["Tone/core/Tone", "Tone/signal/Add", "Tone/signal/Multiply", "Tone/signal/Signal"], function(Tone){
 
 // 	"use strict";

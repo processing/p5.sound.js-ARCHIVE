@@ -1,4 +1,4 @@
-import Oscillator from './p5sound.Oscillator';
+import Oscillator from './Oscillator';
 import audioContext from './audioContext';
 import p5sound from './main';
 

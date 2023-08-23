@@ -1,5 +1,5 @@
 import audioContext from './audioContext';
-import Effect from './p5sound.Effect';
+import Effect from './Effect';
 
 /**
  * Delay is an echo effect. it processes an existing sound source,

@@ -1,5 +1,5 @@
 import audioContext from './audioContext';
-import Effect from './p5sound.Effect';
+import Effect from './Effect';
 
 class BiquadFilter extends Effect {
   constructor(type) {

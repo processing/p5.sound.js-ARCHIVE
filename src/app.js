@@ -69,6 +69,8 @@ import CrossFade from './CrossFade';
 p5.prototype.CrossFade = CrossFade;
 import EqualPowerGain from './EqualPowerGain';
 p5.prototype.EqualPowerGain = EqualPowerGain;
+import Expr from './Expr';
+p5.prototype.Expr = Expr;
 import Gain from './Gain';
 p5.prototype.Gain = Gain;
 import Param from './Param';

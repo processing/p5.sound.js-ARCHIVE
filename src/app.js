@@ -65,4 +65,10 @@ p5.prototype.AnalyzerFFT = AnalyzerFFT;
 import Envelope from './p5sound.Envelope';
 p5.prototype.Envelope = Envelope;
 
+// new modules adapted from Tone.js v0.10.0
+import CrossFade from './p5sound.CrossFade';
+p5.prototype.CrossFade = CrossFade;
+import WaveShaper from './p5sound.WaveShaper';
+p5.prototype.WaveShaper = WaveShaper;
+
 module.exports = p5sound;

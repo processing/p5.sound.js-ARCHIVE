@@ -62,6 +62,7 @@ The modules we are adapting are these:
 
 - [CrossFade.js](./src/CrossFade.js)
 - [EqualPowerGain.js](./src/EqualPowerGain.js)
+- [Expr.js](./src/Expr.js)
 - [Gain.js](./src/Gain.js)
 - [Param.js](./src/Param.js)
 - [Signal.js](./src/Signal.js)

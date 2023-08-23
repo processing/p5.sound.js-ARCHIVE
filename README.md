@@ -61,12 +61,16 @@ In order to minimize the amount of external dependencies, and because Tone.js wa
 The modules we are adapting are these:
 
 - [CrossFade.js](./src/CrossFade.js)
+- [EqualPowerGain.js](./src/EqualPowerGain.js)
+- [Gain.js](./src/Gain.js)
+- [Param.js](./src/Param.js)
 - [Signal.js](./src/Signal.js)
 - [SignalAdd.js](./src/SignalAdd.js)
 - [SignalBase.js](./src/SignalBase.js)
 - [SignalMultiply.js](./src/SignalMultiply.js)
 - [SignalScale.js](./src/SignalScale.js)
 - [TimeLineSignal.js](./src/TimeLineSignal.js)
+- [Type.js](./src/Type.js)
 - [WaveShaper.js](./src/WaveShaper.js)
 
 ## Help wanted

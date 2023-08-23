@@ -1,5 +1,8 @@
 // https://github.com/Tonejs/Tone.js/blob/r10/Tone/signal/Add.js
 
+// import Signal from './Signal';
+// import Gain from './Gain';
+
 class SignalAdd {
   constructor() {
 

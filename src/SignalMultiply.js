@@ -12,15 +12,15 @@ import Gain from './Gain';
 *  @param {number=} value Constant value to multiple. If no value is provided,
 *                         it will return the product of the first and second inputs
 *  @example
-* var mult = new Tone.Multiply();
-* var sigA = new Tone.Signal(3);
-* var sigB = new Tone.Signal(4);
+* let mult = new Tone.Multiply();
+* let sigA = new Tone.Signal(3);
+* let sigB = new Tone.Signal(4);
 * sigA.connect(mult, 0, 0);
 * sigB.connect(mult, 0, 1);
 * //output of mult is 12.
 *  @example
-* var mult = new Tone.Multiply(10);
-* var sig = new Tone.Signal(2).connect(mult);
+* let mult = new Tone.Multiply(10);
+* let sig = new Tone.Signal(2).connect(mult);
 * //the output of mult is 20.
 */
 

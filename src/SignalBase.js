@@ -1,23 +1,49 @@
-// adapted from Signalbase.js at Tone.js v0.10.0
-// available at https://github.com/Tonejs/Tone.js/tree/r10
+// https://github.com/Tonejs/Tone.js/tree/r10
+// https://github.com/Tonejs/Tone.js/blob/r10/Tone/signal/SignalBase.js
 
-//   When signals connect to other signals or AudioParams,
-//  they take over the output value of that signal or AudioParam.
-//  For all other nodes, the behavior is the same as a default <code>connect</code>.
+// define(['Tone/core/Tone'], function(Tone){
 
-class SignalBase {
-  connect(node, outputNumber, inputNumber) {
-    if ((Signal && Signal === node.constructor) ||
-        (Param && Param === node.constructor) ||
-    (TimeLineSignal && TimeLineSignal === node.constructor)) {
-      node._param.cancelScheduledValues(0);
-      node._param.value = 0;
-      node.overridden = true;
-    } else if (node instanceof AudioParam) {
-      node.cancelScheduledValues(0);
-      node.value = 0;
-    }
-  }
-}
+//   'use strict';
 
-export default SignalBase;
+//   /**
+// 	 *  @class  Base class for all Signals. Used Internally.
+// 	 *
+// 	 *  @constructor
+// 	 *  @extends {Tone}
+// 	 */
+//   Tone.SignalBase = function(){};
+
+//   Tone.extend(Tone.SignalBase);
+
+//   /**
+// 	 *  When signals connect to other signals or AudioParams,
+// 	 *  they take over the output value of that signal or AudioParam.
+// 	 *  For all other nodes, the behavior is the same as a default <code>connect</code>.
+// 	 *
+// 	 *  @override
+// 	 *  @param {AudioParam|AudioNode|Tone.Signal|Tone} node
+// 	 *  @param {number} [outputNumber=0] The output number to connect from.
+// 	 *  @param {number} [inputNumber=0] The input number to connect to.
+// 	 *  @returns {Tone.SignalBase} this
+// 	 */
+//   Tone.SignalBase.prototype.connect = function(node, outputNumber, inputNumber){
+//     //zero it out so that the signal can have full control
+//     if ((Tone.Signal && Tone.Signal === node.constructor) ||
+// 				(Tone.Param && Tone.Param === node.constructor) ||
+// 				(Tone.TimelineSignal && Tone.TimelineSignal === node.constructor)){
+//       //cancel changes
+//       node._param.cancelScheduledValues(0);
+//       //reset the value
+//       node._param.value = 0;
+//       //mark the value as overridden
+//       node.overridden = true;
+//     } else if (node instanceof AudioParam){
+//       node.cancelScheduledValues(0);
+//       node.value = 0;
+//     }
+//     Tone.prototype.connect.call(this, node, outputNumber, inputNumber);
+//     return this;
+//   };
+
+//   return Tone.SignalBase;
+// });

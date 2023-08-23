@@ -27,13 +27,7 @@ class Effect {
     this.input.gain.value = 0.5;
     this.output.gain.value = 0.5;
 
-    // this._drywet = new CrossFade(1);
-
-    // this.input.connect(this.effectGain);
-    // this.effectGain.connect(this.output);
     this.input.connect(this.output);
-    // this.output.connect(audioContext.destination);
-
     this.output.connect(p5sound.input);
 
     p5sound.soundArray.push(this);
@@ -42,7 +36,7 @@ class Effect {
   /**
    * set the output volume of the filter
    *  @method amp
-   * @for p5.Effect
+   * @for p5sound.Effect
    * @param {Number} [vol] amplitude between 0.0 and 1.0
    * @param {Number} [rampTime] create a fade that lasts until rampTime
    * @param {Number} [tFromNow] schedule this event to happen in tFromNow
@@ -79,13 +73,6 @@ class Effect {
    * @for p5.Effect
    * @param {Object} unit
    */
-  // connect(unit) {
-  //   let u = unit || p5.soundOut.input;
-  //   this.output.connect(u.input ? u.input : u);
-  //   if (unit && unit._onNewInput) {
-  //     unit._onNewInput(this);
-  //   }
-  // }
 
   connect(unit) {
     if(!unit) {

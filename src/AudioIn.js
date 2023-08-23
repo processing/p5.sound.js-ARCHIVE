@@ -1,5 +1,5 @@
 import p5sound from './main';
-import Amplitude from './p5sound.Amplitude';
+import Amplitude from './Amplitude';
 import audioContext from './audioContext';
 
 // an array of input sources

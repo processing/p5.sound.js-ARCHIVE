@@ -1,6 +1,6 @@
 // https://raw.githubusercontent.com/Tonejs/Tone.js/r10/Tone/signal/EqualPowerGain.js
 
-import WaveShaper from './WaveShaper';
+import SignalWaveShaper from './SignalWaveShaper';
 
 /**
  *  @class Convert an incoming signal between 0, 1 to an equal power gain scale.
@@ -11,15 +11,16 @@ import WaveShaper from './WaveShaper';
  * let eqPowGain = new EqualPowerGain();
  */
 
-class EqualPowerGain {
+class SignalEqualPowerGain {
   constructor() {
-    this._eqPower = this.input = this.output = new WaveShaper(function (val) {
-      if (Math.abs(val) < 0.001) {
-        return 0;
-      } else {
-        return this.equalPowerScale(val);
-      }
-    }.bind(this), 4096);
+    this._eqPower = this.input = this.output = new SignalWaveShaper(
+      function (val) {
+        if (Math.abs(val) < 0.001) {
+          return 0;
+        } else {
+          return this.equalPowerScale(val);
+        }
+      }.bind(this), 4096);
   }
   dispose() {
     this._eqPower.dispose();
@@ -28,4 +29,4 @@ class EqualPowerGain {
   }
 }
 
-export default EqualPowerGain;
+export default SignalEqualPowerGain;

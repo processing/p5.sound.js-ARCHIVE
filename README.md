@@ -53,16 +53,15 @@ We are currently hosting some examples in the `examples` folder. To run them, pl
 
 ## Modules adapted from Tone.js r10
 
-One of the big goals of this new version of the p5.sound.js library, we are trying to minimize the dependencies,
-and at the time the original library was built, [Tone.js r10](https://github.com/Tonejs/Tone.js/tree/r10) was included as a dependency.
+One of the big goals of this new version of the p5.sound.js library, we are trying to minimize the dependencies, and at the time the original library was built, [Tone.js r10](https://github.com/Tonejs/Tone.js/tree/r10) was included as a dependency.
 
-In order to minimize the amount of external dependencies, and because Tone.js was evolved so much since 2017, when its r10 was released, we are adapting the Tone.js modules from that era, and including them in the source code here so that we can build p5.sound.js without having to import Tone.js.
+In order to minimize the amount of external dependencies, and since Tone.js was evolved so much since 2017, when its r10 was released, we are adapting the Tone.js modules from that era, and including them in the source code here so that we can build p5.sound.js without having to import Tone.js.
 
 The modules we are adapting are these:
 
 - [CrossFade.js](./src/Tone/CrossFade.js)
-- [Gain.js](./src//ToneGain.js)
-- [Param.js](./src//ToneParam.js)
+- [Gain.js](./src/Tone/Gain.js)
+- [Param.js](./src/Tone/Param.js)
 - [Signal.js](./src/Tone/Signal.js)
 - [SignalAbs.js](./src/Tone/SignalAbs.js)
 - [SignalAdd.js](./src/Tone/SignalAdd.js)

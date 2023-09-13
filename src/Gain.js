@@ -107,7 +107,7 @@ class Gain {
    *  @param  {Object} unit
    */
   connect(unit) {
-    let u = unit || p5.soundOut.input;
+    let u = unit || p5sound.input;
     this.output.connect(u.input ? u.input : u);
     if (unit && unit._onNewInput) {
       unit._onNewInput(this);

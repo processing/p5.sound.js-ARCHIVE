@@ -1,7 +1,6 @@
 import audioContext from './audioContext';
 import p5sound from './main';
-import { CrossFade } from 'tone';
-
+import { CrossFade as ToneCrossFrade } from 'tone';
 /**
  * Effect is a base class for audio effects in p5sound.
  * This module handles the nodes and methods that are
@@ -25,16 +24,15 @@ class Effect {
     this.input = audioContext.createGain();
     this.output = audioContext.createGain();
 
-
-    this._drywet = new CrossFade(1);
+    this._drywet = new ToneCrossFrade(1);
     this.wet = audioContext.createGain();
 
     this.input.connect(this._drywet.a);
     this.wet.connect(this._drywet.b);
     this._drywet.connect(this.output);
-    this.connect(p5sound.input);
 
-
+    this.connect();
+    this.output.connect(p5sound.input);
 
     // this.input.gain.value = 0.5;
     // this.output.gain.value = 0.5;
@@ -96,19 +94,14 @@ class Effect {
    * send output to a p5sound, Web Audio Node, or use signal to
    * control an AudioParam
    * @method connect
-   * @for p5.Effect
+   * @for Effect
    * @param {Object} unit
    */
 
   connect(unit) {
-    if(!unit) {
-      this.output.connect(p5sound.input);
-    }
-    else if (unit.hasOwnProperty('input')) {
-      this.output.connect(unit.input);
-    } else {
-      this.output.connect(unit);
-    }
+    let u = unit || p5sound.input;
+
+    this.output.connect(u.input ? u.input : u);
     if (unit && unit._onNewInput) {
       unit._onNewInput(this);
     }
@@ -117,7 +110,7 @@ class Effect {
   /**
    * disconnect all outputs
    * @method disconnect
-   * @for p5.Effect
+   * @for Effect
    */
   disconnect() {
     if (this.output) {
@@ -126,7 +119,7 @@ class Effect {
   }
 
   dispose() {
-    // remove reference form soundArray
+    // remove reference from soundArray
     let index = p5sound.soundArray.indexOf(this);
     p5sound.soundArray.splice(index, 1);
 

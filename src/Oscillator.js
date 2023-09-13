@@ -1,7 +1,6 @@
 import audioContext from './audioContext';
 import p5sound from './main';
 
-
 // import Tone.js modules
 import { Add as ToneAdd } from 'tone';
 import { Multiply as ToneMultiply } from 'tone';

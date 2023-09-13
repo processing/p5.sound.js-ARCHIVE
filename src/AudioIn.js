@@ -1,6 +1,6 @@
+import audioContext from './audioContext';
 import p5sound from './main';
 import Amplitude from './Amplitude';
-import audioContext from './audioContext';
 
 // an array of input sources
 p5sound.inputSources = [];

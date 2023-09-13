@@ -23,8 +23,8 @@ function setup() {
 }
 
 function mousePressed() {
+  // .isPlaying() returns a boolean
   if (song.isPlaying()) {
-    // .isPlaying() returns a boolean
     song.stop();
     background(255, 0, 0);
   } else {

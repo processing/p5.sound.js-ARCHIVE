@@ -12,12 +12,14 @@ import p5sound from './main';
 import {
   _mathChain,
   _checkFileFormats,
+  convertToWav,
   midiToFreq,
   soundFormats,
   safeBufferSize
 } from './helpers';
 p5.prototype._mathChain = _mathChain;
 p5.prototype._checkFileFormats = _checkFileFormats;
+p5.prototype.convertToWav = convertToWav;
 p5.prototype.midiToFreq = midiToFreq;
 p5.prototype.soundFormats = soundFormats;
 p5.prototype.safeBufferSize = safeBufferSize;
@@ -67,6 +69,8 @@ p5.prototype.AnalyzerFFT = AnalyzerFFT;
 import Envelope from './Envelope';
 p5.prototype.Envelope = Envelope;
 
-// new modules adapted from Tone.js v0.10.0
+// TODO: change "panner" to "Panner" on Panner.js
+import panner from './panner';
+p5.prototype.Panner = panner;
 
 module.exports = p5sound;

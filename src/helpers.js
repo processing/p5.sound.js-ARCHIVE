@@ -145,6 +145,60 @@ function _mathChain(o, math, thisChain, nextChain, type) {
   return o;
 }
 
+// helper methods to convert audio file as .wav format,
+// will use as saving .wav file and saving blob object
+// Thank you to Matt Diamond's RecorderJS (MIT License)
+// https://github.com/mattdiamond/Recorderjs
+function convertToWav(audioBuffer) {
+  var leftChannel, rightChannel;
+  leftChannel = audioBuffer.getChannelData(0);
+
+  // handle mono files
+  if (audioBuffer.numberOfChannels > 1) {
+    rightChannel = audioBuffer.getChannelData(1);
+  } else {
+    rightChannel = leftChannel;
+  }
+
+  var interleaved = interleave(leftChannel, rightChannel);
+
+  // create the buffer and view to create the .WAV file
+  var buffer = new window.ArrayBuffer(44 + interleaved.length * 2);
+  var view = new window.DataView(buffer);
+
+  // write the WAV container,
+  // check spec at: https://web.archive.org/web/20171215131933/http://tiny.systems/software/soundProgrammer/WavFormatDocs.pdf
+
+  // RIFF chunk descriptor
+  writeUTFBytes(view, 0, 'RIFF');
+  view.setUint32(4, 36 + interleaved.length * 2, true);
+  writeUTFBytes(view, 8, 'WAVE');
+  // FMT sub-chunk
+  writeUTFBytes(view, 12, 'fmt ');
+  view.setUint32(16, 16, true);
+  view.setUint16(20, 1, true);
+  // stereo (2 channels)
+  view.setUint16(22, 2, true);
+  view.setUint32(24, p5sound.audiocontext.sampleRate, true);
+  view.setUint32(28, p5sound.audiocontext.sampleRate * 4, true);
+  view.setUint16(32, 4, true);
+  view.setUint16(34, 16, true);
+  // data sub-chunk
+  writeUTFBytes(view, 36, 'data');
+  view.setUint32(40, interleaved.length * 2, true);
+
+  // write the PCM samples
+  var lng = interleaved.length;
+  var index = 44;
+  var volume = 1;
+  for (var i = 0; i < lng; i++) {
+    view.setInt16(index, interleaved[i] * (0x7fff * volume), true);
+    index += 2;
+  }
+
+  return view;
+}
+
 /**
  *  Returns the frequency value of a MIDI note value.
  *  General MIDI treats notes as integers where middle C
@@ -196,6 +250,7 @@ function midiToFreq(m) {
 export {
   _mathChain,
   _checkFileFormats,
+  convertToWav,
   midiToFreq,
   soundFormats,
   safeBufferSize

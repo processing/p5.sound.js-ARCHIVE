@@ -80,13 +80,15 @@ class Delay extends Effect {
     this._rightBiquadFilter.disconnect();
 
     this._leftBiquadFilter.biquad.frequency.setValueAtTime(
-      1200, this.ac.currentTime);
+      1200, audioContext.currentTime);
     this._rightBiquadFilter.biquad.frequency.setValueAtTime(
       1200,
-      this.ac.currentTime
+      audioContext.currentTime
     );
-    this._leftBiquadFilter.biquad.Q.setValueAtTime(0.3, this.ac.currentTime);
-    this._rightBiquadFilter.biquad.Q.setValueAtTime(0.3, this.ac.currentTime);
+    this._leftBiquadFilter.biquad.Q.setValueAtTime(
+      0.3, audioContext.currentTime);
+    this._rightBiquadFilter.biquad.Q.setValueAtTime(
+      0.3, audioContext.currentTime);
 
     // graph routing
     this.input.connect(this._split);
@@ -96,8 +98,10 @@ class Delay extends Effect {
     this._rightGain.connect(this._rightBiquadFilter.input);
     this._merge.connect(this.wet);
 
-    this._leftBiquadFilter.biquad.gain.setValueAtTime(1, this.ac.currentTime);
-    this._rightBiquadFilter.biquad.gain.setValueAtTime(1, this.ac.currentTime);
+    this._leftBiquadFilter.biquad.gain.setValueAtTime(
+      1, audioContext.currentTime);
+    this._rightBiquadFilter.biquad.gain.setValueAtTime(
+      1, audioContext.currentTime);
 
     // default routing
     this.setType(0);

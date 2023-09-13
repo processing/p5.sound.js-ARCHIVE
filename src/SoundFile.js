@@ -1372,7 +1372,7 @@ class SoundFile {
     if (!self._workletNode) {
       const workletBufferSize = safeBufferSize(256);
       self._workletNode = new AudioWorkletNode(
-        ac,
+        audioContext,
         processorNames.soundFileProcessor,
         {
           processorOptions: { bufferSize: workletBufferSize }

@@ -59,26 +59,7 @@ In order to minimize the amount of external dependencies, and since Tone.js was 
 
 The modules we are adapting are these:
 
-- [CrossFade.js](./src/Tone/CrossFade.js)
-- [Gain.js](./src/Tone/Gain.js)
-- [Param.js](./src/Tone/Param.js)
-- [Signal.js](./src/Tone/Signal.js)
-- [SignalAbs.js](./src/Tone/SignalAbs.js)
-- [SignalAdd.js](./src/Tone/SignalAdd.js)
-- [SignalAudioToGain.js](./src/Tone/SignalAudioToGain.js)
-- [SignalBase.js](./src/Tone/SignalBase.js)
-- [SignalEqualPowerGain.js](./src/Tone/SignalEqualPowerGain.js)
-- [SignalExpr.js](./src/Tone/SignalExpr.js)
-- [SignalModulo.js](./src/Tone/SignalModulo.js)
-- [SignalMultiply.js](./src/Tone/SignalMultiply.js)
-- [SignalNegate.js](./src/Tone/SignalNegate.js)
-- [SignalPow.js](./src/Tone/SignalPow.js)
-- [SignalScale.js](./src/Tone/SignalScale.js)
-- [SignalSubtract.js](./src/Tone/SignalSubtract.js)
-- [SignalWaveShaper.js](./src/Tone/SignalWaveShaper.js)
-- [SignalTimeLineSignal.js](./src/Tone/SignalTimeLineSignal.js)
-- [Type.js](./src/Tone/Type.js)
-
+We had copied the source files from Tone.js r10 to our src/ folder, but after a discussion with the Tone.js team, we are adding Tone.js 14.x.x as a dependency when we need it, and updating its references.
 
 ## Help wanted
 

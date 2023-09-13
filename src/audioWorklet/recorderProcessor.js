@@ -1,9 +1,9 @@
 // import dependencies via preval.require so that they're available as values at compile time
-// const processorNames = preval.require('./processorNames');
-// const RingBuffer = preval.require('./ringBuffer').default;
-import processorNames from './processorNames';
+const processorNames = preval.require('./processorNames');
+const RingBuffer = preval.require('./ringBuffer').default;
+// import processorNames from './processorNames';
 // const processorNames = require('./processorNames');
-const RingBuffer = require('./ringBuffer').default;
+// const RingBuffer = require('./ringBuffer').default;
 
 class RecorderProcessor extends AudioWorkletProcessor {
   constructor(options) {

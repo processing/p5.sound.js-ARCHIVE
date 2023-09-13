@@ -1,5 +1,6 @@
 import audioContext from './audioContext';
 import p5sound from './main';
+import { CrossFade } from 'tone';
 
 /**
  * Effect is a base class for audio effects in p5sound.
@@ -9,7 +10,7 @@ import p5sound from './main';
  *
  * This class is extended by other effects.
  *
- * @class p5sound.Effect
+ * @class Effect
  * @constructor
  *
  * @param {Object} [audioContext] reference to the audio context of the p5 object
@@ -24,11 +25,21 @@ class Effect {
     this.input = audioContext.createGain();
     this.output = audioContext.createGain();
 
-    this.input.gain.value = 0.5;
-    this.output.gain.value = 0.5;
 
-    this.input.connect(this.output);
-    this.output.connect(p5sound.input);
+    this._drywet = new CrossFade(1);
+    this.wet = audioContext.createGain();
+
+    this.input.connect(this._drywet.a);
+    this.wet.connect(this._drywet.b);
+    this._drywet.connect(this.output);
+    this.connect(p5sound.input);
+
+
+
+    // this.input.gain.value = 0.5;
+    // this.output.gain.value = 0.5;
+    // this.input.connect(this.output);
+    // this.output.connect(p5sound.input);
 
     p5sound.soundArray.push(this);
   }
@@ -64,6 +75,21 @@ class Effect {
       }
     }
     return this;
+  }
+
+
+  /**
+   *  Adjust the dry/wet value.
+   *
+   *  @method drywet
+   *  @for Effect
+   *  @param {Number} [fade] The desired drywet value (0 - 1.0)
+   */
+  drywet(fade) {
+    if (typeof fade !== 'undefined') {
+      this._drywet.fade.value = fade;
+    }
+    return this._drywet.fade.value;
   }
 
   /**

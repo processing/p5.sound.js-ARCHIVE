@@ -1,6 +1,12 @@
+# Apple
 *.DS_STORE
+
+
 .project
+
+# Node.js
 node_modules/*
+
 experiments/*
 lib/p5.sound*
 lib/modules
@@ -12,6 +18,8 @@ dist/
 p5.sound.zip
 bower-repo/
 p5-website/
+
+# Visual Studio Code
 .vscode/settings.json
 .nyc_output/*
 coverage/
@@ -19,3 +27,6 @@ coverage/
 release/
 parameterData.json
 yarn.lock
+
+# examples being tested use p5.js on the assets folder
+examples/assets/*.js

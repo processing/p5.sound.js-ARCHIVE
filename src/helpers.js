@@ -125,6 +125,27 @@ function _checkFileFormats(paths) {
 }
 
 /**
+ *  Used by Osc and Envelope to chain signal math
+ */
+function _mathChain(o, math, thisChain, nextChain, type) {
+  // if this type of math already exists in the chain, replace it
+  for (let i in o.mathOps) {
+    if (o.mathOps[i] instanceof type) {
+      o.mathOps[i].dispose();
+      thisChain = i;
+      if (thisChain < o.mathOps.length - 1) {
+        nextChain = o.mathOps[i + 1];
+      }
+    }
+  }
+  o.mathOps[thisChain - 1].disconnect();
+  o.mathOps[thisChain - 1].connect(math);
+  math.connect(nextChain);
+  o.mathOps[thisChain] = math;
+  return o;
+}
+
+/**
  *  Returns the frequency value of a MIDI note value.
  *  General MIDI treats notes as integers where middle C
  *  is 60, C# is 61, D is 62 etc. Useful for generating
@@ -173,6 +194,7 @@ function midiToFreq(m) {
 }
 
 export {
+  _mathChain,
   _checkFileFormats,
   midiToFreq,
   soundFormats,

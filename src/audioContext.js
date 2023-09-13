@@ -1,4 +1,7 @@
+// import { Tone } from 'tone';
+import * as Tone from 'tone';
 const audioContext = new window.AudioContext();
+Tone.setContext(audioContext);
 
 /**
  * <p>Returns the Audio Context for this sketch. Useful for users

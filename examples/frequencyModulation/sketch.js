@@ -94,7 +94,7 @@ function draw() {
   );
 }
 
-// helper function to toggle sound
+helper function to toggle sound
 function toggleAudio(cnv) {
   cnv.mouseOver(function () {
     carrier.amp(1.0, 0.01);

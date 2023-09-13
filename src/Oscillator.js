@@ -352,19 +352,32 @@ class Oscillator {
    *  Connect to a p5.sound / Web Audio object.
    *
    *  @method  connect
-   *  @for p5.Oscillator
+   *  @for Oscillator
    *  @param  {Object} unit A p5.sound or Web Audio object
    */
+  // connect(unit) {
+  //   if(!unit) {
+  //     this.output.connect(p5sound.input);
+  //   }
+  //   else if (unit.hasOwnProperty('input')) {
+  //     this.output.connect(unit.input);
+  //     this.connection =- unit.input;
+  //   } else {
+  //     this.output.connect(unit);
+  //     this.connection(unit);
+  //   }
+  //   if (unit && unit._onNewInput) {
+  //     unit._onNewInput(this);
+  //   }
+  // }
   connect(unit) {
     if(!unit) {
       this.output.connect(p5sound.input);
     }
     else if (unit.hasOwnProperty('input')) {
       this.output.connect(unit.input);
-      this.connection =- unit.input;
     } else {
       this.output.connect(unit);
-      this.connection(unit);
     }
     if (unit && unit._onNewInput) {
       unit._onNewInput(this);
@@ -375,7 +388,7 @@ class Oscillator {
    *  Disconnect all outputs
    *
    *  @method  disconnect
-   *  @for p5.Oscillator
+   *  @for Oscillator
    */
   disconnect() {
     if (this.output) {

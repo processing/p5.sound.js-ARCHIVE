@@ -90,7 +90,7 @@ class Oscillator {
     this.started = false;
 
     // components
-    //this.phaseAmount = undefined;
+    this.phaseAmount = undefined;
     this.oscillator = audioContext.createOscillator();
     this.f = freq || 440.0; // frequency
     this.oscillator.type = type || 'sine';
@@ -105,13 +105,11 @@ class Oscillator {
     // modulators connected to the oscillator frequency
     this._freqMods = [];
 
-
-
     // set default output gain to 0.5
     // TODO: maybe think of a constant that people can tweak
     // for max volume
     this.output.gain.value = 0.5;
-    // this.output.gain.setValueAtTime(0.5, audioContext.currentTime);
+    this.output.gain.setValueAtTime(0.5, audioContext.currentTime);
 
     this.oscillator.connect(this.output);
     // stereo panning
@@ -121,6 +119,9 @@ class Oscillator {
     //this.output.connect(this.panner);
     // this.output.connect(audioContext.destination);
     this.output.connect(p5sound.input);
+
+    // array of math operation signal chaining
+    this.mathOps = [];
 
     // if you wanna do 3D node panners
     // please do it with web audio api,
@@ -133,11 +134,8 @@ class Oscillator {
     // not create references to the audio nodes
     // so that we dont use up so much memory
 
-    // array of math operation signal chaining
-    this.mathOps = [];
-
     // these methods are now the same thing
-    //this.fade = this.amp;
+    this.fade = this.amp;
   }
   /**
    *  Start an oscillator.
@@ -147,7 +145,7 @@ class Oscillator {
    *  devices. See also: <a href="#/p5/userStartAudio">userStartAudio()</a>.
    *
    *  @method  start
-   *  @for p5.Oscillator
+   *  @for Oscillator
    *  @param  {Number} [time] startTime in seconds from now.
    *  @param  {Number} [frequency] frequency in Hz.
    */
@@ -184,7 +182,7 @@ class Oscillator {
    *  oscillator stops.
    *
    *  @method  stop
-   *  @for p5.Oscillator
+   *  @for Oscillator
    *  @param  {Number} [secondsFromNow] Time, in seconds from now.
    */
   // hopefully we can get rid of the started variable
@@ -224,6 +222,19 @@ class Oscillator {
       // return the Gain Node
       return this.output.gain;
     }
+  }
+
+  /**
+   * Returns the value of output gain
+   *
+   *  @method  getAmp
+   *  @for p5.Oscillator
+   *
+   * @returns {number} Amplitude value between 0.0 and 1.0
+   */
+
+  getAmp() {
+    return this.output.gain.value;
   }
 
   /**
@@ -350,8 +361,10 @@ class Oscillator {
     }
     else if (unit.hasOwnProperty('input')) {
       this.output.connect(unit.input);
+      this.connection =- unit.input;
     } else {
       this.output.connect(unit);
+      this.connection(unit);
     }
     if (unit && unit._onNewInput) {
       unit._onNewInput(this);
@@ -374,6 +387,7 @@ class Oscillator {
     //     this.output.connect(this.panner);
     //   }
     // }
+    this.oscMods = [];
 
   }
   // get rid of the oscillator
@@ -406,14 +420,14 @@ class Oscillator {
    *  @param  {Number} phase float between 0.0 and 1.0
    */
   phase(p) {
-    var delayAmt = p5.prototype.map(p, 0, 1.0, 0, 1 / this.f);
-    var now = p5sound.audiocontext.currentTime;
+    let delayAmt = p5.prototype.map(p, 0, 1.0, 0, 1 / this.f);
+    let now = audioContext.currentTime;
 
     this.phaseAmount = p;
 
     if (!this.dNode) {
       // create a delay node
-      this.dNode = p5sound.audiocontext.createDelay();
+      this.dNode = audioContext.createDelay();
       // put the delay node in between output and panner
       this.oscillator.disconnect();
       this.oscillator.connect(this.dNode);
@@ -454,7 +468,7 @@ class Oscillator {
    */
   mult(num) {
     let mult = new ToneMultiply(num);
-    sigChain(this.mathOps, mult, ToneMult, this.oscillator, this.output);
+    sigChain(this.mathOps, mult, ToneMultiply, this.oscillator, this.output);
     return this;
   }
 
@@ -469,7 +483,7 @@ class Oscillator {
    *  @param  {Number} inMax  input range maximum
    *  @param  {Number} outMin input range minumum
    *  @param  {Number} outMax input range maximum
-   *  @return {p5.Oscillator} Oscillator Returns this oscillator
+   *  @return {Oscillator} Oscillator Returns this oscillator
    *                                     with scaled output
    */
   scale(inMin, inMax, outMin, outMax) {
@@ -485,7 +499,6 @@ class Oscillator {
     sigChain(this.mathOps, scale, ToneScale, this.oscillator, this.output);
     return this;
   }
-
 }
 
 class SinOsc extends Oscillator {

@@ -54,9 +54,9 @@ const p5sound = new Main();
  * @return {Number} Output volume for sound in this sketch.
  *                  Should be between 0.0 (silence) and 1.0.
  */
-// p5sound.prototype.getOutputVolume = function () {
-//   return p5sound.output.gain.value;
-// };
+p5.prototype.getOutputVolume = function () {
+  return p5sound.output.gain.value;
+};
 
 /**
  *  <p>Scale the output of all sound in this sketch</p>

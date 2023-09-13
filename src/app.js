@@ -10,12 +10,13 @@ import p5sound from './main';
 
 // helpers
 import {
+  _mathChain,
   _checkFileFormats,
   midiToFreq,
   soundFormats,
   safeBufferSize
 } from './helpers';
-
+p5.prototype._mathChain = _mathChain;
 p5.prototype._checkFileFormats = _checkFileFormats;
 p5.prototype.midiToFreq = midiToFreq;
 p5.prototype.soundFormats = soundFormats;
@@ -27,6 +28,8 @@ p5.prototype.loadSound = loadSound;
 // register preload handling of loadSound
 p5.prototype.registerPreloadMethod('loadSound', p5.prototype);
 
+import Gain from './Gain';
+p5.prototype.Gain = Gain;
 
 import Oscillator from './Oscillator';
 p5.prototype.Oscillator = Oscillator;
@@ -65,7 +68,5 @@ import Envelope from './Envelope';
 p5.prototype.Envelope = Envelope;
 
 // new modules adapted from Tone.js v0.10.0
-
-
 
 module.exports = p5sound;

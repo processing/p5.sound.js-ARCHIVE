@@ -41,7 +41,7 @@ function setup() {
   carrier.amp(modulator.scale(-1, 1, 1, -1));
 
   // create an fft to analyze the audio
-  fft = new p5.FFT();
+  fft = new AnalyzerFFT();
 }
 
 function draw() {

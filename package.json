@@ -130,5 +130,8 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "dependencies": {
+    "tone": "^14.8.49"
   }
 }

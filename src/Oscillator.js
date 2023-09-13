@@ -1,6 +1,13 @@
 import audioContext from './audioContext';
 import p5sound from './main';
 
+
+// import Tone.js modules
+import { Add as ToneAdd } from 'tone';
+import { Multiply as ToneMultiply } from 'tone';
+import { Scale as ToneScale } from 'tone';
+
+
 /**
  * @module Sound
  * @submodule Oscillator
@@ -18,36 +25,36 @@ import p5sound from './main';
 // SIGNAL MATH FOR MODULATION //
 // ========================== //
 
-// function sigChain(nodes, newNode, nodeType, input, output) {
-//   let prevNode = null;
-//   let nextNode = null;
-//   let replacedNode = null;
-//   // If nodes already contains an node of type nodeType, replace that node
-//   // with newNode.
-//   for (let i = 0; i < nodes.length; i++) {
-//     if (nodes[i] instanceof nodeType) {
-//       prevNode = i === 0 ? input : nodes[i - 1];
-//       nextNode = i === nodes.length - 1 ? output : nodes[i + 1];
-//       replacedNode = nodes[i];
-//       nodes[i] = newNode;
-//       break;
-//     }
-//   }
-//   // Otherwise, add newMathOp to the end of mathOps.
-//   if (replacedNode === null) {
-//     prevNode = nodes.length === 0 ? input : nodes[nodes.length - 1];
-//     nextNode = output;
-//     nodes.push(newNode);
-//   }
-//   // Connect the newMathOp to the previous and next nodes.
-//   prevNode.disconnect();
-//   if (replacedNode !== null) {
-//     replacedNode.disconnect();
-//     replacedNode.dispose();
-//   }
-//   prevNode.connect(newNode);
-//   newNode.connect(nextNode);
-// }
+function sigChain(nodes, newNode, nodeType, input, output) {
+  let prevNode = null;
+  let nextNode = null;
+  let replacedNode = null;
+  // If nodes already contains an node of type nodeType, replace that node
+  // with newNode.
+  for (let i = 0; i < nodes.length; i++) {
+    if (nodes[i] instanceof nodeType) {
+      prevNode = i === 0 ? input : nodes[i - 1];
+      nextNode = i === nodes.length - 1 ? output : nodes[i + 1];
+      replacedNode = nodes[i];
+      nodes[i] = newNode;
+      break;
+    }
+  }
+  // Otherwise, add newMathOp to the end of mathOps.
+  if (replacedNode === null) {
+    prevNode = nodes.length === 0 ? input : nodes[nodes.length - 1];
+    nextNode = output;
+    nodes.push(newNode);
+  }
+  // Connect the newMathOp to the previous and next nodes.
+  prevNode.disconnect();
+  if (replacedNode !== null) {
+    replacedNode.disconnect();
+    replacedNode.dispose();
+  }
+  prevNode.connect(newNode);
+  newNode.connect(nextNode);
+}
 // reference
 // https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/destination
 // jason recommends to play with the web audio api on the console
@@ -94,6 +101,11 @@ class Oscillator {
 
     // connections
     this.output = audioContext.createGain();
+
+    // modulators connected to the oscillator frequency
+    this._freqMods = [];
+
+
 
     // set default output gain to 0.5
     // TODO: maybe think of a constant that people can tweak
@@ -155,14 +167,14 @@ class Oscillator {
       this.oscillator.connect(this.output);
       time = time || 0;
       this.oscillator.start(time + audioContext.currentTime);
-      // this.freqNode = this.oscillator.frequency;
+      this.freqNode = this.oscillator.frequency;
 
       // // if other oscillators are already connected to this osc's freq
-      // for (let i in this._freqMods) {
-      //   if (typeof this._freqMods[i].connect !== 'undefined') {
-      //     this._freqMods[i].connect(this.oscillator.frequency);
-      //   }
-      // }
+      for (let i in this._freqMods) {
+        if (typeof this._freqMods[i].connect !== 'undefined') {
+          this._freqMods[i].connect(this.oscillator.frequency);
+        }
+      }
       this.started = true;
     }
   }
@@ -393,24 +405,87 @@ class Oscillator {
    *  @for p5.Oscillator
    *  @param  {Number} phase float between 0.0 and 1.0
    */
-  // phase(p) {
-  //   let delayAmt = p5.prototype.map(p, 0, 1.0, 0, 1 / this.f);
-  //   let now = this.audioContext.currentTime;
+  phase(p) {
+    var delayAmt = p5.prototype.map(p, 0, 1.0, 0, 1 / this.f);
+    var now = p5sound.audiocontext.currentTime;
 
-  //   this.phaseAmount = p;
+    this.phaseAmount = p;
 
-  //   if (!this.dNode) {
-  //     // create a delay node
-  //     this.dNode = p5sound.audiocontext.createDelay();
-  //     // put the delay node in between output and panner
-  //     this.oscillator.disconnect();
-  //     this.oscillator.connect(this.dNode);
-  //     this.dNode.connect(this.output);
-  //   }
+    if (!this.dNode) {
+      // create a delay node
+      this.dNode = p5sound.audiocontext.createDelay();
+      // put the delay node in between output and panner
+      this.oscillator.disconnect();
+      this.oscillator.connect(this.dNode);
+      this.dNode.connect(this.output);
+    }
 
-  //   // set delay time to match phase:
-  //   this.dNode.delayTime.setValueAtTime(delayAmt, now);
-  // }
+    // set delay time to match phase:
+    this.dNode.delayTime.setValueAtTime(delayAmt, now);
+  }
+
+  /**
+   *  Add a value to the p5.Oscillator's output amplitude,
+   *  and return the oscillator. Calling this method again
+   *  will override the initial add() with a new value.
+   *
+   *  @method  add
+   *  @for p5.Oscillator
+   *  @param {Number} number Constant number to add
+   *  @return {Oscillator} Oscillator Returns this oscillator
+   *                                     with scaled output
+   *
+   */
+  add(num) {
+    let add = new ToneAdd(num);
+    sigChain(this.mathOps, add, ToneAdd, this.oscillator, this.output);
+    return this;
+  }
+  /**
+   *  Multiply the p5.Oscillator's output amplitude
+   *  by a fixed value (i.e. turn it up!). Calling this method
+   *  again will override the initial mult() with a new value.
+   *
+   *  @method  mult
+   *  @for p5.Oscillator
+   *  @param {Number} number Constant number to multiply
+   *  @return {Oscillator} Oscillator Returns this oscillator
+   *                                     with multiplied output
+   */
+  mult(num) {
+    let mult = new ToneMultiply(num);
+    sigChain(this.mathOps, mult, ToneMult, this.oscillator, this.output);
+    return this;
+  }
+
+  /**
+   *  Scale this oscillator's amplitude values to a given
+   *  range, and return the oscillator. Calling this method
+   *  again will override the initial scale() with new values.
+   *
+   *  @method  scale
+   *  @for Oscillator
+   *  @param  {Number} inMin  input range minumum
+   *  @param  {Number} inMax  input range maximum
+   *  @param  {Number} outMin input range minumum
+   *  @param  {Number} outMax input range maximum
+   *  @return {p5.Oscillator} Oscillator Returns this oscillator
+   *                                     with scaled output
+   */
+  scale(inMin, inMax, outMin, outMax) {
+    let mapOutMin, mapOutMax;
+    if (arguments.length === 4) {
+      mapOutMin = p5.prototype.map(0, inMin, inMax, outMin, outMax);
+      mapOutMax = p5.prototype.map(1, inMin, inMax, outMin, outMax);
+    } else {
+      mapOutMin = arguments[0];
+      mapOutMax = arguments[1];
+    }
+    let scale = new ToneScale(mapOutMin, mapOutMax);
+    sigChain(this.mathOps, scale, ToneScale, this.oscillator, this.output);
+    return this;
+  }
+
 }
 
 class SinOsc extends Oscillator {

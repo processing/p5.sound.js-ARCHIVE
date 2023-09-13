@@ -65,44 +65,7 @@ import Envelope from './Envelope';
 p5.prototype.Envelope = Envelope;
 
 // new modules adapted from Tone.js v0.10.0
-import CrossFade from './CrossFade';
-p5.prototype.CrossFade = CrossFade;
-import EqualPowerGain from './SignalEqualPowerGain';
-p5.prototype.EqualPowerGain = EqualPowerGain;
-import Gain from './Gain';
-p5.prototype.Gain = Gain;
-import Param from './Param';
-p5.prototype.Param = Param;
-import Signal from './Signal';
-p5.prototype.Signal = Signal;
-import SignalAbs from './SignalAbs';
-p5.prototype.SignalAbs = SignalAbs;
-import SignalAdd from './SignalAdd';
-p5.prototype.SignalAdd = SignalAdd;
-import SignalAudioToGain from './SignalAudioToGain';
-p5.prototype.SignalAudioToGain = SignalAudioToGain;
-import SignalBase from './SignalBase';
-p5.prototype.SignalBase = SignalBase;
-import SignalExpr from './SignalExpr';
-p5.prototype.SignalExpr = SignalExpr;
-import SignalModulo from './SignalModulo';
-p5.prototype.SignalModulo = SignalModulo;
-import SignalMultiply from './SignalMultiply';
-p5.prototype.SignalMultiply = SignalMultiply;
-import SignalNegate from './SignalNegate';
-p5.prototype.SignalNegate = SignalNegate;
-import SignalPow from './SignalPow';
-p5.prototype.SignalPow = SignalPow;
-import SignalScale from './SignalScale';
-p5.prototype.SignalScale = SignalScale;
-import SignalSubtract from './SignalSubtract';
-p5.prototype.SignalSubtract = SignalSubtract;
-import SignalTimeLineSignal from './SignalTimeLineSignal';
-p5.prototype.SignalTimeLineSignal = SignalTimeLineSignal;
-import SignalWaveShaper from './SignalWaveShaper';
-p5.prototype.SignalWaveShaper = SignalWaveShaper;
-import Type from './Type';
-p5.prototype.Type = Type;
+
 
 
 module.exports = p5sound;

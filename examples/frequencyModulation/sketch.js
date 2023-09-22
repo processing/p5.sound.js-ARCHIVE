@@ -1,21 +1,28 @@
 // print the current p5sound version
 console.log(p5sound.VERSION);
 
+let carrier; // this is the oscillator we will hear
+let modulator; // this oscillator will modulate the frequency of the carrier
+let waveform;
+let modFreq = 0;
+let modDepth = 0;
+
 // retrieve the buttons from the DOM
 let startAudioButton = document.getElementById('startAudioButton');
 let stopAudioButton = document.getElementById('stopAudioButton');
 
 // add event listeners
 startAudioButton.addEventListener('click', function () {
+  console.log('start');
   getAudioContext().resume();
+  carrier.amp(0.0, 0);
+  modulator.amp(0.0, 0);
 });
 
 stopAudioButton.addEventListener('click', function () {
+  console.log('stop');
   getAudioContext().suspend();
 });
-
-let carrier; // this is the oscillator we will hear
-let modulator; // this oscillator will modulate the frequency of the carrier
 
 let analyzer; // we'll use this visualize the waveform
 
@@ -55,18 +62,22 @@ function setup() {
 function draw() {
   background(30);
 
-  // map mouseY to modulator freq between a maximum and minimum frequency
-  let modFreq = map(mouseY, height, 0, modMinFreq, modMaxFreq);
-  modulator.freq(modFreq);
+  if (mouseX != 0 && mouseY != 0) {
+    // map mouseY to modulator freq between a maximum and minimum frequency
+    modFreq = map(mouseY, height, 0, modMinFreq, modMaxFreq);
+    modulator.freq(modFreq);
 
-  // change the amplitude of the modulator
-  // negative amp reverses the sawtooth waveform, and sounds percussive
-  //
-  let modDepth = map(mouseX, 0, width, modMinDepth, modMaxDepth);
-  modulator.amp(modDepth);
+    // change the amplitude of the modulator
+    // negative amp reverses the sawtooth waveform, and sounds percussive
+    //
+    modDepth = map(mouseX, 0, width, modMinDepth, modMaxDepth);
+    modulator.amp(modDepth);
+
+  }
 
   // analyze the waveform
   waveform = analyzer.waveform();
+
 
   // draw the shape of the waveform
   stroke(255);
@@ -97,12 +108,15 @@ function draw() {
 // helper function to toggle sound
 function toggleAudio(cnv) {
   cnv.mouseOver(function () {
+    console.log('mouseOver');
     carrier.amp(1.0, 0.01);
   });
   cnv.touchStarted(function () {
     carrier.amp(1.0, 0.01);
+    console.log('touchStarted');
   });
   cnv.mouseOut(function () {
     carrier.amp(0.0, 1.0);
+    console.log('mouseOut');
   });
 }

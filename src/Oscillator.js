@@ -199,7 +199,7 @@ class Oscillator {
    *  such as an oscillator to modulate amplitude with an audio signal.
    *
    *  @method  amp
-   *  @for p5.Oscillator
+   *  @for Oscillator
    *  @param  {Number|Object} vol between 0 and 1.0
    *                              or a modulating signal/oscillator
    *  @param {Number} [rampTime] create a fade that lasts rampTime
@@ -227,7 +227,7 @@ class Oscillator {
    * Returns the value of output gain
    *
    *  @method  getAmp
-   *  @for p5.Oscillator
+   *  @for Oscillator
    *
    * @returns {number} Amplitude value between 0.0 and 1.0
    */
@@ -241,7 +241,7 @@ class Oscillator {
    *  such as an oscillator to modulate the frequency with an audio signal.
    *
    *  @method  freq
-   *  @for p5.Oscillator
+   *  @for Oscillator
    *  @param  {Number|Object} Frequency Frequency in Hz
    *                                        or modulating signal/oscillator
    *  @param  {Number} [rampTime] Ramp time (in seconds)
@@ -258,7 +258,7 @@ class Oscillator {
    *  function setup() {
    *    let cnv = createCanvas(100, 100);
    *    cnv.mousePressed(playOscillator);
-   *    osc = new p5.Oscillator(300);
+   *    osc = new Oscillator(300);
    *    background(220);
    *    text('tap to play', 20, 20);
    *  }
@@ -317,7 +317,7 @@ class Oscillator {
    * Returns the value of frequency of oscillator
    *
    *  @method  getFreq
-   *  @for p5.Oscillator
+   *  @for Oscillator
    *  @returns {number} Frequency of oscillator in Hertz
    */
 
@@ -329,7 +329,7 @@ class Oscillator {
    *  Set type to 'sine', 'triangle', 'sawtooth' or 'square'.
    *
    *  @method  setType
-   *  @for p5.Oscillator
+   *  @for Oscillator
    *  @param {String} type 'sine', 'triangle', 'sawtooth' or 'square'.
    */
   setType(type) {
@@ -339,7 +339,7 @@ class Oscillator {
      *  Returns  current type of oscillator eg. 'sine', 'triangle', 'sawtooth' or 'square'.
      *
      *  @method  getType
-     *  @for p5.Oscillator
+     *  @for Oscillator
      *  @returns {String} type of oscillator  eg . 'sine', 'triangle', 'sawtooth' or 'square'.
      */
 
@@ -428,7 +428,7 @@ class Oscillator {
    *  based on the oscillator's current frequency.
    *
    *  @method  phase
-   *  @for p5.Oscillator
+   *  @for Oscillator
    *  @param  {Number} phase float between 0.0 and 1.0
    */
   phase(p) {
@@ -451,12 +451,12 @@ class Oscillator {
   }
 
   /**
-   *  Add a value to the p5.Oscillator's output amplitude,
+   *  Add a value to the Oscillator's output amplitude,
    *  and return the oscillator. Calling this method again
    *  will override the initial add() with a new value.
    *
    *  @method  add
-   *  @for p5.Oscillator
+   *  @for Oscillator
    *  @param {Number} number Constant number to add
    *  @return {Oscillator} Oscillator Returns this oscillator
    *                                     with scaled output
@@ -468,12 +468,12 @@ class Oscillator {
     return this;
   }
   /**
-   *  Multiply the p5.Oscillator's output amplitude
+   *  Multiply the Oscillator's output amplitude
    *  by a fixed value (i.e. turn it up!). Calling this method
    *  again will override the initial mult() with a new value.
    *
    *  @method  mult
-   *  @for p5.Oscillator
+   *  @for Oscillator
    *  @param {Number} number Constant number to multiply
    *  @return {Oscillator} Oscillator Returns this oscillator
    *                                     with multiplied output
@@ -522,14 +522,14 @@ class SinOsc extends Oscillator {
 /**
  *  Constructor: <code>new p5.TriOsc()</code>.
  *  This creates a Triangle Wave Oscillator and is
- *  equivalent to <code>new p5.Oscillator('triangle')
- *  </code> or creating a p5.Oscillator and then calling
+ *  equivalent to <code>new Oscillator('triangle')
+ *  </code> or creating a Oscillator and then calling
  *  its method <code>setType('triangle')</code>.
- *  See p5.Oscillator for methods.
+ *  See Oscillator for methods.
  *
  *  @class  p5.TriOsc
  *  @constructor
- *  @extends p5.Oscillator
+ *  @extends Oscillator
  *  @param {Number} [freq] Set the frequency
  */
 class TriOsc extends Oscillator {
@@ -541,14 +541,14 @@ class TriOsc extends Oscillator {
 /**
  *  Constructor: <code>new p5.SawOsc()</code>.
  *  This creates a SawTooth Wave Oscillator and is
- *  equivalent to <code> new p5.Oscillator('sawtooth')
- *  </code> or creating a p5.Oscillator and then calling
+ *  equivalent to <code> new Oscillator('sawtooth')
+ *  </code> or creating a Oscillator and then calling
  *  its method <code>setType('sawtooth')</code>.
- *  See p5.Oscillator for methods.
+ *  See Oscillator for methods.
  *
  *  @class  p5.SawOsc
  *  @constructor
- *  @extends p5.Oscillator
+ *  @extends Oscillator
  *  @param {Number} [freq] Set the frequency
  */
 class SawOsc extends Oscillator {
@@ -560,14 +560,14 @@ class SawOsc extends Oscillator {
 /**
  *  Constructor: <code>new p5.SqrOsc()</code>.
  *  This creates a Square Wave Oscillator and is
- *  equivalent to <code> new p5.Oscillator('square')
- *  </code> or creating a p5.Oscillator and then calling
+ *  equivalent to <code> new Oscillator('square')
+ *  </code> or creating a Oscillator and then calling
  *  its method <code>setType('square')</code>.
- *  See p5.Oscillator for methods.
+ *  See Oscillator for methods.
  *
  *  @class  p5.SqrOsc
  *  @constructor
- *  @extends p5.Oscillator
+ *  @extends Oscillator
  *  @param {Number} [freq] Set the frequency
  */
 class SqrOsc extends Oscillator {

@@ -195,7 +195,7 @@ class Delay extends Effect {
    *  @param {Number|Object} cutoffFreq  A lowpass filter will cut off any
    *                              frequencies higher than the filter frequency.
    *  @param {Number|Object} res  Resonance of the filter frequency
-   *                              cutoff, or an object (i.e. a p5.Oscillator)
+   *                              cutoff, or an object (i.e. a Oscillator)
    *                              that can be used to modulate this parameter.
    *                              High numbers (i.e. 15) will produce a resonance,
    *                              low numbers (i.e. .2) will produce a slope.

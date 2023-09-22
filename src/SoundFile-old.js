@@ -456,7 +456,7 @@ class SoundFile {
      *  Connect to a p5.sound / Web Audio object.
      *
      *  @method  connect
-     *  @for p5.Oscillator
+     *  @for Oscillator
      *  @param  {Object} unit A p5.sound or Web Audio object
      */
   connect(unit) {

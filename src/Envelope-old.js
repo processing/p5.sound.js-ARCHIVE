@@ -103,7 +103,7 @@ class Envelope {
    *    cnv.mousePressed(playEnv);
    *
    *    env = new p5.Envelope();
-   *    triOsc = new p5.Oscillator('triangle');
+   *    triOsc = new Oscillator('triangle');
    *    triOsc.amp(env);
    *    triOsc.freq(220);
    *  }
@@ -163,7 +163,7 @@ class Envelope {
    *    cnv.mousePressed(playEnv);
    *
    *    env = new p5.Envelope();
-   *    triOsc = new p5.Oscillator('triangle');
+   *    triOsc = new Oscillator('triangle');
    *    triOsc.amp(env);
    *    triOsc.freq(220);
    *  }
@@ -252,7 +252,7 @@ class Envelope {
    *    cnv.mousePressed(playEnv);
    *
    *    env = new p5.Envelope();
-   *    triOsc = new p5.Oscillator('triangle');
+   *    triOsc = new Oscillator('triangle');
    *    triOsc.amp(env);
    *    triOsc.freq(220);
    *    triOsc.start();
@@ -329,7 +329,7 @@ class Envelope {
    *    env = new p5.Envelope();
    *    env.setADSR(attackTime, decayTime, susPercent, releaseTime);
    *    env.setRange(1.0, 0.0);
-   *    triOsc = new p5.Oscillator('triangle');
+   *    triOsc = new Oscillator('triangle');
    *    triOsc.freq(220);
    *
    *    cnv.mousePressed(envAttack);
@@ -445,7 +445,7 @@ class Envelope {
    *    env = new p5.Envelope();
    *    env.setADSR(attackTime, decayTime, susPercent, releaseTime);
    *    env.setRange(1.0, 0.0);
-   *    triOsc = new p5.Oscillator('triangle');
+   *    triOsc = new Oscillator('triangle');
    *    triOsc.freq(220);
    *
    *    cnv.mousePressed(envAttack);
@@ -555,7 +555,7 @@ class Envelope {
    *
    *    env = new p5.Envelope();
    *    env.setADSR(attackTime, decayTime);
-   *    osc = new p5.Oscillator();
+   *    osc = new Oscillator();
    *    osc.amp(env);
    *    amp = new p5.Amplitude();
    *

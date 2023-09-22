@@ -228,7 +228,7 @@ class AnalyzerFFT {
    *  function setup(){
    *    let cnv = createCanvas(100,100);
    *    cnv.mousePressed(startSound);
-   *    osc = new p5.Oscillator();
+   *    osc = new Oscillator();
    *    osc.amp(0);
    *    fft = new p5.FFT();
    *  }

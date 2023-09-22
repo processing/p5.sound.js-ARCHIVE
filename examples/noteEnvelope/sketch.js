@@ -46,7 +46,9 @@ function draw() {
     let freqValue = midiToFreq(midiValue);
     osc.freq(freqValue);
 
+
     envelope.play(osc, 0, 0.1);
+    console.log(envelope.control);
     note = (note + 1) % scaleArray.length;
   }
 

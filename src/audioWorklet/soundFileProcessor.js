@@ -1,5 +1,6 @@
 // import dependencies via preval.require so that they're available as values at compile time
-const processorNames = preval.require('./processorNames');
+// const processorNames = preval.require('./processorNames');
+import processorNames from './processorNames';
 // const RingBuffer = preval.require('./ringBuffer').default;
 // const processorNames = require('./processorNames');
 // import processorNames from './processorNames';
@@ -33,4 +34,6 @@ class SoundFileProcessor extends AudioWorkletProcessor {
   }
 }
 
+// registerProcessor(processorNames.soundFileProcessor, SoundFileProcessor);
 registerProcessor(processorNames.soundFileProcessor, SoundFileProcessor);
+

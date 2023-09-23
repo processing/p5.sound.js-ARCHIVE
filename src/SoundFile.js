@@ -1,8 +1,8 @@
 import audioContext from './audioContext';
 import p5sound from './main';
-import processorNames from './audioWorklet/processorNames';
+// import processorNames from './audioWorklet/processorNames';
 import CustomError from './errorHandler';
-import { midiToFreq, convertToWav, safeBufferSize } from './helpers';
+import { midiToFreq, convertToWav } from './helpers';
 import Panner from './panner';
 
 let _createCounterBuffer = function (buffer) {
@@ -404,7 +404,7 @@ class SoundFile {
       // handle restart playmode
       if (this.mode === 'restart' && this.buffer && this.bufferSourceNode) {
         this.bufferSourceNode.stop(time);
-        this._counterNode.stop(time);
+        // this._counterNode.stop(time);
       }
 
       //dont create another instance if already playing
@@ -415,8 +415,8 @@ class SoundFile {
       this.bufferSourceNode = this._initSourceNode();
 
       // garbage collect counterNode and create a new one
-      delete this._counterNode;
-      this._counterNode = this._initCounterNode();
+      // delete this._counterNode;
+      // this._counterNode = this._initCounterNode();
 
       if (_cueStart) {
         if (_cueStart >= 0 && _cueStart < this.buffer.duration) {
@@ -440,10 +440,10 @@ class SoundFile {
       // if it was paused, play at the pause position
       if (this._paused) {
         this.bufferSourceNode.start(time, this.pauseTime, duration);
-        this._counterNode.start(time, this.pauseTime, duration);
+        // this._counterNode.start(time, this.pauseTime, duration);
       } else {
         this.bufferSourceNode.start(time, cueStart, duration);
-        this._counterNode.start(time, cueStart, duration);
+        // this._counterNode.start(time, cueStart, duration);
       }
 
       this._playing = true;
@@ -462,14 +462,14 @@ class SoundFile {
 
     // if looping, will restart at original time
     this.bufferSourceNode.loop = this._looping;
-    this._counterNode.loop = this._looping;
+    // this._counterNode.loop = this._looping;
 
     if (this._looping === true) {
       cueEnd = duration ? duration : cueStart - 0.000000000000001;
       this.bufferSourceNode.loopStart = cueStart;
       this.bufferSourceNode.loopEnd = cueEnd;
-      this._counterNode.loopStart = cueStart;
-      this._counterNode.loopEnd = cueEnd;
+      // this._counterNode.loopStart = cueStart;
+      // this._counterNode.loopEnd = cueEnd;
     }
   }
 
@@ -580,7 +580,7 @@ class SoundFile {
 
       this.pauseTime = this.currentTime();
       this.bufferSourceNode.stop(pTime);
-      this._counterNode.stop(pTime);
+      // this._counterNode.stop(pTime);
 
       this._pauseTime = this.currentTime();
       // TO DO: make sure play() still starts from orig start position
@@ -716,7 +716,7 @@ class SoundFile {
       let now = audioContext.currentTime;
       this.pauseTime = 0;
       this.bufferSourceNode.stop(now + time);
-      this._counterNode.stop(now + time);
+      // this._counterNode.stop(now + time);
       this._playing = false;
       this._paused = false;
     }
@@ -740,7 +740,7 @@ class SoundFile {
           }
         }
       }
-      this._counterNode.stop(now + time);
+      // this._counterNode.stop(now + time);
     }
   }
 
@@ -1250,7 +1250,7 @@ class SoundFile {
       }
       if (this.isPlaying()) {
         try {
-          this._counterNode.stop(now);
+          // this._counterNode.stop(now);
         } catch (e) {
           console.log(e);
         }
@@ -1361,16 +1361,17 @@ class SoundFile {
   }
 
   // initialize counterNode, set its initial buffer and playbackRate
-  _initCounterNode() {
+  async _initCounterNode() {
     let self = this;
-    let now = audioContext.currentTime;
-    let cNode = audioContext.createBufferSource();
+    // let now = audioContext.currentTime;
+    // let cNode = audioContext.createBufferSource();
 
     // Reuse the worklet node rather than creating a new one. Even if we
     // disconnect it, it seems to leak and cause choppy audio after a
     // while.
     if (!self._workletNode) {
-      const workletBufferSize = safeBufferSize(256);
+      // const workletBufferSize = safeBufferSize(256);
+      const workletBufferSize = 256;
       self._workletNode = new AudioWorkletNode(
         audioContext,
         processorNames.soundFileProcessor,
@@ -1378,6 +1379,12 @@ class SoundFile {
           processorOptions: { bufferSize: workletBufferSize }
         }
       );
+      console.log('before', JSON.stringify(self._workletNode, null, 2));
+      await self._workletNode.addModule('recorderProcessor.js');
+      await self._workletNode.addModule('amplitudeProcessor.js');
+      await self._workletNode.addModule('soundfileProcessor.js');
+      console.log('after', JSON.stringify(self._workletNode, null, 2));
+
       self._workletNode.port.onmessage = event => {
         if (event.data.name === 'position') {
           // event.data.position should only be 0 when paused

@@ -1,6 +1,6 @@
 import p5sound from './main';
 import audioContext from './audioContext';
-import processorNames from './audioWorklet/processorNames';
+// import processorNames from './audioWorklet/processorNames';
 /**
  * @for p5
  */

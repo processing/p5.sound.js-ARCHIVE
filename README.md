@@ -27,17 +27,18 @@ We are currently hosting some examples in the `examples` folder. To run them, pl
 
 ### Working
 
-- p5.SoundFile: it's able to playback files, since we are removing build dependencies, such as preval and audioworklet-polyfill, it is right now only able to play back sound, not loop it.
--  p5.Oscillator: working, without amplitude or frequency modulation, or panning.
-
+- AnalyzerFFT
+- BiquadFilter
+- Delay
+- Noise
+- Oscillator
+- SoundFile
+- 
 ### Buggy
 
 - p5.Amplitude: early stages of implementation
 - p5.AudioIn: early stages of implementation
-- p5.AnalyzerFFT: former name was p5.FFT
 - p5.Envelope: work in progress on getting rid of Tone.js dependencies
-- p5.Delay: took out the lowpass filter
-- p5.Filter: not tested yet
 
 ### Coming soon
 
@@ -47,9 +48,9 @@ We are currently hosting some examples in the `examples` folder. To run them, pl
 ### Deprecated (for now)
 
 - userStartAudio
-- p5.MonoSynth and p5.PolySynth
-- p5.SoundLoop, p5.Phrase, p5.Part and p5.Score
-- p5.Convolver
+- MonoSynth and PolySynth
+- SoundLoop, Phrase, Part and Score
+- Convolver
 
 ## Modules adapted from Tone.js r10
 

@@ -102,10 +102,7 @@ module.exports = grunt => {
     watch: {
       quick: {
         files: [
-          'src/**/*.js',
-          'src/**/*.frag',
-          'src/**/*.vert',
-          'src/**/*.glsl'
+          'src/**/*.js'
         ],
         tasks: ['browserify:dev'],
         options: {
@@ -133,8 +130,7 @@ module.exports = grunt => {
       // launch with 'grunt yui connect:yui watch:yui'
       yui: {
         files: [
-          'src/**/*.js',
-          'lib/addons/*.js'
+          'src/**/*.js'
         ],
         tasks: [
           'browserify',
@@ -212,7 +208,7 @@ module.exports = grunt => {
       dist: {
         files: {
           'lib/p5.sound.min.js': ['lib/p5.sound.pre-min.js'],
-          'lib/modules/p5Custom.min.js': ['lib/modules/p5Custom.pre-min.js']
+          'lib/modules/p5.sound.Custom.min.js': ['lib/modules/p5.sound.Custom.pre-min.js']
         }
       }
     },
@@ -225,7 +221,7 @@ module.exports = grunt => {
         version: '<%= pkg.version %>',
         url: '<%= pkg.homepage %>',
         options: {
-          paths: ['src/', 'lib/addons/'],
+          paths: ['src/'],
           themedir: 'docs/yuidoc-p5-theme/',
           helpers: ['docs/yuidoc-p5-theme/helpers/helpers_prod.js'],
           preprocessor: './docs/preprocessor.js',
@@ -380,10 +376,10 @@ module.exports = grunt => {
     'eslint:source',
     'eslint:test'
   ]);
-  // grunt.registerTask('lint:samples', [
-  //   'yui', // required for eslint-samples
-  //   'eslint-samples:source'
-  // ]);
+  grunt.registerTask('lint:samples', [
+    'yui', // required for eslint-samples
+    'eslint-samples:source'
+  ]);
   grunt.registerTask('lint-fix', ['eslint:fix']);
   grunt.registerTask('test', [
     'build',

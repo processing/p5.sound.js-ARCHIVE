@@ -45,10 +45,19 @@ class Effect {
   /**
    * set the output volume of the filter
    *  @method amp
-   * @for p5sound.Effect
+   * @for Effect
    * @param {Number} [vol] amplitude between 0.0 and 1.0
    * @param {Number} [rampTime] create a fade that lasts until rampTime
    * @param {Number} [tFromNow] schedule this event to happen in tFromNow
+ * @example
+ * <div><code>
+ * function setup() {
+ * console.log('TODO EXAMPLE');
+ * }
+ *
+ * function draw() {
+ * }
+ * </code></div>
    */
   amp(vol, rampTime = 0, tFromNow = 0) {
     const now = audioContext.currentTime;
@@ -82,6 +91,14 @@ class Effect {
    *  @method drywet
    *  @for Effect
    *  @param {Number} [fade] The desired drywet value (0 - 1.0)
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   drywet(fade) {
     if (typeof fade !== 'undefined') {
@@ -96,8 +113,15 @@ class Effect {
    * @method connect
    * @for Effect
    * @param {Object} unit
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
-
   connect(unit) {
     let u = unit || p5sound.input;
 
@@ -111,6 +135,14 @@ class Effect {
    * disconnect all outputs
    * @method disconnect
    * @for Effect
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   disconnect() {
     if (this.output) {

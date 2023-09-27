@@ -4,7 +4,7 @@ import Effect from './Effect';
 
 /**
  * Delay is an echo effect. it processes an existing sound source,
- * and outputs a delayed version of that sound. the p5.Delay can
+ * and outputs a delayed version of that sound. the Delay can
  * produce different effects depending on the delayTime, feedback,
  * filter, and type. in the example below, a feedback of 0.5 (the
  * default value) will produce a looping delay that decreases in
@@ -56,20 +56,20 @@ class Delay extends Effect {
     this._rightGain = audioContext.createGain();
 
     /**
-     *  The p5.Delay is built with two
+     *  The Delay is built with two
      *  <a href="http://www.w3.org/TR/webaudio/#DelayNode">
      *  Web Audio Delay Nodes</a>, one for each stereo channel.
      *
-     *  @for p5.Delay
+     *  @for Delay
      *  @property {DelayNode} leftDelay
      */
     this.leftDelay = audioContext.createDelay();
 
     /**
-     *  The p5.Delay is built with two
+     *  The Delay is built with two
      *  <a href="http://www.w3.org/TR/webaudio/#DelayNode">
      *  Web Audio Delay Nodes</a>, one for each stereo channel.
-     *  @for p5.Delay
+     *  @for Delay
      *  @property {DelayNode} rightDelay
      */
     this.rightDelay = audioContext.createDelay();
@@ -138,8 +138,16 @@ class Delay extends Effect {
    *  a floating point number between 0.0 and 1.0.
    *
    *  @method  delayTime
-   *  @for p5.Delay
+   *  @for Delay
    *  @param {Number} delayTime Time (in seconds) of the delay
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   delayTime(t) {
     // if t is an audio node...
@@ -169,7 +177,14 @@ class Delay extends Effect {
    *                                  Oscillator that can be used to
    *                                  modulate this param
    *  @returns {Number} Feedback value
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
    *
+   * function draw() {
+   * }
    */
   feedback(f) {
     // if f is an audio node...
@@ -199,6 +214,14 @@ class Delay extends Effect {
    *                              that can be used to modulate this parameter.
    *                              High numbers (i.e. 15) will produce a resonance,
    *                              low numbers (i.e. .2) will produce a slope.
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   filter(freq, q) {
     this._leftBiquadFilter.set(freq, q);
@@ -211,8 +234,16 @@ class Delay extends Effect {
    *  Any other parameter will revert to the default delay setting.
    *
    *  @method  setType
-   *  @for p5.Delay
+   *  @for Delay
    *  @param {String|Number} type 'pingPong' (1) or 'default' (0)
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   setType(t) {
     if (t === 1) {
@@ -249,6 +280,14 @@ class Delay extends Effect {
    *  @param {Number} [rampTime] create a fade that lasts rampTime
    *  @param {Number} [timeFromNow] schedule this event to happen
    *                                seconds from now
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   /**
    *  Send output to a p5.sound or web audio object
@@ -256,12 +295,28 @@ class Delay extends Effect {
    *  @method  connect
    *  @for Delay
    *  @param  {Object} unit
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   /**
    *  Disconnect all output.
    *
    *  @method disconnect
    *  @for Delay
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
 
   dispose() {

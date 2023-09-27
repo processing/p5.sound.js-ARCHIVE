@@ -147,6 +147,14 @@ class Oscillator {
    *  @for Oscillator
    *  @param  {Number} [time] startTime in seconds from now.
    *  @param  {Number} [frequency] frequency in Hz.
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   start(time, f) {
     if (this.started) {
@@ -183,6 +191,14 @@ class Oscillator {
    *  @method  stop
    *  @for Oscillator
    *  @param  {Number} [secondsFromNow] Time, in seconds from now.
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   // hopefully we can get rid of the started variable
   stop(time) {
@@ -210,6 +226,14 @@ class Oscillator {
    *                              AudioParam that controls
    *                              this oscillator's
    *                              gain/amplitude/volume)
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   amp(vol, rampTime = 0, tFromNow = 0) {
     if (typeof vol === 'number') {
@@ -230,6 +254,14 @@ class Oscillator {
    *  @for Oscillator
    *
    * @returns {number} Amplitude value between 0.0 and 1.0
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
 
   getAmp() {
@@ -319,8 +351,15 @@ class Oscillator {
    *  @method  getFreq
    *  @for Oscillator
    *  @returns {number} Frequency of oscillator in Hertz
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
-
   getFreq() {
     return this.oscillator.frequency.value;
   }
@@ -331,6 +370,14 @@ class Oscillator {
    *  @method  setType
    *  @for Oscillator
    *  @param {String} type 'sine', 'triangle', 'sawtooth' or 'square'.
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   setType(type) {
     this.oscillator.type = type;
@@ -341,8 +388,15 @@ class Oscillator {
      *  @method  getType
      *  @for Oscillator
      *  @returns {String} type of oscillator  eg . 'sine', 'triangle', 'sawtooth' or 'square'.
+     *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
      */
-
   getType() {
     return this.oscillator.type;
   }
@@ -353,6 +407,14 @@ class Oscillator {
    *  @method  connect
    *  @for Oscillator
    *  @param  {Object} unit A p5.sound or Web Audio object
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   // connect(unit) {
   //   if(!unit) {
@@ -369,6 +431,7 @@ class Oscillator {
   //     unit._onNewInput(this);
   //   }
   // }
+
   connect(unit) {
     if(!unit) {
       this.output.connect(p5sound.input);
@@ -388,6 +451,14 @@ class Oscillator {
    *
    *  @method  disconnect
    *  @for Oscillator
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   disconnect() {
     if (this.output) {
@@ -430,6 +501,14 @@ class Oscillator {
    *  @method  phase
    *  @for Oscillator
    *  @param  {Number} phase float between 0.0 and 1.0
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   phase(p) {
     let delayAmt = p5.prototype.map(p, 0, 1.0, 0, 1 / this.f);
@@ -460,7 +539,14 @@ class Oscillator {
    *  @param {Number} number Constant number to add
    *  @return {Oscillator} Oscillator Returns this oscillator
    *                                     with scaled output
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
    *
+   * function draw() {
+   * }
    */
   add(num) {
     let add = new ToneAdd(num);
@@ -477,6 +563,14 @@ class Oscillator {
    *  @param {Number} number Constant number to multiply
    *  @return {Oscillator} Oscillator Returns this oscillator
    *                                     with multiplied output
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   mult(num) {
     let mult = new ToneMultiply(num);
@@ -497,6 +591,14 @@ class Oscillator {
    *  @param  {Number} outMax input range maximum
    *  @return {Oscillator} Oscillator Returns this oscillator
    *                                     with scaled output
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   scale(inMin, inMax, outMin, outMax) {
     let mapOutMin, mapOutMax;

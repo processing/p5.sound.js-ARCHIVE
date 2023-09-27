@@ -20,7 +20,7 @@ p5sound.inputSources = [];
  *  Stream</a> API, which is not supported by certain browsers. Access in Chrome browser
  *  is limited to localhost and https, but access over http may be limited.</em></p>
  *
- *  @class p5.AudioIn
+ *  @class AudioIn
  *  @constructor
  *  @param {Function} [errorCallback] A function to call if there is an error
  *                                    accessing the AudioIn. For example,
@@ -34,7 +34,7 @@ p5sound.inputSources = [];
  *    let cnv = createCanvas(100, 100);
  *    cnv.mousePressed(userStartAudio);
  *    textAlign(CENTER);
- *    mic = new p5.AudioIn();
+ *    mic = new AudioIn();
  *    mic.start();
  *  }
  *
@@ -124,13 +124,21 @@ class AudioIn {
    *  the browser won't provide mic access.
    *
    *  @method start
-   *  @for p5.AudioIn
+   *  @for AudioIn
    *  @param {Function} [successCallback] Name of a function to call on
    *                                    success.
    *  @param {Function} [errorCallback] Name of a function to call if
    *                                    there was an error. For example,
    *                                    some browsers do not support
    *                                    getUserMedia.
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   start(successCallback, errorCallback) {
     var self = this;
@@ -176,7 +184,15 @@ class AudioIn {
    *  If re-starting, the user may be prompted for permission access.
    *
    *  @method stop
-   *  @for p5.AudioIn
+   *  @for AudioIn
+    *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   stop() {
     if (this.stream) {
@@ -196,9 +212,17 @@ class AudioIn {
    *  connect to the main output (i.e. your speakers).<br/>
    *
    *  @method  connect
-   *  @for p5.AudioIn
+   *  @for AudioIn
    *  @param  {Object} [unit] An object that accepts audio input,
    *                          such as an FFT
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   connect(unit) {
     if (unit) {
@@ -223,7 +247,15 @@ class AudioIn {
    *  signal to your speakers.<br/>
    *
    *  @method  disconnect
-   *  @for p5.AudioIn
+   *  @for AudioIn
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   disconnect() {
     if (this.output) {
@@ -241,10 +273,18 @@ class AudioIn {
    *  .start() before using .getLevel().</em><br/>
    *
    *  @method  getLevel
-   *  @for p5.AudioIn
+   *  @for AudioIn
    *  @param  {Number} [smoothing] Smoothing is 0.0 by default.
    *                               Smooths values based on previous values.
    *  @return {Number}           Volume level (between 0.0 and 1.0)
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   getLevel(smoothing) {
     if (smoothing) {
@@ -257,9 +297,17 @@ class AudioIn {
    *  Set amplitude (volume) of a mic input between 0 and 1.0. <br/>
    *
    *  @method  amp
-   *  @for p5.AudioIn
+   *  @for AudioIn
    *  @param  {Number} vol between 0 and 1.0
    *  @param {Number} [time] ramp time (optional)
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   amp(vol, t) {
     if (t) {
@@ -287,7 +335,7 @@ class AudioIn {
    * MediaDevices.enumerateDevices() - Web APIs | MDN</a>
    * and it returns a Promise.
    * @method  getSources
-   * @for p5.AudioIn
+   * @for AudioIn
    * @param  {Function} [successCallback] This callback function handles the sources when they
    *                                      have been enumerated. The callback function
    *                                      receives the deviceList array as its only argument
@@ -301,7 +349,7 @@ class AudioIn {
    *
    *  function setup(){
    *    text('getting sources...', 0, 20);
-   *    audioIn = new p5.AudioIn();
+   *    audioIn = new AudioIn();
    *    audioIn.getSources(gotSources);
    *  }
    *
@@ -350,7 +398,7 @@ class AudioIn {
    * navigator.mediaDevices.enumerateDevices()</a>
    *
    *  @method setSource
-   *  @for p5.AudioIn
+   *  @for AudioIn
    *  @param {number} num position of input source in the array
    *  @example
    *  <div><code>
@@ -358,7 +406,7 @@ class AudioIn {
    *
    *  function setup(){
    *    text('getting sources...', 0, 20);
-   *    audioIn = new p5.AudioIn();
+   *    audioIn = new AudioIn();
    *    audioIn.getSources(gotSources);
    *  }
    *

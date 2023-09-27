@@ -9,7 +9,7 @@ import audioContext from './audioContext';
  *  to listen to a specific sound source. Accepts an optional
  *  smoothing value, which defaults to 0.
  *
- *  @class p5sound.Amplitude
+ *  @class Amplitude
  *  @constructor
  *  @param {Number} [smoothing] between 0.0 and .999 to smooth
  *                             amplitude readings (defaults to 0)
@@ -23,7 +23,7 @@ import audioContext from './audioContext';
  *  function setup() {
  *    let cnv = createCanvas(100,100);
  *    cnv.mouseClicked(togglePlay);
- *    amplitude = new p5.Amplitude();
+ *    amplitude = new Amplitude();
  *  }
  *
  *  function draw() {
@@ -40,7 +40,7 @@ import audioContext from './audioContext';
  *      sound.pause();
  *    } else {
  *      sound.loop();
- *		amplitude = new p5.Amplitude();
+ *		amplitude = new Amplitude();
  *		amplitude.setInput(sound);
  *    }
  *  }
@@ -110,7 +110,7 @@ class Amplitude {
    *  Optionally, you can pass in a specific source (i.e. a soundfile).
    *
    *  @method setInput
-   *  @for p5.Amplitude
+   *  @for Amplitude
    *  @param {soundObject|undefined} [snd] set the sound source
    *                                       (optional, defaults to
    *                                       main output)
@@ -126,7 +126,7 @@ class Amplitude {
    *    cnv = createCanvas(100, 100);
    *    cnv.mouseClicked(toggleSound);
    *
-   *    amplitude = new p5.Amplitude();
+   *    amplitude = new Amplitude();
    *    amplitude.setInput(sound2);
    *  }
    *
@@ -157,7 +157,7 @@ class Amplitude {
       this._workletNode.parameters.get('smoothing').value = smoothing;
     }
 
-    // connect to the master out of p5s instance if no snd is provided
+    // connect to the main out of p5s instance if no sound is provided
     if (source == null) {
       console.log(
         'Amplitude input source is not ready! Connecting to main output instead'
@@ -172,7 +172,7 @@ class Amplitude {
       this._workletNode.connect(this.output);
     }
 
-    // otherwise, connect to the master out of p5s instance (default)
+    // otherwise, connect to the main out of p5s instance (default)
     else {
       p5sound.meter.connect(this._workletNode);
     }
@@ -183,7 +183,7 @@ class Amplitude {
    *  For continuous readings, run in the draw loop.
    *
    *  @method getLevel
-   *  @for p5.Amplitude
+   *  @for Amplitude
    *  @param {Number} [channel] Optionally return only channel 0 (left) or 1 (right)
    *  @return {Number}       Amplitude as a number between 0.0 and 1.0
    *  @example
@@ -195,7 +195,7 @@ class Amplitude {
    *  function setup() {
    *    let cnv = createCanvas(100, 100);
    *    cnv.mouseClicked(toggleSound);
-   *    amplitude = new p5.Amplitude();
+   *    amplitude = new Amplitude();
    *  }
    *
    *  function draw() {
@@ -242,8 +242,16 @@ class Amplitude {
    * (true or false). Normalizing is off by default.
    *
    * @method toggleNormalize
-   * @for p5.Amplitude
+   * @for Amplitude
    * @param {boolean} [boolean] set normalize to true (1) or false (0)
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   toggleNormalize(bool) {
     if (typeof bool === 'boolean') {
@@ -261,8 +269,16 @@ class Amplitude {
    *  frame. Off by default.
    *
    *  @method smooth
-   *  @for p5.Amplitude
+   *  @for Amplitude
    *  @param {Number} set smoothing from 0.0 <= 1
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   smooth(s) {
     if (s >= 0 && s < 1) {

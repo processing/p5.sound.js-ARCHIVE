@@ -372,6 +372,14 @@ class Envelope {
    *  @for Envelope
    *  @param  {Object} [...inputs]         A p5.sound object or
    *                                Web Audio Param.
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   setInput() {
     for (let i = 0; i < arguments.length; i++) {
@@ -387,6 +395,14 @@ class Envelope {
    *  @method  setExp
    *  @for Envelope
    *  @param {Boolean} isExp true is exponential, false is linear
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   setExp(isExp) {
     this.isExponential = isExp;
@@ -841,6 +857,14 @@ class Envelope {
    *  @param {Number} number Constant number to add
    *  @return {Envelope} Envelope Returns this envelope
    *                                     with scaled output
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   add(num) {
     let add = new ToneAdd(num);
@@ -859,6 +883,14 @@ class Envelope {
    *  @param {Number} number Constant number to multiply
    *  @return {Envelope} Envelope Returns this envelope
    *                                     with scaled output
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   mult(num) {
     let mult = new ToneMultiply(num);
@@ -881,6 +913,14 @@ class Envelope {
    *  @param  {Number} outMax input range maximum
    *  @return {Envelope} Envelope Returns this envelope
    *                                     with scaled output
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   scale(inMin, inMax, outMin, outMax) {
     let scale = new ToneScale(inMin, inMax, outMin, outMax);

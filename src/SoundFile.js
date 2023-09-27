@@ -352,6 +352,14 @@ class SoundFile {
    *  @method  isLoaded
    *  @for SoundFile
    *  @return {Boolean}
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   isLoaded() {
     if (this.buffer) {
@@ -372,6 +380,14 @@ class SoundFile {
    *                                     of playback
    * @param {Number} [cueStart]        (optional) cue start time in seconds
    * @param {Number} [duration]          (optional) duration of playback in seconds
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   play(startTime, rate, amp, _cueStart, duration) {
     if (!this.output) {
@@ -640,6 +656,14 @@ class SoundFile {
    * @method setLoop
    * @for SoundFile
    * @param {Boolean} Boolean   set looping to true or false
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   setLoop(bool) {
     if (bool === true) {
@@ -661,6 +685,14 @@ class SoundFile {
    * @method isLooping
    * @for SoundFile
    * @return {Boolean}
+   * @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   isLooping() {
     if (!this.bufferSourceNode) {
@@ -679,6 +711,14 @@ class SoundFile {
    *  @method isPlaying
    *  @for SoundFile
    *  @return {Boolean}
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   isPlaying() {
     return this._playing;
@@ -691,6 +731,14 @@ class SoundFile {
    *  @method  isPaused
    *  @for SoundFile
    *  @return {Boolean}
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   isPaused() {
     return this._paused;
@@ -703,6 +751,15 @@ class SoundFile {
    * @for SoundFile
    * @param {Number} [startTime] (optional) schedule event to occur
    *                             in seconds from now
+ * @example
+ * <div><code>
+ * function setup() {
+ * console.log('TODO EXAMPLE');
+ * }
+ *
+ * function draw() {
+ * }
+ * </code></div>
    */
   stop(timeFromNow) {
     let time = timeFromNow || 0;
@@ -751,6 +808,14 @@ class SoundFile {
    * @method getVolume
    * @for SoundFile
    * @return {Number}
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   getVolume() {
     return this.output.gain.value;
@@ -805,6 +870,14 @@ class SoundFile {
    * @return {Number} Returns the stereo pan setting of the Oscillator
    *                          as a number between -1.0 (left) and 1.0 (right).
    *                          0.0 is center and default.
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   getPan() {
     return this.panner.getPan();
@@ -952,7 +1025,14 @@ class SoundFile {
    * @for SoundFile
    * @return {Number}  Current pitch of the SoundFile. The default note is assumed to
    *                   be 60 (middle C).
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
    *
+   * function draw() {
+   * }
    */
   getPitch() {
     let freqValue = this.rate() * midiToFreq(60);
@@ -965,6 +1045,33 @@ class SoundFile {
    * @method getPlaybackRate
    * @for SoundFile
    * @return {Number}  Current playback rate of the SoundFile.
+     *  @example
+   *  <div><code>
+   *  let mySound;
+   *
+   *  function preload() {
+   *    mySound = loadSound('assets/Damscray_DancingTiger.mp3');
+   *  }
+   *
+   *  function setup() {
+   *    let cnv = createCanvas(100, 100);
+   *    cnv.mousePressed(canvasPressed);
+   *  }
+   *  function canvasPressed() {
+   *    mySound.loop();
+   *  }
+   *  function mouseReleased() {
+   *    mySound.pause();
+   *  }
+   *  function draw() {
+   *    background(220);
+   *
+   *    let playbackRate = mySound.getPlaybackRate();
+   *    text('rate: ' + round(playbackRate * 100) + '%', 10, 20);
+   *  }
+   *
+   * </code>
+   * </div>
    *
    */
   getPlaybackRate() {
@@ -989,6 +1096,14 @@ class SoundFile {
    *  @param {Number} [rampTime]  Fade for t seconds
    *  @param {Number} [timeFromNow]  Schedule this event to happen at
    *                                 t seconds in the future
+  *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   setVolume(vol, _rampTime, _tFromNow) {
     if (typeof vol === 'number') {
@@ -1012,6 +1127,15 @@ class SoundFile {
    * @method duration
    * @for SoundFile
    * @return {Number} The duration of the soundFile in seconds.
+    * @example
+ * <div><code>
+ * function setup() {
+ * console.log('TODO EXAMPLE');
+ * }
+ *
+ * function draw() {
+ * }
+ * </code></div>
    */
   duration() {
     // Return Duration
@@ -1030,6 +1154,14 @@ class SoundFile {
    * @method currentTime
    * @for SoundFile
    * @return {Number}   currentTime of the soundFile in seconds.
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   currentTime() {
     return this.reversed
@@ -1048,6 +1180,14 @@ class SoundFile {
    * @for SoundFile
    * @param {Number} cueTime    cueTime of the soundFile in seconds.
    * @param {Number} duration    duration in seconds.
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   jump(cueTime, duration) {
     if (cueTime < 0 || cueTime > this.buffer.duration) {
@@ -1072,6 +1212,14 @@ class SoundFile {
    * @method channels
    * @for SoundFile
    * @return {Number} [channels]
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   channels() {
     if (this.buffer) return this.buffer.numberOfChannels;
@@ -1083,6 +1231,14 @@ class SoundFile {
    * @method sampleRate
    * @for SoundFile
    * @return {Number} [sampleRate]
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   sampleRate() {
     if (this.buffer) return this.buffer.sampleRate;
@@ -1095,6 +1251,15 @@ class SoundFile {
    * @method frames
    * @for SoundFile
    * @return {Number} [sampleCount]
+ * @example
+ * <div><code>
+ * function setup() {
+ * console.log('TODO EXAMPLE');
+ * }
+ *
+ * function draw() {
+ * }
+ * </code></div>
    */
   frames() {
     if (this.buffer) return this.buffer.length;
@@ -1115,6 +1280,15 @@ class SoundFile {
    *                          Larger length results in more precision.
    *                          Defaults to 5*width of the browser window.
    * @returns {Float32Array} Array of peaks.
+ * @example
+ * <div><code>
+ * function setup() {
+ * console.log('TODO EXAMPLE');
+ * }
+ *
+ * function draw() {
+ * }
+ * </code></div>
    */
   getPeaks(length) {
     if (this.buffer) {
@@ -1218,6 +1392,14 @@ class SoundFile {
    *  @for SoundFile
    *  @param  {Function} callback function to call when the
    *                              soundfile has ended.
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   onended(callback) {
     this._onended = callback;
@@ -1277,6 +1459,15 @@ class SoundFile {
    * @method connect
    * @for SoundFile
    * @param {Object} [object] Audio object that accepts an input
+ * @example
+ * <div><code>
+ * function setup() {
+ * console.log('TODO EXAMPLE');
+ * }
+ *
+ * function draw() {
+ * }
+ * </code></div>
    */
   connect(unit) {
     if (!unit) {
@@ -1301,6 +1492,14 @@ class SoundFile {
    *
    * @method disconnect
    * @for SoundFile
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   disconnect() {
     // if (this.panner) {
@@ -1326,6 +1525,14 @@ class SoundFile {
    *  @for SoundFile
    *  @param {String}   path     path to audio file
    *  @param {Function} callback Callback
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   setPath(p, callback) {
     let path = p5.prototype._checkFileFormats(p);
@@ -1341,6 +1548,14 @@ class SoundFile {
    *  @param {Array} buf Array of Float32 Array(s). 2 Float32 Arrays
    *                     will create a stereo source. 1 will create
    *                     a mono source.
+   * @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   setBuffer(buf) {
     let numChannels = buf.length;
@@ -1499,6 +1714,14 @@ class SoundFile {
    *  @method removeCue
    *  @for SoundFile
    *  @param  {Number} id ID of the cue, as returned by addCue
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   removeCue(id) {
     let cueLength = this._cues.length;
@@ -1521,6 +1744,14 @@ class SoundFile {
    *  via the addCue method.
    *
    *  @method  clearCues
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   clearCues() {
     this._cues = [];

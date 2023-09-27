@@ -1,23 +1,145 @@
 import p5sound from './main';
+import audioContext from './audioContext';
+import processorNames from './audioWorklet/processorNames';
+/**
+ * @for p5
+ */
 
-function safeBufferSize(idealBufferSize) {
-  let bufferSize = idealBufferSize;
+/**
+ * Returns a number representing the sample rate, in samples per second,
+ * of all sound objects in this audio context. It is determined by the
+ * sampling rate of your operating system's sound card, and it is not
+ * currently possile to change.
+ * It is often 44100, or twice the range of human hearing.
+ *
+ * @method sampleRate
+ * @return {Number} samplerate samples per second
+ * @example
+ * <div><code>
+ * function setup() {
+ * console.log('TODO EXAMPLE');
+ * }
+ *
+ * function draw() {
+ * }
+ * </code></div>
+ */
+function sampleRate() {
+  return audioContext.sampleRate;
+}
 
-  // if the AudioWorkletNode is actually a ScriptProcessorNode created via polyfill,
-  // make sure that our chosen buffer size isn't smaller than the buffer size automatically
-  // selected by the polyfill
-  // reference: https://github.com/GoogleChromeLabs/audioworklet-polyfill/issues/13#issuecomment-425014930
-  // let tempAudioWorkletNode = new AudioWorkletNode(
-  //   audioContext,
-  //   processorNames.soundFileProcessor
-  // );
-  // if (tempAudioWorkletNode instanceof ScriptProcessorNode) {
-  //   bufferSize = tempAudioWorkletNode.bufferSize;
-  // }
-  // tempAudioWorkletNode.disconnect();
-  // tempAudioWorkletNode = null;
+/**
+ *  Returns the closest MIDI note value for
+ *  a given frequency.
+ *
+ *  @method freqToMidi
+ *  @param  {Number} frequency A freqeuncy, for example, the "A"
+ *                             above Middle C is 440Hz
+ *  @return {Number}   MIDI note value
+ * @example
+ * <div><code>
+ * function setup() {
+ * console.log('TODO EXAMPLE');
+ * }
+ *
+ * function draw() {
+ * }
+ * </code></div>
+ */
+function freqToMidi(f) {
+  let mathlog2 = Math.log(f / 440) / Math.log(2);
+  let m = Math.round(12 * mathlog2) + 69;
+  return m;
+}
 
-  return bufferSize;
+/**
+ *  Returns the frequency value of a MIDI note value.
+ *  General MIDI treats notes as integers where middle C
+ *  is 60, C# is 61, D is 62 etc. Useful for generating
+ *  musical frequencies with oscillators.
+ *
+ *  @method  midiToFreq
+ *  @param  {Number} midiNote The number of a MIDI note
+ *  @return {Number} Frequency value of the given MIDI note
+ *  @example
+ *  <div><code>
+ *  let midiNotes = [60, 64, 67, 72];
+ *  let noteIndex = 0;
+ *  let midiVal, freq;
+ *
+ *  function setup() {
+ *    let cnv = createCanvas(100, 100);
+ *    cnv.mousePressed(startSound);
+ *    osc = new p5.TriOsc();
+ *    env = new p5.Envelope();
+ *  }
+ *
+ *  function draw() {
+ *    background(220);
+ *    text('tap to play', 10, 20);
+ *    if (midiVal) {
+ *      text('MIDI: ' + midiVal, 10, 40);
+ *      text('Freq: ' + freq, 10, 60);
+ *    }
+ *  }
+ *
+ *  function startSound() {
+ *    // see also: userStartAudio();
+ *    osc.start();
+ *
+ *    midiVal = midiNotes[noteIndex % midiNotes.length];
+ *    freq = midiToFreq(midiVal);
+ *    osc.freq(freq);
+ *    env.ramp(osc, 0, 1.0, 0);
+ *
+ *    noteIndex++;
+ *  }
+ *  </code></div>
+ */
+function midiToFreq(m) {
+  return 440 * Math.pow(2, (m - 69) / 12.0);
+}
+
+// This method converts ANSI notes specified as a string "C4", "Eb3" to a frequency
+
+/**
+ *  Returns the frequency value of a note. This
+ *  the method converts ANSI notes specified as a
+ *  string "C4", "Eb3" etc to a frequency.
+ *
+ *  @method  noteToFreq
+ *  @param  {String} ansiNote The string of a ANSI note
+ *  @return {Number} Frequency value of the given ANSI note
+ * @example
+ * <div><code>
+ * function setup() {
+ * console.log('TODO EXAMPLE');
+ * }
+ *
+ * function draw() {
+ * }
+ * </code></div>
+ */
+function noteToFreq(note) {
+  if (typeof note !== 'string') {
+    return note;
+  }
+  let wholeNotes = { A: 33, B: 35, C: 24, D: 26, E: 28, F: 29, G: 31 };
+  let value = wholeNotes[note[0].toUpperCase()];
+  let octave = ~~note.slice(-1);
+  value += 12 * (octave - 1);
+
+  switch (note[1]) {
+    case '#':
+      value += 1;
+      break;
+    case 'b':
+      value -= 1;
+      break;
+    default:
+      break;
+  }
+  return midiToFreq(value);
 }
 
 /**
@@ -64,14 +186,22 @@ function soundFormats() {
   }
 }
 
+function disposeSound() {
+  //looping backwards as looping forward may cause the
+  //index of an element to change while the loop runs
+  for (let i = p5sound.soundArray.length - 1; i >= 0; i--) {
+    p5sound.soundArray[i].dispose();
+  }
+}
+
 function _checkFileFormats(paths) {
   let path;
   // if path is a single string, check to see if extension is provided
   if (typeof paths === 'string') {
     path = paths;
-    // see if extension is provided
+    // check if extension is provided
     let extTest = path.split('.').pop();
-    // if an extension is provided...
+    // if an extension is provided
     if (['mp3', 'wav', 'ogg', 'm4a', 'aac'].indexOf(extTest) > -1) {
       if (!p5.prototype.isFileSupported(extTest)) {
         let pathSplit = path.split('.');
@@ -95,7 +225,7 @@ function _checkFileFormats(paths) {
         }
       }
     }
-    // if no extension is provided...
+    // if no extension is provided
     else {
       for (let i = 0; i < p5sound.extensions.length; i++) {
         const extension = p5sound.extensions[i];
@@ -150,7 +280,7 @@ function _mathChain(o, math, thisChain, nextChain, type) {
 // Thank you to Matt Diamond's RecorderJS (MIT License)
 // https://github.com/mattdiamond/Recorderjs
 function convertToWav(audioBuffer) {
-  var leftChannel, rightChannel;
+  let leftChannel, rightChannel;
   leftChannel = audioBuffer.getChannelData(0);
 
   // handle mono files
@@ -160,11 +290,11 @@ function convertToWav(audioBuffer) {
     rightChannel = leftChannel;
   }
 
-  var interleaved = interleave(leftChannel, rightChannel);
+  let interleaved = interleave(leftChannel, rightChannel);
 
   // create the buffer and view to create the .WAV file
-  var buffer = new window.ArrayBuffer(44 + interleaved.length * 2);
-  var view = new window.DataView(buffer);
+  let buffer = new window.ArrayBuffer(44 + interleaved.length * 2);
+  let view = new window.DataView(buffer);
 
   // write the WAV container,
   // check spec at: https://web.archive.org/web/20171215131933/http://tiny.systems/software/soundProgrammer/WavFormatDocs.pdf
@@ -179,8 +309,8 @@ function convertToWav(audioBuffer) {
   view.setUint16(20, 1, true);
   // stereo (2 channels)
   view.setUint16(22, 2, true);
-  view.setUint32(24, p5sound.audiocontext.sampleRate, true);
-  view.setUint32(28, p5sound.audiocontext.sampleRate * 4, true);
+  view.setUint32(24, audioContext.sampleRate, true);
+  view.setUint32(28, audioContext.sampleRate * 4, true);
   view.setUint16(32, 4, true);
   view.setUint16(34, 16, true);
   // data sub-chunk
@@ -188,10 +318,10 @@ function convertToWav(audioBuffer) {
   view.setUint32(40, interleaved.length * 2, true);
 
   // write the PCM samples
-  var lng = interleaved.length;
-  var index = 44;
-  var volume = 1;
-  for (var i = 0; i < lng; i++) {
+  let lng = interleaved.length;
+  let index = 44;
+  let volume = 1;
+  for (let i = 0; i < lng; i++) {
     view.setInt16(index, interleaved[i] * (0x7fff * volume), true);
     index += 2;
   }
@@ -199,59 +329,86 @@ function convertToWav(audioBuffer) {
   return view;
 }
 
+// helper methods to save waves
+function interleave(leftChannel, rightChannel) {
+  let length = leftChannel.length + rightChannel.length;
+  let result = new Float32Array(length);
+
+  let inputIndex = 0;
+
+  for (let index = 0; index < length; ) {
+    result[index++] = leftChannel[inputIndex];
+    result[index++] = rightChannel[inputIndex];
+    inputIndex++;
+  }
+  return result;
+}
+
+function writeUTFBytes(view, offset, string) {
+  let lng = string.length;
+  for (let i = 0; i < lng; i++) {
+    view.setUint8(offset + i, string.charCodeAt(i));
+  }
+}
+
+function safeBufferSize(idealBufferSize) {
+  let bufferSize = idealBufferSize;
+
+  // if the AudioWorkletNode is actually a ScriptProcessorNode created via polyfill,
+  // make sure that our chosen buffer size isn't smaller than the buffer size automatically
+  // selected by the polyfill
+  // reference: https://github.com/GoogleChromeLabs/audioworklet-polyfill/issues/13#issuecomment-425014930
+  // let tempAudioWorkletNode = new AudioWorkletNode(
+  //   audioContext,
+  //   processorNames.soundFileProcessor
+  // );
+  // if (tempAudioWorkletNode instanceof ScriptProcessorNode) {
+  //   bufferSize = tempAudioWorkletNode.bufferSize;
+  // }
+  // tempAudioWorkletNode.disconnect();
+  // tempAudioWorkletNode = null;
+
+  return bufferSize;
+}
+
 /**
- *  Returns the frequency value of a MIDI note value.
- *  General MIDI treats notes as integers where middle C
- *  is 60, C# is 61, D is 62 etc. Useful for generating
- *  musical frequencies with oscillators.
+ * Save a SoundFile as a .wav file. The browser will prompt the user
+ * to download the file to their device.
+ * For uploading audio to a server, use
+ * <a href="/docs/reference/#/p5.SoundFile/saveBlob">`p5.SoundFile.saveBlob`</a>.
  *
- *  @method  midiToFreq
- *  @param  {Number} midiNote The number of a MIDI note
- *  @return {Number} Frequency value of the given MIDI note
- *  @example
- *  <div><code>
- *  let midiNotes = [60, 64, 67, 72];
- *  let noteIndex = 0;
- *  let midiVal, freq;
+ *  @for p5
+ *  @method saveSound
+ *  @param  {SoundFile} soundFile SoundFile that you wish to save
+ *  @param  {String} fileName      name of the resulting .wav file.
+ * @example
+ * <div><code>
+ * function setup() {
+ * console.log('TODO EXAMPLE');
+ * }
  *
- *  function setup() {
- *    let cnv = createCanvas(100, 100);
- *    cnv.mousePressed(startSound);
- *    osc = new p5.TriOsc();
- *    env = new p5.Envelope();
- *  }
- *
- *  function draw() {
- *    background(220);
- *    text('tap to play', 10, 20);
- *    if (midiVal) {
- *      text('MIDI: ' + midiVal, 10, 40);
- *      text('Freq: ' + freq, 10, 60);
- *    }
- *  }
- *
- *  function startSound() {
- *    // see also: userStartAudio();
- *    osc.start();
- *
- *    midiVal = midiNotes[noteIndex % midiNotes.length];
- *    freq = midiToFreq(midiVal);
- *    osc.freq(freq);
- *    env.ramp(osc, 0, 1.0, 0);
- *
- *    noteIndex++;
- *  }
- *  </code></div>
+ * function draw() {
+ * }
+ * </code></div>
  */
-function midiToFreq(m) {
-  return 440 * Math.pow(2, (m - 69) / 12.0);
+// add to p5.prototype as this is used by the p5 `save()` method.
+function saveSound(soundFile, fileName) {
+  const dataView = convertToWav(soundFile.buffer);
+  p5.prototype.writeFile([dataView], fileName, 'wav');
 }
 
 export {
-  _mathChain,
-  _checkFileFormats,
-  convertToWav,
+  sampleRate,
+  freqToMidi,
   midiToFreq,
+  noteToFreq,
   soundFormats,
-  safeBufferSize
+  disposeSound,
+  _checkFileFormats,
+  _mathChain,
+  convertToWav,
+  interleave,
+  writeUTFBytes,
+  safeBufferSize,
+  saveSound
 };

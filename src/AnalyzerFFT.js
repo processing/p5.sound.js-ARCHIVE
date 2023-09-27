@@ -7,7 +7,7 @@ import p5sound from './main';
  *  <a href="https://en.wikipedia.org/wiki/Audio_frequency">
  *  audio frequencies</a> within a waveform.</p>
  *
- *  <p>Once instantiated, a p5.FFT object can return an array based on
+ *  <p>Once instantiated, a AnalyzerFFT object can return an array based on
  *  two types of analyses: <br> • <code>FFT.waveform()</code> computes
  *  amplitude values along the time domain. The array indices correspond
  *  to samples across a brief moment in time. Each value represents
@@ -46,7 +46,7 @@ import p5sound from './main';
  *  function setup(){
  *    let cnv = createCanvas(100,100);
  *    cnv.mouseClicked(togglePlay);
- *    fft = new p5.FFT();
+ *    fft = new AnalyzerFFT();
  *    sound.amp(0.2);
  *  }
  *
@@ -138,8 +138,16 @@ class AnalyzerFFT {
    *  provided, FFT will analyze all sound in the sketch.
    *
    *  @method  setInput
-   *  @for p5.FFT
+   *  @for AnalyzerFFT
    *  @param {Object} [source] p5.sound object (or web audio API source node)
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   setInput(source) {
     if (!source) {
@@ -161,7 +169,7 @@ class AnalyzerFFT {
    *  of a sound.
    *
    *  @method waveform
-   *  @for p5.FFT
+   *  @for AnalyzerFFT
    *  @param {Number} [bins]    Must be a power of two between
    *                            16 and 1024. Defaults to 1024.
    *  @param {String} [precision] If any value is provided, will return results
@@ -169,7 +177,14 @@ class AnalyzerFFT {
    *                              than a regular array.
    *  @return {Array}  Array    Array of amplitude values (-1 to 1)
    *                            over time. Array length = bins.
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
    *
+   * function draw() {
+   * }
    */
   waveform() {
     let mode;
@@ -210,7 +225,7 @@ class AnalyzerFFT {
    *  <code>getEnergy()</code>.
    *
    *  @method analyze
-   *  @for p5.FFT
+   *  @for AnalyzerFFT
    *  @param {Number} [bins]    Must be a power of two between
    *                             16 and 1024. Defaults to 1024.
    *  @param {Number} [scale]    If "dB," returns decibel
@@ -230,7 +245,7 @@ class AnalyzerFFT {
    *    cnv.mousePressed(startSound);
    *    osc = new Oscillator();
    *    osc.amp(0);
-   *    fft = new p5.FFT();
+   *    fft = new AnalyzerFFT();
    *  }
    *
    *  function draw(){
@@ -321,7 +336,14 @@ class AnalyzerFFT {
    *                                two frequencies.
    *  @return {Number}  Energy (volume/amplitude) from
    *                    0 and 255.
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
    *
+   * function draw() {
+   * }
    */
   getEnergy(frequency1, frequency2) {
     let nyquist = audioContext.sampleRate / 2;
@@ -385,7 +407,7 @@ class AnalyzerFFT {
    *  the results determine the spectral centroid.</em></p>
    *
    *  @method  getCentroid
-   *  @for p5.FFT
+   *  @for AnalyzerFFT
    *  @return {Number}   Spectral Centroid Frequency  of the spectral centroid in Hz.
    *
    *
@@ -396,7 +418,7 @@ class AnalyzerFFT {
    *  cnv.mousePressed(userStartAudio);
    *  sound = new p5.AudioIn();
    *  sound.start();
-   *  fft = new p5.FFT();
+   *  fft = new AnalyzerFFT();
    *  sound.connect(fft);
    *}
    *
@@ -468,6 +490,14 @@ class AnalyzerFFT {
    *  @method smooth
    *  @param {Number} smoothing    0.0 < smoothing < 1.0.
    *                               Defaults to 0.8.
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   smooth(s) {
     if (typeof s !== 'undefined') {
@@ -495,9 +525,17 @@ class AnalyzerFFT {
    *  the results to group them into a smaller set of averages.</em></p>
    *
    *  @method  linAverages
-   *  @for p5.FFT
+   *  @for AnalyzerFFT
    *  @param  {Number}  N                Number of returned frequency groups
    *  @return {Array}   linearAverages   Array of average amplitude values for each group
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
 
   linAverages(_N) {
@@ -536,9 +574,17 @@ class AnalyzerFFT {
    *  the results to group them into a smaller set of averages.</em></p>
    *
    *  @method  logAverages
-   *  @for p5.FFT
+   *  @for AnalyzerFFT
    *  @param  {Array}   octaveBands    Array of Octave Bands objects for grouping
    *  @return {Array}   logAverages    Array of average amplitude values for each group
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   logAverages(octaveBands) {
     let nyquist = audioContext.sampleRate / 2;
@@ -578,10 +624,18 @@ class AnalyzerFFT {
    *  and produce less frequency groups.
    *
    *  @method   getOctaveBands
-   *  @for p5.FFT
+   *  @for AnalyzerFFT
    *  @param  {Number}  N             Specifies the 1/N type of generated octave bands
    *  @param  {Number}  fCtr0         Minimum central frequency for the lowest band
    *  @return {Array}   octaveBands   Array of octave band objects with their bounds
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   getOctaveBands(_N, _fCtr0) {
     let N = _N || 3; // Default to 1/3 Octave Bands

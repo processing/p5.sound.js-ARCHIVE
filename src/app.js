@@ -10,19 +10,35 @@ import p5sound from './main';
 
 // helpers
 import {
-  _mathChain,
-  _checkFileFormats,
-  convertToWav,
+  sampleRate,
+  freqToMidi,
   midiToFreq,
+  noteToFreq,
   soundFormats,
-  safeBufferSize
+  disposeSound,
+  _checkFileFormats,
+  _mathChain,
+  convertToWav,
+  interleave,
+  writeUTFBytes,
+  safeBufferSize,
+  saveSound
 } from './helpers';
-p5.prototype._mathChain = _mathChain;
-p5.prototype._checkFileFormats = _checkFileFormats;
-p5.prototype.convertToWav = convertToWav;
+
+
+p5.prototype.sampleRate = sampleRate;
+p5.prototype.freqToMidi = freqToMidi;
 p5.prototype.midiToFreq = midiToFreq;
+p5.prototype.noteToFreq = noteToFreq;
 p5.prototype.soundFormats = soundFormats;
+p5.prototype.disposeSound = disposeSound;
+p5.prototype._checkFileFormats = _checkFileFormats;
+p5.prototype._mathChain = _mathChain;
+p5.prototype.convertToWav = convertToWav;
+p5.prototype.interleave = interleave;
+p5.prototype.writeUTFBytes = writeUTFBytes;
 p5.prototype.safeBufferSize = safeBufferSize;
+p5.prototype.saveSound = saveSound;
 
 import SoundFile, { loadSound } from './SoundFile';
 p5.prototype.SoundFile = SoundFile;

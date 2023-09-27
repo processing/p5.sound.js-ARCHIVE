@@ -39,6 +39,14 @@ if (typeof audioContext.createStereoPanner !== 'undefined') {
      * @param {Number} value  A value between -1 and 1 that sets the pan position.
      *
      * @param {Number} [time] time in seconds that it will take for the panning to change to the specified value.
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
      */
     pan(val, tFromNow) {
       if (typeof val === 'number') {
@@ -58,6 +66,14 @@ if (typeof audioContext.createStereoPanner !== 'undefined') {
      *  @method  getPan
      *  @for Panner
      *  @return {Number} current panning value, number between -1 (left) and 1 (right).
+     *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
      */
     getPan() {
       return this.stereoPanner.pan.value;
@@ -68,6 +84,14 @@ if (typeof audioContext.createStereoPanner !== 'undefined') {
      *
      *  @method  dispose
      *  @for Panner
+        *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
      */
     dispose() {
       super.dispose();

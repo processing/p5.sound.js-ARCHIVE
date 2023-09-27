@@ -22,14 +22,14 @@ import p5sound from './main';
  *    let cnv = createCanvas(100, 100);
  *    cnv.mousePressed(startSound);
  *    // create a 'mix' gain bus to which we will connect both soundfiles
- *    mixGain = new p5.Gain();
+ *    mixGain = new Gain();
  *    mixGain.connect();
  *    sound1.disconnect(); // diconnect from p5 output
- *    sound1Gain = new p5.Gain(); // setup a gain node
+ *    sound1Gain = new Gain(); // setup a gain node
  *    sound1Gain.setInput(sound1); // connect the first sound to its input
  *    sound1Gain.connect(mixGain); // connect its output to the final mix bus
  *    sound2.disconnect();
- *    sound2Gain = new p5.Gain();
+ *    sound2Gain = new Gain();
  *    sound2Gain.setInput(sound2);
  *    sound2Gain.connect(mixGain);
  *  }
@@ -90,9 +90,17 @@ class Gain {
    *  Connect a source to the gain node.
    *
    *  @method  setInput
-   *  @for p5.Gain
+   *  @for Gain
    *  @param  {Object} src     p5.sound / Web Audio object with a sound
    *                           output.
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
 
   setInput(src) {
@@ -103,8 +111,16 @@ class Gain {
    *  Send output to a p5.sound or web audio object
    *
    *  @method  connect
-   *  @for p5.Gain
+   *  @for Gain
    *  @param  {Object} unit
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   connect(unit) {
     let u = unit || p5sound.input;
@@ -118,7 +134,15 @@ class Gain {
    *  Disconnect all output.
    *
    *  @method disconnect
-   *  @for p5.Gain
+   *  @for Gain
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   disconnect() {
     if (this.output) {
@@ -130,11 +154,19 @@ class Gain {
    *  Set the output level of the gain node.
    *
    *  @method  amp
-   *  @for p5.Gain
+   *  @for Gain
    *  @param  {Number} volume amplitude between 0 and 1.0
    *  @param  {Number} [rampTime] create a fade that lasts rampTime
    *  @param  {Number} [timeFromNow] schedule this event to happen
    *                                seconds from now
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   amp(vol, rampTime = 0, tFromNow = 0) {
     let now = audioContext.currentTime;

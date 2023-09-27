@@ -105,6 +105,14 @@ class BiquadFilter extends Effect {
    *  @param {Number} [freq] Frequency in Hz, from 10 to 22050
    *  @param {Number} [res] Resonance/Width of the filter frequency
    *                        from 0.001 to 1000
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   process(src, freq, res, time) {
     src.connect(this.input);
@@ -119,6 +127,14 @@ class BiquadFilter extends Effect {
    *  @param {Number} [res]  Resonance (Q) from 0.001 to 1000
    *  @param {Number} [timeFromNow] schedule this event to happen
    *                                seconds from now
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   set(freq, res, time) {
     if (freq) {
@@ -139,6 +155,14 @@ class BiquadFilter extends Effect {
    *  @param {Number} [timeFromNow] schedule this event to happen
    *                                seconds from now
    *  @return {Number} value  Returns the current frequency value
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   freq(freq, time) {
     let t = time || 0;
@@ -167,6 +191,14 @@ class BiquadFilter extends Effect {
    *  @param {Number} [timeFromNow] schedule this event to happen
    *                                seconds from now
    *  @return {Number} value Returns the current res value
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   res(res, time) {
     let t = time || 0;
@@ -193,6 +225,14 @@ class BiquadFilter extends Effect {
    * @method gain
    * @param  {Number} gain
    * @return {Number} Returns the current or updated gain value
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   gain(gain, time) {
     let t = time || 0;
@@ -215,6 +255,14 @@ class BiquadFilter extends Effect {
    *
    * @method toggle
    * @return {boolean} [Toggle value]
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   toggle() {
     this._on = !this._on;
@@ -236,6 +284,14 @@ class BiquadFilter extends Effect {
    *
    *  @method  setType
    *  @param {String} t
+   *  @example
+   * <div><code>
+   * function setup() {
+   *  console.log('TODO EXAMPLE');
+   * }
+   *
+   * function draw() {
+   * }
    */
   setType(t) {
     this.biquad.type = t;

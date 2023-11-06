@@ -60,11 +60,11 @@ p5.prototype.SqrOsc = SqrOsc;
 import Noise from './Noise';
 p5.prototype.Noise = Noise;
 
-import Amplitude from './Amplitude';
-p5.prototype.Amplitude = Amplitude;
+// import Amplitude from './Amplitude';
+// p5.prototype.Amplitude = Amplitude;
 
-import AudioIn from './AudioIn';
-p5.prototype.AudioIn = AudioIn;
+// import AudioIn from './AudioIn';
+// p5.prototype.AudioIn = AudioIn;
 
 import Effect from './Effect';
 p5.prototype.Effect = Effect;

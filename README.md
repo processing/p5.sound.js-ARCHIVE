@@ -40,23 +40,35 @@ This project is an update of the p5.sound.js library, with the following goals:
 
 Highlight the ones on this version, group them in categories, add dependencies, and include at the end the deprecated ones.
 
-| previous version | this version | status |
-| :--------------- | :----------- | :----- |
-| Amplitude        | TODO         | TODO   |
-| AudioVoice       | TODO         | TODO   |
-| AudioContext     | TODO         | TODO   |
-| AudioIn          | TODO         | TODO   |
-| Compressor       | TODO         | TODO   |
-| Effect           | TODO         | TODO   |
-| Delay            | TODO         | TODO   |
-| Effect           | TODO         | TODO   |
-| Envelope         | TODO         | TODO   |
-| EQ               | TODO         | TODO   |
-| FFT              | TODO         | TODO   |
-| Filter           | TODO         | TODO   |
-| Gain             | TODO         | TODO   |
-| Listener3D       | TODO         | TODO   |
-| Looper           | TODO         | TODO   |
+## Base helper classes
+
+## Oscillator
+
+## SoundFiles
+
+## Amplitude
+
+## Effects
+
+
+
+| Current version | Previous version | Status |
+| :-------------- | :--------------- | :----- |
+| Amplitude       | TODO             | works! |
+| AudioVoice      | TODO             | TODO   |
+| AudioContext    | TODO             | TODO   |
+| AudioIn         | TODO             | TODO   |
+| Compressor      | TODO             | TODO   |
+| Effect          | TODO             | TODO   |
+| Delay           | TODO             | TODO   |
+| Effect          | TODO             | TODO   |
+| Envelope        | TODO             | TODO   |
+| EQ              | TODO             | TODO   |
+| AnalyzerFFT     | Filter           | TODO   |
+| AudioFilter     | TODO             | TODO   |
+| Gain            | TODO             | TODO   |
+| Listener3D      | TODO             | TODO   |
+| Looper          | TODO             | TODO   |
 
 
 ## Deprecations

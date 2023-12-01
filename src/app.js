@@ -49,6 +49,7 @@ p5.prototype.registerPreloadMethod('loadSound', p5.prototype);
 import Gain from './Gain';
 p5.prototype.Gain = Gain;
 
+// included on v0.0.3
 import Oscillator from './Oscillator';
 p5.prototype.Oscillator = Oscillator;
 import { SinOsc, TriOsc, SawOsc, SqrOsc } from './Oscillator';
@@ -57,6 +58,7 @@ p5.prototype.TriOsc = TriOsc;
 p5.prototype.SawOsc = SawOsc;
 p5.prototype.SqrOsc = SqrOsc;
 
+// included on v0.0.3
 import Noise from './Noise';
 p5.prototype.Noise = Noise;
 

@@ -52,15 +52,7 @@ We are currently hosting some examples in the `examples` folder. To run them, pl
 - SoundLoop, Phrase, Part and Score
 - Convolver
 
-## Modules adapted from Tone.js r10
-
-One of the big goals of this new version of the p5.sound.js library, we are trying to minimize the dependencies, and at the time the original library was built, [Tone.js r10](https://github.com/Tonejs/Tone.js/tree/r10) was included as a dependency.
-
-In order to minimize the amount of external dependencies, and since Tone.js was evolved so much since 2017, when its r10 was released, we are adapting the Tone.js modules from that era, and including them in the source code here so that we can build p5.sound.js without having to import Tone.js.
-
-The modules we are adapting are these:
-
-We had copied the source files from Tone.js r10 to our src/ folder, but after a discussion with the Tone.js team, we are adding Tone.js 14.x.x as a dependency when we need it, and updating its references.
+After a fruitful discussion with the Tone.js team, we are adding Tone.js 14.x.x as a dependency when we need it, and updating its references.
 
 ## Help wanted
 

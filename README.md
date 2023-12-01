@@ -38,16 +38,33 @@ This project is an update of the p5.sound.js library, with the following goals:
 
 ## Comparison with the previous version of the library
 
+Highlight the ones on this version, group them in categories, add dependencies, and include at the end the deprecated ones.
 
-| previous version | this version  | status                |
-| :--------------- | :------------ | :-------------------- |
-| TODO             | TODO          | TODO                  |
-| TODO             | TODO          | TODO                  |
-| TODO             | TODO          | TODO                  |
-| TODO             | TODO          | TODO                  |
-| TODO             | TODO          | TODO                  |
-| TODO             | TODO          | TODO                  |
-| TODO             | TODO          | TODO                  |
+| previous version | this version | status |
+| :--------------- | :----------- | :----- |
+| Amplitude        | TODO         | TODO   |
+| AudioVoice       | TODO         | TODO   |
+| AudioContext     | TODO         | TODO   |
+| AudioIn          | TODO         | TODO   |
+| Compressor       | TODO         | TODO   |
+| Effect           | TODO         | TODO   |
+| Delay            | TODO         | TODO   |
+| Effect           | TODO         | TODO   |
+| Envelope         | TODO         | TODO   |
+| EQ               | TODO         | TODO   |
+| FFT              | TODO         | TODO   |
+| Filter           | TODO         | TODO   |
+| Gain             | TODO         | TODO   |
+| Listener3D       | TODO         | TODO   |
+| Looper           | TODO         | TODO   |
+
+
+## Deprecations
+
+| Name of class | Reason of deprecation |
+| :------------ | :-------------------- |
+| Polysynth     | TODO                  |
+| SoundLoop     | TODO                  |
 
 
 ### Working

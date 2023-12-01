@@ -7,28 +7,6 @@ This repository will soon replace the previous version of the p5.sound library, 
 p5.sound Fellow 2023: aarón montoya-moraga(@[montoyamoraga](https://github.com/montoyamoraga)),
 p5.Sound Fellow Mentor 2023: Kristin Galvin (@[blechdom](https://github.com/blechdom))
 
-## New contributors
-
-Please clone this repository and make a pull request to contribute. We are currently working on the `main` branch.
-
-## Build instructions
-
-To install the dependencies for building, please run this command.
-
-```bash
-npm ci
-```
-
-To build the library, please run this command.
-
-```bash
-npm run build
-```
-
-## Examples
-
-We are currently hosting some examples in the `examples` folder. To run them, please visit https://processing.github.io/p5.sound.js/examples/
-
 ## Scope of the project
 
 This project is an update of the p5.sound.js library, with the following goals:
@@ -36,15 +14,29 @@ This project is an update of the p5.sound.js library, with the following goals:
 - Code stability and readability
 - Updated and fewer dependencies
 
+## Testing with examples
+
+We are currently hosting `examples`  on the website https://processing.github.io/p5.sound.js/examples/
+
+Please let us know if you find any bugs or issues.
+
+
+
+
 ## Comparison with the previous version of the library
 
 Highlight the ones on this version, group them in categories, add dependencies, and include at the end the deprecated ones.
 
-## Base helper classes
+## Base classes
 
 ## Oscillator
 
-## SoundFiles
+## SoundFile
+
+
+Associated examples here:
+
+* Load/Play Soundfile: [https://editor.p5js.org/montoyamoraga/sketches/ZY9jQSOdp](https://editor.p5js.org/montoyamoraga/sketches/ZY9jQSOdp)
 
 ## Amplitude
 
@@ -116,4 +108,22 @@ After a fruitful discussion with the Tone.js team, we are adding Tone.js 14.x.x 
 
 - p5.SoundFile: please help us fix the AudioWorklet and build for this.
 
+
+## New contributors
+
+Please clone this repository and make a pull request to contribute. We are currently working on the `main` branch.
+
+## Build instructions
+
+To install the dependencies for building, please run this command.
+
+```bash
+npm ci
+```
+
+To build the library, please run this command.
+
+```bash
+npm run build
+```
 

@@ -3,7 +3,7 @@ import p5sound from './main';
 // import processorNames from './audioWorklet/processorNames';
 import CustomError from './errorHandler';
 import { midiToFreq, convertToWav } from './helpers';
-import Panner from './panner';
+import Panner from './Panner';
 
 let _createCounterBuffer = function (buffer) {
   const len = buffer.length;

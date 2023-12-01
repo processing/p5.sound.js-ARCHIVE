@@ -85,8 +85,7 @@ p5.prototype.AnalyzerFFT = AnalyzerFFT;
 import Envelope from './Envelope';
 p5.prototype.Envelope = Envelope;
 
-// TODO: change "panner" to "Panner" on Panner.js
-import panner from './panner';
-p5.prototype.Panner = panner;
+import Panner from './Panner';
+p5.prototype.Panner = Panner;
 
 module.exports = p5sound;

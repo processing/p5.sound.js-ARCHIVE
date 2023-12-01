@@ -3,7 +3,7 @@ import audioContext from './audioContext.js';
 import Effect from './Effect.js';
 // import p5sound from './main';
 
-let panner;
+let Panner;
 
 // Stereo panner
 // if there is a stereo panner node use it
@@ -21,7 +21,7 @@ if (typeof audioContext.createStereoPanner !== 'undefined') {
    * @class Panner
    * @extends Effect
    */
-  class Panner extends Effect {
+  class PannerTemp extends Effect {
     constructor() {
       super();
       this.stereoPanner = audioContext.createStereoPanner();
@@ -102,12 +102,12 @@ if (typeof audioContext.createStereoPanner !== 'undefined') {
     }
   }
 
-  panner = Panner;
+  Panner = PannerTemp;
 } else {
   // if there is no createStereoPanner object
   // such as in safari 7.1.7 at the time of writing this
   // use this method to create the effect
-  class Panner extends Effect {
+  class PannerTemp extends Effect {
     constructor() {
       super();
 
@@ -170,7 +170,7 @@ if (typeof audioContext.createStereoPanner !== 'undefined') {
       }
     }
   }
-  panner = Panner;
+  Panner = PannerTemp;
 }
 
-export default panner;
+export default Panner;

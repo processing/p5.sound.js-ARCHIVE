@@ -52,12 +52,12 @@ import p5sound from './main';
  *      return;
  *    }
  *    // map the horizontal position of the mouse to values useable for volume    *  control of sound1
- *    var sound1Volume = constrain(map(mouseX,width,0,0,1), 0, 1);
- *    var sound2Volume = 1-sound1Volume;
+ *    let sound1Volume = constrain(map(mouseX,width,0,0,1), 0, 1);
+ *    let sound2Volume = 1-sound1Volume;
  *    sound1Gain.amp(sound1Volume);
  *    sound2Gain.amp(sound2Volume);
  *    // map the vertical position of the mouse to values useable for 'output    *  volume control'
- *    var outputVolume = constrain(map(mouseY,height,0,0,1), 0, 1);
+ *    let outputVolume = constrain(map(mouseY,height,0,0,1), 0, 1);
  *    mixGain.amp(outputVolume);
  *    text('output', width/2, height - outputVolume * height * 0.9)
  *    fill(255, 0, 255);
@@ -170,7 +170,7 @@ class Gain {
    */
   amp(vol, rampTime = 0, tFromNow = 0) {
     let now = audioContext.currentTime;
-    var currentVol = this.output.gain.value;
+    let currentVol = this.output.gain.value;
     this.output.gain.cancelScheduledValues(now);
     this.output.gain.linearRampToValueAtTime(currentVol, now + tFromNow);
     this.output.gain.linearRampToValueAtTime(vol, now + tFromNow + rampTime);
@@ -178,7 +178,7 @@ class Gain {
 
   dispose() {
     // remove reference from soundArray
-    var index = p5sound.soundArray.indexOf(this);
+    let index = p5sound.soundArray.indexOf(this);
     p5sound.soundArray.splice(index, 1);
     if (this.output) {
       this.output.disconnect();

@@ -65,7 +65,7 @@ const _brownNoiseBuffer = (function () {
 class Noise extends Oscillator {
   constructor(type) {
     super();
-    var assignType;
+    let assignType;
     delete this.f;
     delete this.freq;
     delete this.oscillator;

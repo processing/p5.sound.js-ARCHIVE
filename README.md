@@ -16,12 +16,9 @@ This project is an update of the p5.sound.js library, with the following goals:
 
 ## Testing with examples
 
-We are currently hosting `examples`  on the website https://processing.github.io/p5.sound.js/examples/
+We are currently hosting `examples`  on this collection [https://editor.p5js.org/montoyamoraga/collections/xydp5uPw0](https://editor.p5js.org/montoyamoraga/collections/xydp5uPw0).
 
 Please let us know if you find any bugs or issues.
-
-
-
 
 ## Comparison with the previous version of the library
 
@@ -29,78 +26,40 @@ Highlight the ones on this version, group them in categories, add dependencies, 
 
 ## Base classes
 
-## Oscillator
+| Name         | Previous name | Dependencies | Tone.js dependencies | Status |
+| :----------- | :------------ | :----------- | :------------------- | :----- |
+| audioContext | Same          | none         | none                 | works! |
 
-## SoundFile
+## Oscillators
 
+| Name       | Previous name | Dependencies | Tone.js dependencies | Status |
+| :--------- | :------------ | :----------- | :------------------- | :----- |
+| Oscillator | Same          | audioContext | Add, Multiply, Scale | works! |
+| SinOsc     | Same          | Oscillator   |                      | works! |
+| TriOsc     | Same          | Oscillator   |                      | works! |
+| SawOsc     | Same          | Oscillator   |                      | works! |
+| Noise      | Same          | Oscillator   |                      | works! |
 
-Associated examples here:
+## Analysis
 
-* Load/Play Soundfile: [https://editor.p5js.org/montoyamoraga/sketches/ZY9jQSOdp](https://editor.p5js.org/montoyamoraga/sketches/ZY9jQSOdp)
-
-## Amplitude
-
-## Effects
-
-
-
-| Current version | Previous version | Status |
-| :-------------- | :--------------- | :----- |
-| Amplitude       | TODO             | works! |
-| AudioVoice      | TODO             | TODO   |
-| AudioContext    | TODO             | TODO   |
-| AudioIn         | TODO             | TODO   |
-| Compressor      | TODO             | TODO   |
-| Effect          | TODO             | TODO   |
-| Delay           | TODO             | TODO   |
-| Effect          | TODO             | TODO   |
-| Envelope        | TODO             | TODO   |
-| EQ              | TODO             | TODO   |
-| AnalyzerFFT     | Filter           | TODO   |
-| AudioFilter     | TODO             | TODO   |
-| Gain            | TODO             | TODO   |
-| Listener3D      | TODO             | TODO   |
-| Looper          | TODO             | TODO   |
-
+| Name of class | Previous name | Dependencies | Tone.js dependencies | Status |
+| :------------ | :------------ | :----------- | :------------------- | :----- |
+| AnalyzerFFT   | FFT           | audioContext | none                 | works! |
 
 ## Deprecations
 
-| Name of class | Reason of deprecation |
-| :------------ | :-------------------- |
-| Polysynth     | TODO                  |
-| SoundLoop     | TODO                  |
-
-
-### Working
-
-- AnalyzerFFT
-- BiquadFilter
-- Delay
-- Noise
-- Oscillator
-- SoundFile
-- 
-### Buggy
-
-- p5.Amplitude: early stages of implementation
-- p5.AudioIn: early stages of implementation
-- p5.Envelope: work in progress on getting rid of Tone.js dependencies
-
-### Coming soon
-
-- p5.SoundRecorder
-- p5.Reverb
-
-### Deprecated (for now)
-
-- userStartAudio
-- MonoSynth and PolySynth
-- SoundLoop, Phrase, Part and Score
-- Convolver
+| Name of class  | Reason of deprecation       |
+| :------------- | :-------------------------- |
+| Convolver      | TODO                        |
+| MonoSynth      | Out of scope of p5.sound.js |
+| Polysynth      | Out of scope of p5.sound.js |
+| Part           | Out of scope of p5.sound.js |
+| Phrase         | Out of scope of p5.sound.js |
+| Score          | Out of scope of p5.sound.js |
+| SoundLoop      | TODO                        |
+| userStartAudio | TODO                        |
 
 ## Dependencies
-
-This library is intended 
 
 After a fruitful discussion with the Tone.js team, we are adding Tone.js 14.x.x as a dependency when we need it, and updating its references.
 
@@ -108,10 +67,11 @@ After a fruitful discussion with the Tone.js team, we are adding Tone.js 14.x.x 
 
 - p5.SoundFile: please help us fix the AudioWorklet and build for this.
 
-
 ## New contributors
 
-Please clone this repository and make a pull request to contribute. We are currently working on the `main` branch.
+If you find any issue please file one, explaining as much as possible the problem you are facing and the context (browser, operating system, etc).
+
+If you know how to fix it, please make a pull request, tag the corresponding issue, and we will review it.
 
 ## Build instructions
 
@@ -126,4 +86,3 @@ To build the library, please run this command.
 ```bash
 npm run build
 ```
-

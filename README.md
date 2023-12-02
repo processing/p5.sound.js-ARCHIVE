@@ -18,7 +18,7 @@ This project is an update of the p5.sound.js library, with the following goals:
 
 We are currently hosting `examples`  on this collection [https://editor.p5js.org/montoyamoraga/collections/xydp5uPw0](https://editor.p5js.org/montoyamoraga/collections/xydp5uPw0).
 
-Please let us know if you find any bugs or issues.
+Please let us know if you find any bugs or issues!
 
 ## Comparison with the previous version of the library
 
@@ -61,11 +61,7 @@ Highlight the ones on this version, group them in categories, add dependencies, 
 
 ## Dependencies
 
-After a fruitful discussion with the Tone.js team, we are adding Tone.js 14.x.x as a dependency when we need it, and updating its references.
-
-## Help wanted
-
-- p5.SoundFile: please help us fix the AudioWorklet and build for this.
+After a fruitful discussion with the Tone.js team, we keeping Tone.js as a dependency and updating this to the latest version 14.x.x.
 
 ## New contributors
 

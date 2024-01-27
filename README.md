@@ -13,6 +13,8 @@ This project is an update of the p5.sound.js library, with the following goals:
 
 - Code stability and readability
 - Updated and fewer dependencies
+- Only keeping the most used features
+- Deprecating the least used features
 
 ## Usage
 
@@ -27,42 +29,40 @@ Please let us know if you find any bugs or issues!
 
 ## Comparison with the previous version of the library
 
-Highlight the ones on this version, group them in categories, add dependencies, and include at the end the deprecated ones.
-
 ## Base classes
 
-| Name         | Previous name | Dependencies | Tone.js dependencies | Status |
-| :----------- | :------------ | :----------- | :------------------- | :----- |
-| audioContext | Same          | none         | none                 | works! |
+| Name         | Previous name | Dependencies | Tone.js dependencies |
+| :----------- | :------------ | :----------- | :------------------- |
+| audioContext | Same          | none         | none                 |
 
 ## Oscillators
 
-| Name       | Previous name | Dependencies | Tone.js dependencies | Status |
-| :--------- | :------------ | :----------- | :------------------- | :----- |
-| Oscillator | Same          | audioContext | Add, Multiply, Scale | works! |
-| SinOsc     | Same          | Oscillator   |                      | works! |
-| TriOsc     | Same          | Oscillator   |                      | works! |
-| SawOsc     | Same          | Oscillator   |                      | works! |
-| Noise      | Same          | Oscillator   |                      | works! |
+| Name       | Previous name | Dependencies | Tone.js dependencies |
+| :--------- | :------------ | :----------- | :------------------- |
+| Oscillator | Same          | audioContext | Add, Multiply, Scale |
+| SinOsc     | Same          | Oscillator   |                      |
+| TriOsc     | Same          | Oscillator   |                      |
+| SawOsc     | Same          | Oscillator   |                      |
+| Noise      | Same          | Oscillator   |                      |
 
 ## Analysis
 
-| Name of class | Previous name | Dependencies | Tone.js dependencies | Status |
-| :------------ | :------------ | :----------- | :------------------- | :----- |
-| AnalyzerFFT   | FFT           | audioContext | none                 | works! |
+| Name of class | Previous name | Dependencies | Tone.js dependencies |
+| :------------ | :------------ | :----------- | :------------------- |
+| AnalyzerFFT   | FFT           | audioContext | none                 |
 
 ## Deprecations
 
-| Name of class  | Reason of deprecation       |
-| :------------- | :-------------------------- |
-| Convolver      | TODO                        |
-| MonoSynth      | Out of scope of p5.sound.js |
-| Polysynth      | Out of scope of p5.sound.js |
-| Part           | Out of scope of p5.sound.js |
-| Phrase         | Out of scope of p5.sound.js |
-| Score          | Out of scope of p5.sound.js |
-| SoundLoop      | TODO                        |
-| userStartAudio | TODO                        |
+| Name of class  | Reason of deprecation                            |
+| :------------- | :----------------------------------------------- |
+| Convolver      | TODO                                             |
+| MonoSynth      | Out of scope for this new version of p5.sound.js |
+| Polysynth      | Out of scope for this new version of p5.sound.js |
+| Part           | Out of scope for this new version of p5.sound.js |
+| Phrase         | Out of scope for this new version of p5.sound.js |
+| Score          | Out of scope for this new version of p5.sound.js |
+| SoundLoop      | TODO                                             |
+| userStartAudio | TODO                                             |
 
 ## Dependencies
 

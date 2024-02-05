@@ -68,11 +68,9 @@ p5.prototype.Envelope = Envelope;
 import Gain from './Gain';
 p5.prototype.Gain = Gain;
 
-// included on v0.0.4
 import Noise from './Noise';
 p5.prototype.Noise = Noise;
 
-// included on v0.0.4
 import Oscillator from './Oscillator';
 p5.prototype.Oscillator = Oscillator;
 import { SinOsc, TriOsc, SawOsc, SqrOsc } from './Oscillator';

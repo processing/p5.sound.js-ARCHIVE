@@ -1450,7 +1450,7 @@ class SoundFile {
   }
 
   /**
-   * Connects the output of a p5sound object to input of another
+   * Connects the output of a p5.sound object to input of another
    * p5.sound object. For example, you may connect a SoundFile to an
    * FFT or an Effect. If no parameter is given, it will connect to
    * the main output. Most p5sound objects connect to the master

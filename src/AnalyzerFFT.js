@@ -8,18 +8,18 @@ import p5sound from './main';
  *  audio frequencies</a> within a waveform.</p>
  *
  *  <p>Once instantiated, a AnalyzerFFT object can return an array based on
- *  two types of analyses: <br> • <code>FFT.waveform()</code> computes
+ *  two types of analyses: <br> • <code>AnalyzerFFT.waveform()</code> computes
  *  amplitude values along the time domain. The array indices correspond
  *  to samples across a brief moment in time. Each value represents
  *  amplitude of the waveform at that sample of time.<br>
- *  • <code>FFT.analyze() </code> computes amplitude values along the
+ *  • <code>AnalyzerFFT.analyze() </code> computes amplitude values along the
  *  frequency domain. The array indices correspond to frequencies (i.e.
  *  pitches), from the lowest to the highest that humans can hear. Each
  *  value represents amplitude at that slice of the frequency spectrum.
  *  Use with <code>getEnergy()</code> to measure amplitude at specific
  *  frequencies, or within a range of frequencies. </p>
  *
- *  <p>FFT analyzes a very short snapshot of sound called a sample
+ *  <p>AnalyzerFFT analyzes a very short snapshot of sound called a sample
  *  buffer. It returns an array of amplitude measurements, referred
  *  to as <code>bins</code>. The array is 1024 bins long by default.
  *  You can change the bin array length, but it must be a power of 2

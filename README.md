@@ -1,6 +1,6 @@
 # p5.sound.js
 
-This repository is a work in progress for the 2023 p5.js sound fellowship. Please read the [announcement](https://medium.com/@ProcessingOrg/announcing-the-2023-p5-sound-fellow-aar%C3%B3n-montoya-moraga-7613450902f6) for more details.
+This repository was started during the 2023 p5.js sound fellowship. Please read the [announcement](https://medium.com/@ProcessingOrg/announcing-the-2023-p5-sound-fellow-aar%C3%B3n-montoya-moraga-7613450902f6) for more details.
 
 This repository will soon replace the previous version of the p5.sound library, which is currently hosted at [https://github.com/processing/p5.js-sound](https://github.com/processing/p5.js-sound).
 
@@ -61,13 +61,7 @@ Please let us know if you find any bugs or issues!
 
 ## Dependencies
 
-After a fruitful discussion with the Tone.js team, we keeping Tone.js as a dependency and updating this to the latest version 14.x.x.
-
-## New contributors
-
-If you find any issue please file one, explaining as much as possible the problem you are facing and the context (browser, operating system, etc).
-
-If you know how to fix it, please make a pull request, tag the corresponding issue, and we will review it.
+After a fruitful discussion with the Tone.js team, we are keeping Tone.js as a dependency and updating this to the latest version 14.x.x.
 
 ## Build instructions
 

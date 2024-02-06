@@ -1,2 +1,2 @@
-// mocha.setup('tdd');
-// mocha.reporter('html');
+mocha.setup('tdd');
+mocha.reporter('html');

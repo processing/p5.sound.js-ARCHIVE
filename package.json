@@ -29,7 +29,7 @@
       "node --require @babel/register ./utils/sample-linter.js"
     ]
   },
-  "version": "0.0.4-alpha",
+  "version": "0.0.5-alpha",
   "devDependencies": {
     "@babel/core": "^7.23.9",
     "@babel/preset-env": "^7.23.9",
@@ -132,6 +132,6 @@
     }
   },
   "dependencies": {
-    "tone": "^0.12.80"
+    "tone": "^14.8.49"
   }
 }

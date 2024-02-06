@@ -1,4 +1,4 @@
-const Oscillator = require('../../../src/p5sound.Oscillator.js');
+const Oscillator = require('../../../src/Oscillator.js');
 
 let assert = require('chai').assert;
 suite('Array', function () {

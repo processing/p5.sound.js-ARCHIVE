@@ -1,23 +1,19 @@
-var spec = {
-  color: ['creating_reading', 'p5sound.Color', 'setting'],
+let spec = {
   core: [
     '2d_primitives',
     'attributes',
     'environment',
     'error_helpers',
     'main',
-    'p5sound.Element',
     'preload',
     'rendering',
     'structure',
     'version'
-  ],
-  math: ['calculation', 'noise', 'p5sound.Vector', 'random', 'trigonometry'],
-  utilities: ['conversion']
+  ]
 };
 Object.keys(spec).map(function(folder) {
   spec[folder].map(function(file) {
-    var string = [
+    let string = [
       '<script src="unit/',
       folder,
       '/',

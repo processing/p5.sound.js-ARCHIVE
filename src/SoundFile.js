@@ -1875,7 +1875,7 @@ class SoundFile {
  *  local server</a> is recommended when loading external files.
  *
  *  @method loadSound
- *  @for p5
+ *  @for p5sound
  *  @param  {String|Array}   path     Path to the sound file, or an array with
  *                                    paths to soundfiles in multiple formats
  *                                    i.e. ['sound.ogg', 'sound.mp3'].

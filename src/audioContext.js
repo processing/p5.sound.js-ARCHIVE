@@ -12,7 +12,7 @@ Tone.setContext(audioContext);
  * <p>Some browsers require users to startAudioContext
  * with a user gesture, such as touchStarted in the example below.</p>
  *
- * @for p5
+ * @for p5sound
  * @method getAudioContext
  * @return {Object}    AudioContext for this sketch
  * @example

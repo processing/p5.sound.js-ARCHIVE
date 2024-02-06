@@ -2,7 +2,7 @@ import p5sound from './main';
 import audioContext from './audioContext';
 // import processorNames from './audioWorklet/processorNames';
 /**
- * @for p5
+ * @for p5sound
  */
 
 /**
@@ -377,7 +377,7 @@ function safeBufferSize(idealBufferSize) {
  * For uploading audio to a server, use
  * <a href="/docs/reference/#/p5.SoundFile/saveBlob">`p5.SoundFile.saveBlob`</a>.
  *
- *  @for p5
+ *  @for p5sound
  *  @method saveSound
  *  @param  {SoundFile} soundFile SoundFile that you wish to save
  *  @param  {String} fileName      name of the resulting .wav file.

@@ -10,7 +10,7 @@ import { Scale as ToneScale } from 'tone';
 /**
  * @module Sound
  * @submodule Oscillator
- * @for p5
+ * @for p5sound
  * @requires core
  */
 /**

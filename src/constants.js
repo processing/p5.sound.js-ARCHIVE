@@ -1,7 +1,7 @@
 /**
  * @module Constants
  * @submodule Constants
- * @for p5
+ * @for p5sound
  */
 
 /**

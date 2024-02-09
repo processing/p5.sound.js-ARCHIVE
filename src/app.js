@@ -38,6 +38,9 @@ p5.prototype.writeUTFBytes = writeUTFBytes;
 p5.prototype.safeBufferSize = safeBufferSize;
 p5.prototype.saveSound = saveSound;
 
+// import './audioWorklet';
+// p5.prototype.registerMethod('init', p5sound.init);
+
 import Amplitude from './Amplitude';
 p5.prototype.Amplitude = Amplitude;
 

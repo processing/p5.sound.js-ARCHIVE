@@ -38,12 +38,11 @@ p5.prototype.writeUTFBytes = writeUTFBytes;
 p5.prototype.safeBufferSize = safeBufferSize;
 p5.prototype.saveSound = saveSound;
 
+import Amplitude from './Amplitude';
+p5.prototype.Amplitude = Amplitude;
 
-// import Amplitude from './Amplitude';
-// p5.prototype.Amplitude = Amplitude;
-
-// import AudioIn from './AudioIn';
-// p5.prototype.AudioIn = AudioIn;
+import AudioIn from './AudioIn';
+p5.prototype.AudioIn = AudioIn;
 
 import AnalyzerFFT from './AnalyzerFFT';
 p5.prototype.AnalyzerFFT = AnalyzerFFT;

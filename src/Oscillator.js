@@ -480,7 +480,7 @@ class Oscillator {
     p5sound.soundArray.splice(index, 1);
 
     if (this.oscillator) {
-      let now = this.audiocontext.currentTime;
+      let now = audioContext.currentTime;
       this.stop(now);
       this.disconnect();
       // this.panner.dispose();

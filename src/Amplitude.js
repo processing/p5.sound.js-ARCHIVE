@@ -1,7 +1,8 @@
 import audioContext from './audioContext';
 import p5sound from './main';
 import { safeBufferSize } from './helpers';
-import processorNames from './audioWorklet/processorNames';
+// import processorNames from './audioWorklet/processorNames';
+import amplitudeProcessor from './audioWorklet/processorNames';
 
 /**
  *  Amplitude measures volume between 0.0 and 1.0.
@@ -55,7 +56,8 @@ class Amplitude {
     // set audio context
     this._workletNode = new AudioWorkletNode(
       audioContext,
-      processorNames.amplitudeProcessor,
+      amplitudeProcessor,
+      // processorNames.amplitudeProcessor,
       {
         outputChannelCount: [1],
 
@@ -194,7 +196,7 @@ class Amplitude {
    *  function setup() {
    *    let cnv = createCanvas(100, 100);
    *    cnv.mouseClicked(toggleSound);
-   *    amplitude = new p5.Amplitude();
+   *    amplitude = new Amplitude();
    *  }
    *
    *  function draw() {

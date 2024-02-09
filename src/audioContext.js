@@ -15,7 +15,7 @@ Tone.setContext(audioContext);
  * 'https://developer.mozilla.org/en-US/docs/Web/API/AudioContext'>
  * MDN Web Docs</a></p>
  *
- * <p>Browsers require users to startAudioContext
+ * <p>Browsers require users to start the audio context
  * with a user gesture, such as touchStarted in the example below.</p>
  *
  * @for p5sound

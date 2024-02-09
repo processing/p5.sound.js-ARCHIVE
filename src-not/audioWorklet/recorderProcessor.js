@@ -91,7 +91,7 @@ class RecorderProcessor extends AudioWorkletProcessor {
     let result = new Float32Array(this.recordedSamples);
     let offset = 0;
     let lng = channelBuffer.length;
-    for (var i = 0; i < lng; i++) {
+    for (let i = 0; i < lng; i++) {
       let buffer = channelBuffer[i];
       result.set(buffer, offset);
       offset += buffer.length;

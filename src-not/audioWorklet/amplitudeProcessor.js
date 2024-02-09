@@ -59,7 +59,7 @@ class AmplitudeProcessor extends AudioWorkletProcessor {
         const bufLength = inputBuffer.length;
 
         let sum = 0;
-        for (var i = 0; i < bufLength; i++) {
+        for (let i = 0; i < bufLength; i++) {
           const x = inputBuffer[i];
           if (this.normalize) {
             sum +=

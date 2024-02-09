@@ -289,7 +289,7 @@ class Amplitude {
   }
   dispose() {
     // remove reference from soundArray
-    var index = p5sound.soundArray.indexOf(this);
+    let index = p5sound.soundArray.indexOf(this);
     p5sound.soundArray.splice(index, 1);
 
     if (this.input) {

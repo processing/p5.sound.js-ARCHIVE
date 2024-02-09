@@ -141,15 +141,15 @@ class AudioIn {
    * }
    */
   start(successCallback, errorCallback) {
-    var self = this;
+    let self = this;
 
     if (this.stream) {
       this.stop();
     }
 
     // set the audio source
-    var audioSource = p5sound.inputSources[self.currentSource];
-    var constraints = {
+    let audioSource = p5sound.inputSources[self.currentSource];
+    let constraints = {
       audio: {
         sampleRate:audioContext.sampleRate,
         echoCancellation: false
@@ -311,8 +311,8 @@ class AudioIn {
    */
   amp(vol, t) {
     if (t) {
-      var rampTime = t || 0;
-      var currentVol = this.output.gain.value;
+      let rampTime = t || 0;
+      let currentVol = this.output.gain.value;
       this.output.gain.cancelScheduledValues(audioContext.currentTime);
       this.output.gain.setValueAtTime(
         currentVol,
@@ -438,7 +438,7 @@ class AudioIn {
   // private method
   dispose() {
     // remove reference from soundArray
-    var index = p5sound.soundArray.indexOf(this);
+    let index = p5sound.soundArray.indexOf(this);
     p5sound.soundArray.splice(index, 1);
 
     this.stop();

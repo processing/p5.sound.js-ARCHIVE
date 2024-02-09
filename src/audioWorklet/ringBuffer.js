@@ -23,21 +23,14 @@
  *    `.channelCountMode = explicit`.
  *  3. This is for the single-thread operation. (obviously)
  *
- * @class RingBuffer
- * @constructor
- * @param  {number} length Buffer length in frames.
- * @param  {number} channelCount Buffer channel count.
- * @example
- * <div><code>
- * function setup() {
- * console.log('TODO EXAMPLE');
- * }
- *
- * function draw() {
- * }
- * </code></div>
+ * @class
  */
 class RingBuffer {
+  /**
+   * @constructor
+   * @param  {number} length Buffer length in frames.
+   * @param  {number} channelCount Buffer channel count.
+   */
   constructor(length, channelCount) {
     this._readIndex = 0;
     this._writeIndex = 0;
@@ -52,20 +45,9 @@ class RingBuffer {
   }
 
   /**
-   * @method get framesAvailable
-   * @for RingBuffer
    * Getter for Available frames in buffer.
    *
    * @return {number} Available frames in buffer.
- * @example
- * <div><code>
- * function setup() {
- * console.log('TODO EXAMPLE');
- * }
- *
- * function draw() {
- * }
- * </code></div>
    */
   get framesAvailable() {
     return this._framesAvailable;
@@ -73,20 +55,8 @@ class RingBuffer {
 
   /**
    * Push a sequence of Float32Arrays to buffer.
-   * @method push
-   * @for RingBuffer
-   * @param  {array} arraySequence A sequence of Float32Arrays.
-   * Push a sequence of Float32Arrays to buffer.
-  * @example
- * <div><code>
- * function setup() {
- * console.log('TODO EXAMPLE');
- * }
- *
- * function draw() {
- * }
- * </code></div>
    *
+   * @param  {array} arraySequence A sequence of Float32Arrays.
    */
   push(arraySequence) {
     // The channel count of arraySequence and the length of each channel must
@@ -116,18 +86,8 @@ class RingBuffer {
 
   /**
    * Pull data out of buffer and fill a given sequence of Float32Arrays.
-   * @method pull
-   * @for RingBuffer
+   *
    * @param  {array} arraySequence An array of Float32Arrays.
- * @example
- * <div><code>
- * function setup() {
- * console.log('TODO EXAMPLE');
- * }
- *
- * function draw() {
- * }
- * </code></div>
    */
   pull(arraySequence) {
     // The channel count of arraySequence and the length of each channel must

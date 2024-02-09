@@ -1,6 +1,6 @@
 import audioContext from './audioContext';
 import p5sound from './main';
-// import processorNames from './audioWorklet/processorNames';
+import processorNames from './audioWorklet/processorNames';
 import CustomError from './errorHandler';
 import { midiToFreq, convertToWav } from './helpers';
 import Panner from './Panner';

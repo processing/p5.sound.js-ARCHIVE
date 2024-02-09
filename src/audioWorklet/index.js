@@ -1,18 +1,12 @@
-// import p5sound from '../main.js';
 import audioContext from '../audioContext.js';
+// import p5sound from '../main.js';
 
 const moduleSources = [
-  // require('raw-loader!./recorderProcessor').default,
-  // require('raw-loader!./soundFileProcessor').default,
-  // require('raw-loader!./amplitudeProcessor').default
-  // require('./recorderProcessor').default,
-  // require('./soundFileProcessor').default,
-  // require('./amplitudeProcessor').default
-  require('./recorderProcessor'),
-  require('./soundFileProcessor'),
-  require('./amplitudeProcessor')
+  require('raw-loader!./recorderProcessor').default,
+  require('raw-loader!./soundFileProcessor').default,
+  require('raw-loader!./amplitudeProcessor').default
 ];
-const ac = audioContext;
+
 let initializedAudioWorklets = false;
 
 function loadAudioWorkletModules() {
@@ -21,7 +15,7 @@ function loadAudioWorkletModules() {
       const blob = new Blob([moduleSrc], { type: 'application/javascript' });
       const objectURL = URL.createObjectURL(blob);
       return (
-        ac.audioWorklet
+        audioContext.audioWorklet
           .addModule(objectURL)
           // in "p5 instance mode," the module may already be registered
           .catch(() => Promise.resolve())

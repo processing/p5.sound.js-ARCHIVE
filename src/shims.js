@@ -24,16 +24,16 @@ let el = document.createElement('audio');
 p5.prototype.isSupported = function () {
   return !!el.canPlayType;
 };
-var isOGGSupported = function () {
+let isOGGSupported = function () {
   return !!el.canPlayType && el.canPlayType('audio/ogg; codecs="vorbis"');
 };
-var isMP3Supported = function () {
+let isMP3Supported = function () {
   return !!el.canPlayType && el.canPlayType('audio/mpeg;');
 };
-var isWAVSupported = function () {
+let isWAVSupported = function () {
   return !!el.canPlayType && el.canPlayType('audio/wav; codecs="1"');
 };
-var isAACSupported = function () {
+let isAACSupported = function () {
   return (
     !!el.canPlayType &&
     (el.canPlayType('audio/x-m4a;') || el.canPlayType('audio/aac;'))

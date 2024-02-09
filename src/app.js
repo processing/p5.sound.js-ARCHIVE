@@ -1,3 +1,4 @@
+// core
 import './constants';
 
 import './shims';
@@ -41,11 +42,11 @@ p5.prototype.saveSound = saveSound;
 // import './audioWorklet';
 // p5.prototype.registerMethod('init', p5sound.init);
 
-import Amplitude from './Amplitude';
-p5.prototype.Amplitude = Amplitude;
+// import Amplitude from './Amplitude';
+// p5.prototype.Amplitude = Amplitude;
 
-import AudioIn from './AudioIn';
-p5.prototype.AudioIn = AudioIn;
+// import AudioIn from './AudioIn';
+// p5.prototype.AudioIn = AudioIn;
 
 import AnalyzerFFT from './AnalyzerFFT';
 p5.prototype.AnalyzerFFT = AnalyzerFFT;

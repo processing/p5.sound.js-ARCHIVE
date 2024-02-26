@@ -84,21 +84,21 @@ p5.prototype.getOutputVolume = function () {
  *  @param {Number} [timeFromNow]  Schedule this event to happen at
  *                                 t seconds in the future
  */
-// p5sound.prototype.outputVolume = function (vol, rampTime = 0, tFromNow = 0) {
-//   if (typeof vol === 'number') {
-//     let now = p5sound.audioContext.currentTime;
-//     let currentVol = p5sound.output.gain.value;
-//     p5sound.output.gain.cancelScheduledValues(now + tFromNow);
-//     if (rampTime !== 0)
-//       p5sound.output.gain.linearRampToValueAtTime(currentVol, now + tFromNow);
-//     p5sound.output.gain.linearRampToValueAtTime(vol, now + tFromNow + rampTime);
-//   } else if (vol) {
-//     vol.connect(p5sound.output.gain);
-//   } else {
-//     // return the Gain Node
-//     return p5sound.output.gain;
-//   }
-// };
+p5.prototype.outputVolume = function (vol, rampTime = 0, tFromNow = 0) {
+  if (typeof vol === 'number') {
+    let now = p5sound.audioContext.currentTime;
+    let currentVol = p5sound.output.gain.value;
+    p5sound.output.gain.cancelScheduledValues(now + tFromNow);
+    if (rampTime !== 0)
+      p5sound.output.gain.linearRampToValueAtTime(currentVol, now + tFromNow);
+    p5sound.output.gain.linearRampToValueAtTime(vol, now + tFromNow + rampTime);
+  } else if (vol) {
+    vol.connect(p5sound.output.gain);
+  } else {
+    // return the Gain Node
+    return p5sound.output.gain;
+  }
+};
 
 /**
  *  `p5sound.soundOut` is the p5sound.sound final output bus. It sends output to

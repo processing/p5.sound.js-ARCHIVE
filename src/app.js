@@ -41,6 +41,9 @@ p5.prototype.saveSound = saveSound;
 
 p5.prototype.registerMethod('remove', p5.prototype.disposeSound);
 
+import './errorHandler';
+
+// TODO: fix, when audioWorklet is imported, p5sound is out of scope!
 // import './audioWorklet';
 
 // p5.prototype.registerMethod('init', p5sound.init);

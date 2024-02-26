@@ -75,7 +75,6 @@ class Gain {
     this.input = audioContext.createGain();
     this.output = audioContext.createGain();
 
-
     this.input.gain.value = 0.5;
     this.output.gain.value = 0.5;
 

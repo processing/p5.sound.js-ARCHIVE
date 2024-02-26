@@ -24,40 +24,56 @@ Please let us know if you find any bugs or issues!
 
 ## Comparison with the previous version of the library
 
-## Base classes
+### Base classes
 
 | Name         | Previous name | Dependencies | Tone.js dependencies |
 | :----------- | :------------ | :----------- | :------------------- |
-| audioContext | Same          | none         | none                 |
+| audioContext | -             | none         | none                 |
 
-## Oscillators
+### Oscillators
 
 | Name       | Previous name | Dependencies | Tone.js dependencies |
 | :--------- | :------------ | :----------- | :------------------- |
-| Oscillator | Same          | audioContext | Add, Multiply, Scale |
-| SinOsc     | Same          | Oscillator   |                      |
-| TriOsc     | Same          | Oscillator   |                      |
-| SawOsc     | Same          | Oscillator   |                      |
-| Noise      | Same          | Oscillator   |                      |
+| Oscillator | -             | audioContext | Add, Multiply, Scale |
+| SinOsc     | -             | Oscillator   |                      |
+| TriOsc     | -             | Oscillator   |                      |
+| SawOsc     | -             | Oscillator   |                      |
+| Noise      | -             | Oscillator   |                      |
 
-## Analysis
+### Effects
+
+| Name of class | Previous name | Dependencies | Tone.js dependencies |
+| :------------ | :------------ | :----------- | :------------------- |
+| BiquadFilter  | Filter        | Effect       | TODO                 |
+| Delay         | -             | Effect       | TODO                 |
+
+### Utilities
 
 | Name of class | Previous name | Dependencies | Tone.js dependencies |
 | :------------ | :------------ | :----------- | :------------------- |
 | AnalyzerFFT   | FFT           | audioContext | none                 |
+| Gain          | FFT           | audioContext | none                 |
+| Envelope      | FFT           | audioContext | none                 |
+
+### Currently broken / in progress
+
+| Name of class | Previous name | Dependencies  | Tone.js dependencies |
+| :------------ | :------------ | :------------ | :------------------- |
+| AudioIn       | -             | audioWorklet/ | TODO                 |
+| SoundFile     | -             | audioWorklet/ | TODO                 |
 
 ## Deprecations
 
-| Name of class  | Reason of deprecation                            |
-| :------------- | :----------------------------------------------- |
-| Convolver      | TODO                                             |
-| MonoSynth      | Out of scope for this new version of p5.sound.js |
-| Polysynth      | Out of scope for this new version of p5.sound.js |
-| Part           | Out of scope for this new version of p5.sound.js |
-| Phrase         | Out of scope for this new version of p5.sound.js |
-| Score          | Out of scope for this new version of p5.sound.js |
-| SoundLoop      | TODO                                             |
-| userStartAudio | TODO                                             |
+| Name of class  | Reason of deprecation                                      |
+| :------------- | :--------------------------------------------------------- |
+| Convolver      | Efforts focused on simpler effects                         |
+| MonoSynth      | Efforts focused on developing dependencies like Oscillator |
+| Polysynth      | Built on top of MonoSynth, already deprecate               |
+| Part           | Musical class, and out of scope for p5.sound               |
+| Phrase         | Musical class, and out of scope for p5.sound               |
+| Score          | Musical class, and out of scope for p5.sound               |
+| SoundLoop      | Efforts focused on developing dependency SoundFile         |
+| userStartAudio | Bad practice                                               |
 
 ## Dependencies
 
@@ -68,7 +84,7 @@ After a fruitful discussion with the Tone.js team, we are keeping Tone.js as a d
 To install the dependencies for building, please run this command.
 
 ```bash
-npm ci
+npm install
 ```
 
 To build the library, please run this command.

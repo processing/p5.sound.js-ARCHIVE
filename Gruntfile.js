@@ -61,6 +61,10 @@ module.exports = grunt => {
         ]
       },
       source: {
+        options: {
+          configFile: './.eslintrc',
+          fix: true
+        },
         src: ['src/**/*.js']
       },
       test: {
@@ -323,14 +327,6 @@ module.exports = grunt => {
     []
   );
 
-  /* not yet
-  gruntConfig['eslint-samples'].fix.src = Object.keys(
-    gruntConfig['eslint-samples']
-  )
-    .map(s => gruntConfig['eslint-samples'][s].src)
-    .reduce((a, b) => a.concat(b), [])
-    .filter(a => a);
-  */
 
   grunt.initConfig(gruntConfig);
 

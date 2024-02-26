@@ -6,13 +6,17 @@
     "es6": true
   },
   "globals": {
-    "p5sound": true
+    "p5sound": true,
+    "define": true,
+    "Float32Array": true,
+    "Uint8Array": true
   },
   "root": true,
   "extends": ["eslint:recommended"],
   "parserOptions": {
     "ecmaVersion": 2017,
-    "sourceType": "module"
+    "sourceType": "module",
+    "allowImportExportEverywhere": true
   },
   "rules": {
     "no-cond-assign": [2, "except-parens"],

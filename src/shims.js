@@ -15,6 +15,152 @@
      limitations under the License.
   */
 
+(function () {
+  function fixSetTarget(param) {
+    if (!param)
+      // if NYI, just return
+      return;
+    if (!param.setTargetAtTime)
+      param.setTargetAtTime = param.setTargetValueAtTime;
+  }
+
+  if (
+    window.hasOwnProperty('webkitAudioContext') &&
+    !window.hasOwnProperty('AudioContext')
+  ) {
+    window.AudioContext = window.webkitAudioContext;
+
+    if (typeof AudioContext.prototype.createGain !== 'function')
+      AudioContext.prototype.createGain = AudioContext.prototype.createGainNode;
+    if (typeof AudioContext.prototype.createDelay !== 'function')
+      AudioContext.prototype.createDelay =
+        AudioContext.prototype.createDelayNode;
+    if (typeof AudioContext.prototype.createPeriodicWave !== 'function')
+      AudioContext.prototype.createPeriodicWave =
+        AudioContext.prototype.createWaveTable;
+
+    AudioContext.prototype.internal_createGain =
+      AudioContext.prototype.createGain;
+    AudioContext.prototype.createGain = function () {
+      let node = this.internal_createGain();
+      fixSetTarget(node.gain);
+      return node;
+    };
+
+    AudioContext.prototype.internal_createDelay =
+      AudioContext.prototype.createDelay;
+    AudioContext.prototype.createDelay = function (maxDelayTime) {
+      let node = maxDelayTime
+        ? this.internal_createDelay(maxDelayTime)
+        : this.internal_createDelay();
+      fixSetTarget(node.delayTime);
+      return node;
+    };
+
+    AudioContext.prototype.internal_createBufferSource =
+      AudioContext.prototype.createBufferSource;
+    AudioContext.prototype.createBufferSource = function () {
+      let node = this.internal_createBufferSource();
+      if (!node.start) {
+        node.start = function (when, offset, duration) {
+          if (offset || duration) this.noteGrainOn(when || 0, offset, duration);
+          else this.noteOn(when || 0);
+        };
+      } else {
+        node.internal_start = node.start;
+        node.start = function (when, offset, duration) {
+          if (typeof duration !== 'undefined')
+            node.internal_start(when || 0, offset, duration);
+          else node.internal_start(when || 0, offset || 0);
+        };
+      }
+      if (!node.stop) {
+        node.stop = function (when) {
+          this.noteOff(when || 0);
+        };
+      } else {
+        node.internal_stop = node.stop;
+        node.stop = function (when) {
+          node.internal_stop(when || 0);
+        };
+      }
+      fixSetTarget(node.playbackRate);
+      return node;
+    };
+
+    AudioContext.prototype.internal_createDynamicsCompressor =
+      AudioContext.prototype.createDynamicsCompressor;
+    AudioContext.prototype.createDynamicsCompressor = function () {
+      let node = this.internal_createDynamicsCompressor();
+      fixSetTarget(node.threshold);
+      fixSetTarget(node.knee);
+      fixSetTarget(node.ratio);
+      fixSetTarget(node.reduction);
+      fixSetTarget(node.attack);
+      fixSetTarget(node.release);
+      return node;
+    };
+
+    AudioContext.prototype.internal_createBiquadFilter =
+      AudioContext.prototype.createBiquadFilter;
+    AudioContext.prototype.createBiquadFilter = function () {
+      let node = this.internal_createBiquadFilter();
+      fixSetTarget(node.frequency);
+      fixSetTarget(node.detune);
+      fixSetTarget(node.Q);
+      fixSetTarget(node.gain);
+      return node;
+    };
+
+    if (typeof AudioContext.prototype.createOscillator !== 'function') {
+      AudioContext.prototype.internal_createOscillator =
+        AudioContext.prototype.createOscillator;
+      AudioContext.prototype.createOscillator = function () {
+        let node = this.internal_createOscillator();
+        if (!node.start) {
+          node.start = function (when) {
+            this.noteOn(when || 0);
+          };
+        } else {
+          node.internal_start = node.start;
+          node.start = function (when) {
+            node.internal_start(when || 0);
+          };
+        }
+        if (!node.stop) {
+          node.stop = function (when) {
+            this.noteOff(when || 0);
+          };
+        } else {
+          node.internal_stop = node.stop;
+          node.stop = function (when) {
+            node.internal_stop(when || 0);
+          };
+        }
+        if (!node.setPeriodicWave) node.setPeriodicWave = node.setWaveTable;
+        fixSetTarget(node.frequency);
+        fixSetTarget(node.detune);
+        return node;
+      };
+    }
+  }
+
+  if (
+    window.hasOwnProperty('webkitOfflineAudioContext') &&
+    !window.hasOwnProperty('OfflineAudioContext')
+  ) {
+    window.OfflineAudioContext = window.webkitOfflineAudioContext;
+  }
+})(window);
+// <-- end MonkeyPatch.
+
+// Polyfill for AudioIn, also handled by p5.dom createCapture
+navigator.getUserMedia =
+  navigator.getUserMedia ||
+  navigator.webkitGetUserMedia ||
+  navigator.mozGetUserMedia ||
+  navigator.msGetUserMedia;
+
 /**
  * Determine which filetypes are supported (inspired by buzz.js)
  * The audio element (el) will only be used to test browser support for various audio formats
